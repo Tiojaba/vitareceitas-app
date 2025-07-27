@@ -1,55 +1,68 @@
 "use server";
 
-import { redirect } from 'next/navigation';
 import { checkoutFormSchema, type CheckoutFormSchema } from '@/lib/schemas';
-import { MercadoPagoConfig, Preference } from 'mercadopago';
+import { MercadoPagoConfig, Payment } from 'mercadopago';
 
 // 1. Valida os dados no servidor
 export async function processPayment(data: CheckoutFormSchema) {
   const validationResult = checkoutFormSchema.safeParse(data);
   if (!validationResult.success) {
-    throw new Error('Invalid data provided. Please check your inputs.');
+    // Retorna um erro detalhado em caso de falha na validação
+    const errorMessages = validationResult.error.issues.map(issue => issue.message).join(', ');
+    throw new Error(`Dados inválidos: ${errorMessages}`);
   }
 
-  const { amount, customerName, customerEmail, orderInfo } = validationResult.data;
+  const { 
+    amount, 
+    customerName, 
+    customerEmail, 
+    orderInfo,
+    creditCardHolder,
+    creditCardNumber,
+    creditCardExpiration,
+    creditCardCvv
+  } = validationResult.data;
 
   // 2. Configura o cliente do Mercado Pago com o token de acesso
   const client = new MercadoPagoConfig({ 
     accessToken: process.env.MERCADOPAGO_ACCESS_TOKEN!,
-    options: { timeout: 5000, idempotencyKey: 'abc' }
+    options: { timeout: 5000 }
   });
 
   try {
-    const preference = new Preference(client);
-    const result = await preference.create({
+    const payment = new Payment(client);
+    
+    // O ideal aqui seria usar o SDK JS do Mercado Pago no frontend para gerar um token de cartão
+    // e enviar o token para o backend, em vez dos dados brutos do cartão.
+    // Por simplicidade e para manter o foco no backend, estamos passando os dados,
+    // mas isso NÃO é recomendado para produção real sem a tokenização do lado do cliente.
+    
+    const [expirationMonth, expirationYear] = creditCardExpiration.split('/');
+
+    const paymentResult = await payment.create({
       body: {
-        items: [
-          {
-            id: 'prod-001',
-            title: orderInfo,
-            quantity: 1,
-            unit_price: amount
-          }
-        ],
+        transaction_amount: amount,
+        description: orderInfo,
+        payment_method_id: 'master', // Nota: Isso deve ser dinâmico com base no cartão
         payer: {
-          name: customerName,
           email: customerEmail,
+          first_name: customerName,
         },
-        back_urls: {
-            success: `${process.env.NEXT_PUBLIC_URL}/confirmation`,
-            failure: `${process.env.NEXT_PUBLIC_URL}/confirmation`,
-            pending: `${process.env.NEXT_PUBLIC_URL}/confirmation`,
-        },
-        notification_url: `${process.env.NEXT_PUBLIC_URL}/api/webhook/mercadopago`,
-        auto_return: "approved",
+        token: 'CARD_TOKEN_GENERATED_BY_MERCADOPAGOJS', // Placeholder - isso será implementado no frontend
+        installments: 1,
+        notification_url: `${process.env.NEXT_PUBLIC_URL}/api/webhook`,
       }
     });
-    
-    // 3. Redireciona para o checkout do Mercado Pago
-    redirect(result.init_point!);
 
-  } catch (error) {
-    console.error("Payment creation failed:", error);
-    throw new Error("Could not create payment preference at this time. Please try again later.");
+    console.log('Payment Result:', paymentResult);
+
+    // 3. Retorna o resultado do pagamento para o frontend
+    return paymentResult;
+
+  } catch (error: any) {
+    console.error("Payment creation failed:", error.cause ?? error);
+    // Transmite uma mensagem de erro mais clara para o frontend
+    const errorMessage = error.cause?.error?.message || "Não foi possível processar o pagamento neste momento. Verifique os dados do cartão ou tente novamente mais tarde.";
+    throw new Error(errorMessage);
   }
 }
