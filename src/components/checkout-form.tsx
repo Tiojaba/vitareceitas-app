@@ -4,7 +4,6 @@ import * as React from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Loader2, User, Mail, DollarSign, Info, Link as LinkIcon, ShoppingBag, Webhook } from "lucide-react";
-import Image from "next/image";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -62,7 +61,6 @@ export function CheckoutForm() {
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
-                <Image src="/pix-icon.svg" alt="PIX" width={24} height={24} />
                 Pagamento com PIX
               </CardTitle>
               <CardDescription>Insira os detalhes para a transação simulada.</CardDescription>
