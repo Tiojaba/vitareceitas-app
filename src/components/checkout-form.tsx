@@ -1,9 +1,10 @@
+
 "use client";
 
 import * as React from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { Loader2, User, Mail, Phone } from "lucide-react";
+import { Loader2, User, Mail, Phone, FileText } from "lucide-react";
 import { useRouter } from 'next/navigation';
 
 import { Button } from "@/components/ui/button";
@@ -33,6 +34,7 @@ export function CheckoutForm() {
       customerName: "",
       customerEmail: "",
       customerPhone: "",
+      customerDocument: "",
       orderInfo: "Ebook de Culinária Avançada",
     },
   });
@@ -115,6 +117,22 @@ export function CheckoutForm() {
                          <div className="relative">
                            <Phone className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                           <Input type="tel" placeholder="ex: 11987654321" {...field} className="pl-8"/>
+                        </div>
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                 <FormField
+                  control={form.control}
+                  name="customerDocument"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>CPF</FormLabel>
+                      <FormControl>
+                         <div className="relative">
+                           <FileText className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                          <Input type="text" placeholder="ex: 12345678900" {...field} className="pl-8"/>
                         </div>
                       </FormControl>
                       <FormMessage />

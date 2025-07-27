@@ -4,10 +4,6 @@
 import { checkoutFormSchema, type CheckoutFormSchema } from '@/lib/schemas';
 import { MercadoPagoConfig, Payment } from 'mercadopago';
 
-// ATENÇÃO: O Mercado Pago exige um CPF para gerar um PIX.
-// Substitua o valor abaixo por um CPF válido ou implemente a lógica para capturar o CPF do usuário.
-const DEFAULT_CPF = "54394630042"; // SUBSTITUA POR UM CPF VÁLIDO
-
 export async function processPixPayment(data: CheckoutFormSchema) {
   const validationResult = checkoutFormSchema.safeParse(data);
   if (!validationResult.success) {
@@ -20,10 +16,9 @@ export async function processPixPayment(data: CheckoutFormSchema) {
     customerName, 
     customerEmail, 
     customerPhone,
+    customerDocument,
     orderInfo,
   } = validationResult.data;
-  
-  const customerDocument = DEFAULT_CPF;
   
   const nameParts = customerName.trim().split(/\s+/);
   const firstName = nameParts[0];
