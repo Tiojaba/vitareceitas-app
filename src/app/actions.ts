@@ -40,6 +40,7 @@ export async function processPayment(data: CheckoutFormSchema) {
             failure: `${process.env.NEXT_PUBLIC_URL}/confirmation`,
             pending: `${process.env.NEXT_PUBLIC_URL}/confirmation`,
         },
+        notification_url: `${process.env.NEXT_PUBLIC_URL}/api/webhook/mercadopago`,
         auto_return: "approved",
       }
     });
