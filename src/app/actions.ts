@@ -24,6 +24,11 @@ export async function processPixPayment(data: CheckoutFormSchema) {
   } = validationResult.data;
   
   const customerDocument = DEFAULT_CPF;
+  
+  const nameParts = customerName.trim().split(/\s+/);
+  const firstName = nameParts[0];
+  const lastName = nameParts.length > 1 ? nameParts.slice(1).join(' ') : '.';
+
 
   const client = new MercadoPagoConfig({ 
     accessToken: process.env.MERCADOPAGO_ACCESS_TOKEN!,
@@ -44,8 +49,8 @@ export async function processPixPayment(data: CheckoutFormSchema) {
         payment_method_id: 'pix',
         payer: {
           email: customerEmail,
-          first_name: customerName.split(' ')[0], 
-          last_name: customerName.split(' ').slice(1).join(' '),
+          first_name: firstName, 
+          last_name: lastName,
           identification: {
             type: 'CPF',
             number: customerDocument,
