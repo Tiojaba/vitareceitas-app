@@ -15,6 +15,8 @@ export async function processPixPayment(data: CheckoutFormSchema) {
     amount, 
     customerName, 
     customerEmail, 
+    customerPhone,
+    customerDocument,
     orderInfo,
   } = validationResult.data;
 
@@ -26,6 +28,7 @@ export async function processPixPayment(data: CheckoutFormSchema) {
   try {
     const payment = new Payment(client);
     
+    // A data de expiração deve estar no formato ISO 8601
     const expirationDate = new Date();
     expirationDate.setMinutes(expirationDate.getMinutes() + 30);
     
@@ -37,10 +40,18 @@ export async function processPixPayment(data: CheckoutFormSchema) {
         payer: {
           email: customerEmail,
           first_name: customerName.split(' ')[0], 
-          last_name: customerName.split(' ').slice(1).join(' '), 
+          last_name: customerName.split(' ').slice(1).join(' '),
+          identification: {
+            type: customerDocument.length === 11 ? 'CPF' : 'CNPJ',
+            number: customerDocument,
+          },
+          phone: {
+            area_code: customerPhone.substring(0, 2),
+            number: customerPhone.substring(2),
+          }
         },
         notification_url: `${process.env.NEXT_PUBLIC_URL}/api/webhook`,
-        date_of_expiration: expirationDate.toISOString().replace('.000Z', '-03:00'),
+        date_of_expiration: expirationDate.toISOString().replace(/\.\d{3}Z$/, 'Z'),
       }
     });
 

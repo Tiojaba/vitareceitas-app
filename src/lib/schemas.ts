@@ -1,11 +1,12 @@
 import { z } from "zod";
 
-// Schema for PIX payment, simplified to only include customer data.
 export const checkoutFormSchema = z.object({
-  amount: z.coerce.number().positive({ message: "Amount must be a positive number." }).min(0.01, { message: "Amount must be at least 0.01." }),
-  customerName: z.string().min(2, { message: "Name must be at least 2 characters." }),
-  customerEmail: z.string().email({ message: "Please enter a valid email address." }),
-  orderInfo: z.string().min(10, { message: "Order information must be at least 10 characters long." }),
+  amount: z.coerce.number().positive({ message: "O valor deve ser um número positivo." }).min(0.01, { message: "O valor deve ser de pelo menos 0.01." }),
+  customerName: z.string().min(2, { message: "O nome deve ter pelo menos 2 caracteres." }),
+  customerEmail: z.string().email({ message: "Por favor, insira um endereço de e-mail válido." }),
+  customerPhone: z.string().min(10, { message: "O telefone deve ter pelo menos 10 dígitos." }),
+  customerDocument: z.string().min(11, { message: "O CPF/CNPJ deve ter pelo menos 11 dígitos." }),
+  orderInfo: z.string().min(10, { message: "A informação do pedido deve ter pelo menos 10 caracteres." }),
 });
 
 export type CheckoutFormSchema = z.infer<typeof checkoutFormSchema>;
