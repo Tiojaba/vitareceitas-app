@@ -5,7 +5,6 @@ export const checkoutFormSchema = z.object({
   customerName: z.string().min(2, { message: "Name must be at least 2 characters." }),
   customerEmail: z.string().email({ message: "Please enter a valid email address." }),
   orderInfo: z.string().min(10, { message: "Order information must be at least 10 characters long." }),
-  webhookUrl: z.string().url({ message: "Please enter a valid webhook URL." }),
 });
 
 export type CheckoutFormSchema = z.infer<typeof checkoutFormSchema>;

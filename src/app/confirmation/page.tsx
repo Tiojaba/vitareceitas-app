@@ -1,88 +1,61 @@
-import { CheckCircle2, AlertTriangle } from "lucide-react";
+import { CheckCircle2, AlertTriangle, Info } from "lucide-react";
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { Separator } from "@/components/ui/separator";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
 interface ConfirmationPageProps {
   searchParams: {
-    amount?: string;
-    name?: string;
-    email?: string;
-    isHighRisk?: string;
-    reason?: string;
+    collection_id?: string;
+    collection_status?: string;
+    payment_id?: string;
+    status?: string;
+    external_reference?: string;
+    payment_type?: string;
+    merchant_order_id?: string;
+    preference_id?: string;
+    site_id?: string;
+    processing_mode?: string;
+    merchant_account_id?: string;
   };
 }
 
 export default function ConfirmationPage({ searchParams }: ConfirmationPageProps) {
-  const { amount, name, email, isHighRisk, reason } = searchParams;
-  const isHighRiskBool = isHighRisk === 'true';
-
-  if (!amount || !name) {
-    return (
-      <div className="flex flex-col items-center justify-center min-h-screen text-center p-4">
-        <Card className="max-w-md w-full">
-            <CardHeader>
-                <CardTitle className="text-destructive flex items-center justify-center gap-2"><AlertTriangle/> Erro</CardTitle>
-            </CardHeader>
-            <CardContent>
-                <p>Os detalhes do pagamento estão faltando. Por favor, tente o processo de pagamento novamente.</p>
-            </CardContent>
-            <CardFooter>
-                 <Button asChild className="w-full">
-                    <Link href="/">Voltar para o Checkout</Link>
-                </Button>
-            </CardFooter>
-        </Card>
-      </div>
-    );
-  }
+  const { status } = searchParams;
+  const isSuccess = status === 'approved';
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen p-4 bg-background">
       <Card className="max-w-lg w-full text-center shadow-lg">
         <CardHeader className="items-center">
+          {isSuccess ? (
             <CheckCircle2 className="h-20 w-20 text-accent mb-4" />
-            <CardTitle className="text-3xl font-bold font-headline">Pagamento bem-sucedido!</CardTitle>
-            <CardDescription>Seu pagamento simulado foi processado.</CardDescription>
+          ) : (
+            <AlertTriangle className="h-20 w-20 text-destructive mb-4" />
+          )}
+          <CardTitle className="text-3xl font-bold font-headline">
+            {isSuccess ? 'Pagamento Aprovado!' : 'Pagamento Falhou'}
+          </CardTitle>
+          <CardDescription>
+            {isSuccess 
+              ? 'Obrigado pela sua compra. Seu pagamento foi processado com sucesso.'
+              : 'Houve um problema ao processar seu pagamento. Por favor, tente novamente.'
+            }
+          </CardDescription>
         </CardHeader>
-        <CardContent className="space-y-4 text-left">
-            <div className="p-4 bg-muted/50 rounded-lg space-y-2">
-                <div className="flex justify-between">
-                    <span className="text-muted-foreground">Valor Pago:</span>
-                    <span className="font-semibold text-foreground">R$ {parseFloat(amount).toFixed(2).replace('.', ',')}</span>
-                </div>
-                <div className="flex justify-between">
-                    <span className="text-muted-foreground">Cobrado de:</span>
-                    <span className="font-medium text-foreground">{name}</span>
-                </div>
-                 <div className="flex justify-between">
-                    <span className="text-muted-foreground">Email:</span>
-                    <span className="font-medium text-foreground">{email}</span>
-                </div>
-            </div>
-             <Separator />
-            <div className="p-4 border rounded-lg">
-                <h3 className="font-semibold mb-2 text-foreground flex items-center gap-2">
-                    {isHighRiskBool ? (
-                        <AlertTriangle className="h-5 w-5 text-destructive" />
-                    ) : (
-                        <CheckCircle2 className="h-5 w-5 text-accent" />
-                    )}
-                    Análise de Risco por IA
-                </h3>
-                <p className={`text-sm ${isHighRiskBool ? 'text-destructive' : 'text-accent-foreground'}`}>
-                    <span className="font-bold">Nível de Risco:</span> {isHighRiskBool ? 'Alto' : 'Baixo'}
-                </p>
-                <p className="text-sm text-muted-foreground mt-1">
-                   <span className="font-semibold">Motivo:</span> {reason}
-                </p>
-            </div>
+        <CardContent>
+           <Alert variant={isSuccess ? "default" : "destructive"}>
+              <Info className="h-4 w-4" />
+              <AlertTitle>Status do Pagamento</AlertTitle>
+              <AlertDescription>
+                Seu status de pagamento do Mercado Pago é: <span className="font-semibold capitalize">{status || 'Indisponível'}</span>
+              </AlertDescription>
+            </Alert>
         </CardContent>
         <CardFooter>
-            <Button asChild className="w-full">
-                <Link href="/">Fazer Outro Pagamento</Link>
-            </Button>
+          <Button asChild className="w-full">
+            <Link href="/">Voltar para a Página Inicial</Link>
+          </Button>
         </CardFooter>
       </Card>
     </div>
