@@ -3,7 +3,7 @@ import './globals.css';
 import { Toaster } from "@/components/ui/toaster"
 
 export const metadata: Metadata = {
-  title: 'ConisoPay',
+  title: 'Infoproduct Checkout',
   description: 'A secure and streamlined payment experience.',
 };
 
