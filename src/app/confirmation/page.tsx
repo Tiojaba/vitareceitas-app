@@ -23,14 +23,14 @@ export default function ConfirmationPage({ searchParams }: ConfirmationPageProps
       <div className="flex flex-col items-center justify-center min-h-screen text-center p-4">
         <Card className="max-w-md w-full">
             <CardHeader>
-                <CardTitle className="text-destructive flex items-center justify-center gap-2"><AlertTriangle/> Error</CardTitle>
+                <CardTitle className="text-destructive flex items-center justify-center gap-2"><AlertTriangle/> Erro</CardTitle>
             </CardHeader>
             <CardContent>
-                <p>Payment details are missing. Please try the payment process again.</p>
+                <p>Os detalhes do pagamento estão faltando. Por favor, tente o processo de pagamento novamente.</p>
             </CardContent>
             <CardFooter>
                  <Button asChild className="w-full">
-                    <Link href="/">Go back to Checkout</Link>
+                    <Link href="/">Voltar para o Checkout</Link>
                 </Button>
             </CardFooter>
         </Card>
@@ -43,17 +43,17 @@ export default function ConfirmationPage({ searchParams }: ConfirmationPageProps
       <Card className="max-w-lg w-full text-center shadow-lg">
         <CardHeader className="items-center">
             <CheckCircle2 className="h-20 w-20 text-accent mb-4" />
-            <CardTitle className="text-3xl font-bold font-headline">Payment Successful!</CardTitle>
-            <CardDescription>Your simulated payment has been processed.</CardDescription>
+            <CardTitle className="text-3xl font-bold font-headline">Pagamento bem-sucedido!</CardTitle>
+            <CardDescription>Seu pagamento simulado foi processado.</CardDescription>
         </CardHeader>
         <CardContent className="space-y-4 text-left">
             <div className="p-4 bg-muted/50 rounded-lg space-y-2">
                 <div className="flex justify-between">
-                    <span className="text-muted-foreground">Amount Paid:</span>
-                    <span className="font-semibold text-foreground">${parseFloat(amount).toFixed(2)}</span>
+                    <span className="text-muted-foreground">Valor Pago:</span>
+                    <span className="font-semibold text-foreground">R$ {parseFloat(amount).toFixed(2).replace('.', ',')}</span>
                 </div>
                 <div className="flex justify-between">
-                    <span className="text-muted-foreground">Billed to:</span>
+                    <span className="text-muted-foreground">Cobrado de:</span>
                     <span className="font-medium text-foreground">{name}</span>
                 </div>
                  <div className="flex justify-between">
@@ -69,19 +69,19 @@ export default function ConfirmationPage({ searchParams }: ConfirmationPageProps
                     ) : (
                         <CheckCircle2 className="h-5 w-5 text-accent" />
                     )}
-                    AI Risk Analysis
+                    Análise de Risco por IA
                 </h3>
                 <p className={`text-sm ${isHighRiskBool ? 'text-destructive' : 'text-accent-foreground'}`}>
-                    <span className="font-bold">Risk Level:</span> {isHighRiskBool ? 'High' : 'Low'}
+                    <span className="font-bold">Nível de Risco:</span> {isHighRiskBool ? 'Alto' : 'Baixo'}
                 </p>
                 <p className="text-sm text-muted-foreground mt-1">
-                   <span className="font-semibold">Reason:</span> {reason}
+                   <span className="font-semibold">Motivo:</span> {reason}
                 </p>
             </div>
         </CardContent>
         <CardFooter>
             <Button asChild className="w-full">
-                <Link href="/">Make Another Payment</Link>
+                <Link href="/">Fazer Outro Pagamento</Link>
             </Button>
         </CardFooter>
       </Card>
