@@ -1,13 +1,12 @@
+
 "use server";
 
 import { checkoutFormSchema, type CheckoutFormSchema } from '@/lib/schemas';
 import { MercadoPagoConfig, Payment } from 'mercadopago';
 
-// 1. Valida os dados no servidor
-export async function processPayment(data: CheckoutFormSchema) {
+export async function processPixPayment(data: CheckoutFormSchema) {
   const validationResult = checkoutFormSchema.safeParse(data);
   if (!validationResult.success) {
-    // Retorna um erro detalhado em caso de falha na validação
     const errorMessages = validationResult.error.issues.map(issue => issue.message).join(', ');
     throw new Error(`Dados inválidos: ${errorMessages}`);
   }
@@ -17,13 +16,8 @@ export async function processPayment(data: CheckoutFormSchema) {
     customerName, 
     customerEmail, 
     orderInfo,
-    creditCardHolder,
-    creditCardNumber,
-    creditCardExpiration,
-    creditCardCvv
   } = validationResult.data;
 
-  // 2. Configura o cliente do Mercado Pago com o token de acesso
   const client = new MercadoPagoConfig({ 
     accessToken: process.env.MERCADOPAGO_ACCESS_TOKEN!,
     options: { timeout: 5000 }
@@ -32,37 +26,43 @@ export async function processPayment(data: CheckoutFormSchema) {
   try {
     const payment = new Payment(client);
     
-    // O ideal aqui seria usar o SDK JS do Mercado Pago no frontend para gerar um token de cartão
-    // e enviar o token para o backend, em vez dos dados brutos do cartão.
-    // Por simplicidade e para manter o foco no backend, estamos passando os dados,
-    // mas isso NÃO é recomendado para produção real sem a tokenização do lado do cliente.
+    const expirationDate = new Date();
+    expirationDate.setMinutes(expirationDate.getMinutes() + 30);
     
-    const [expirationMonth, expirationYear] = creditCardExpiration.split('/');
-
     const paymentResult = await payment.create({
       body: {
         transaction_amount: amount,
         description: orderInfo,
-        payment_method_id: 'master', // Nota: Isso deve ser dinâmico com base no cartão
+        payment_method_id: 'pix',
         payer: {
           email: customerEmail,
-          first_name: customerName,
+          first_name: customerName.split(' ')[0], 
+          last_name: customerName.split(' ').slice(1).join(' '), 
         },
-        token: 'CARD_TOKEN_GENERATED_BY_MERCADOPAGOJS', // Placeholder - isso será implementado no frontend
-        installments: 1,
         notification_url: `${process.env.NEXT_PUBLIC_URL}/api/webhook`,
+        date_of_expiration: expirationDate.toISOString().replace('.000Z', '-03:00'),
       }
     });
 
-    console.log('Payment Result:', paymentResult);
+    console.log('PIX Payment Result:', paymentResult);
 
-    // 3. Retorna o resultado do pagamento para o frontend
-    return paymentResult;
+    const qrCode = paymentResult.point_of_interaction?.transaction_data?.qr_code;
+    const qrCodeBase64 = paymentResult.point_of_interaction?.transaction_data?.qr_code_base64;
+    const paymentId = paymentResult.id;
+
+    if (!qrCode || !qrCodeBase64 || !paymentId) {
+      throw new Error("Não foi possível gerar os dados do PIX.");
+    }
+    
+    return {
+      qrCode,
+      qrCodeBase64,
+      paymentId
+    };
 
   } catch (error: any) {
-    console.error("Payment creation failed:", error.cause ?? error);
-    // Transmite uma mensagem de erro mais clara para o frontend
-    const errorMessage = error.cause?.error?.message || "Não foi possível processar o pagamento neste momento. Verifique os dados do cartão ou tente novamente mais tarde.";
+    console.error("PIX creation failed:", error.cause ?? error);
+    const errorMessage = error.cause?.error?.message || "Não foi possível gerar o PIX neste momento. Tente novamente mais tarde.";
     throw new Error(errorMessage);
   }
 }
