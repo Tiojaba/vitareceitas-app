@@ -4,6 +4,27 @@
 import { checkoutFormSchema, type CheckoutFormSchema } from '@/lib/schemas';
 import { MercadoPagoConfig, Payment } from 'mercadopago';
 
+// Helper para extrair a mensagem de erro do Mercado Pago
+function getMercadoPagoErrorMessage(error: any): string {
+    console.error("Mercado Pago Full Error:", JSON.stringify(error, null, 2));
+
+    const defaultMessage = "Não foi possível gerar o PIX. Verifique os dados e tente novamente.";
+
+    if (error && typeof error === 'object') {
+        // A API do mercadopago-sdk-js v2 encapsula o erro em 'cause.data'
+        if (error.cause && error.cause.data && error.cause.data.message) {
+            return error.cause.data.message;
+        }
+        // Erros diretos da API às vezes vêm na propriedade 'message'
+        if (error.message) {
+            return error.message;
+        }
+    }
+    
+    return defaultMessage;
+}
+
+
 export async function processPixPayment(data: CheckoutFormSchema) {
   const validationResult = checkoutFormSchema.safeParse(data);
   if (!validationResult.success) {
@@ -33,7 +54,6 @@ export async function processPixPayment(data: CheckoutFormSchema) {
   try {
     const payment = new Payment(client);
     
-    // A data de expiração deve estar no formato ISO 8601
     const expirationDate = new Date();
     expirationDate.setMinutes(expirationDate.getMinutes() + 30);
     
@@ -77,11 +97,7 @@ export async function processPixPayment(data: CheckoutFormSchema) {
     };
 
   } catch (error: any) {
-    console.error("PIX creation failed:", error);
-    // Extrai a mensagem de erro específica do Mercado Pago, se disponível
-    const errorMessage = 
-        error?.cause?.data?.message || 
-        "Não foi possível gerar o PIX neste momento. Verifique os dados e tente novamente.";
+    const errorMessage = getMercadoPagoErrorMessage(error);
     throw new Error(errorMessage);
   }
 }
