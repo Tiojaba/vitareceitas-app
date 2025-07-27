@@ -82,8 +82,11 @@ export async function processPixPayment(data: CheckoutFormSchema) {
     };
 
   } catch (error: any) {
-    console.error("PIX creation failed:", error.cause ?? error);
-    const errorMessage = error.cause?.error?.message || "Não foi possível gerar o PIX neste momento. Tente novamente mais tarde.";
+    console.error("PIX creation failed:", error);
+    // Extrai a mensagem de erro específica do Mercado Pago, se disponível
+    const errorMessage = 
+        error?.cause?.data?.message || 
+        "Não foi possível gerar o PIX neste momento. Verifique os dados e tente novamente.";
     throw new Error(errorMessage);
   }
 }
