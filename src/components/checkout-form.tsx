@@ -4,7 +4,7 @@ import * as React from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Loader2, User, Mail, Phone } from "lucide-react";
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 
 import { Button } from "@/components/ui/button";
 import {
@@ -25,15 +25,14 @@ export function CheckoutForm() {
   const [isSubmitting, setIsSubmitting] = React.useState(false);
   const { toast } = useToast();
   const router = useRouter();
-  const searchParams = useSearchParams();
 
   const form = useForm<CheckoutFormSchema>({
     resolver: zodResolver(checkoutFormSchema),
     defaultValues: {
       amount: 49.99,
-      customerName: searchParams.get('name') || "João da Silva",
-      customerEmail: searchParams.get('email') || "joao.silva@example.com",
-      customerPhone: searchParams.get('phone') || "11987654321",
+      customerName: "",
+      customerEmail: "",
+      customerPhone: "",
       orderInfo: "Ebook de Culinária Avançada",
     },
   });
