@@ -34,7 +34,7 @@ function DashboardHeader() {
             <Link href="/recipes" className="text-muted-foreground hover:text-foreground">Receitas</Link>
             <Link href="/profile" className="text-muted-foreground hover:text-foreground">Meu Perfil</Link>
             <Link href="/favorites" className="text-muted-foreground hover:text-foreground">Favoritos</Link>
-             <Button onClick={handleLogout} variant="outline">Sair</Button>
+             <Button onClick={handleLogout} variant="outline" className="mt-auto">Sair</Button>
           </nav>
         </SheetContent>
       </Sheet>
