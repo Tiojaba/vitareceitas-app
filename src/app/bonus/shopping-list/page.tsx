@@ -3,11 +3,10 @@
 
 import React, { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button';
+import { Button } from '@/components/ui/button';
 import { Checkbox } from "@/components/ui/checkbox";
 import { ListChecks, ShoppingCart, Sparkles, CheckCircle } from "lucide-react";
 import { allRecipes } from '@/lib/recipes-data';
-import { Separator } from '@/components/ui/separator';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import Link from 'next/link';
 
@@ -44,8 +43,8 @@ export default function ShoppingListPage() {
         const cleanedIngredients = allIngredients
             .filter(ing => !ing.endsWith(':')) // Remove títulos como "Massa:"
             .map(ing => {
-                // Tenta extrair apenas o nome do ingrediente
-                const match = ing.match(/^((\d+[\s\/]*\w*[\s\w]*)|(a gosto))\s(de\s)?(.*)/i);
+                // Tenta extrair apenas o nome do ingrediente, escapando a barra corretamente
+                const match = ing.match(/^((\d+[\s\\/]*\w*[\s\w]*)|(a gosto))\s(de\s)?(.*)/i);
                  if (match && match[5]) {
                     // Capitaliza a primeira letra para agrupar melhor
                     return match[5].charAt(0).toUpperCase() + match[5].slice(1).toLowerCase().trim();
