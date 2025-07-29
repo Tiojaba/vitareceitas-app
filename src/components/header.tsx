@@ -52,7 +52,7 @@ export function Header() {
             <SheetContent side="left">
               <SheetHeader>
                 <SheetTitle className="flex items-center gap-2">
-                  <Logo className="h-6 w-6" />
+                  <Logo className="h-8 w-8" />
                   <span className="font-bold">Zero Lactose</span>
                 </SheetTitle>
               </SheetHeader>
@@ -85,7 +85,7 @@ export function Header() {
         {/* Center: Logo */}
         <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
            <Link href="/dashboard" className="flex items-center gap-2">
-              <Logo className="h-8 w-8" />
+              <Logo className="h-10 w-10" />
               <span className="font-bold hidden sm:inline-block">Comunidade Zero Lactose</span>
             </Link>
         </div>
