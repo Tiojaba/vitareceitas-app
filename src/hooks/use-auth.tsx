@@ -90,10 +90,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             await updateProfile(currentUser, profileUpdate);
         }
         
-        setUser(prevUser => {
-            if (!prevUser) return null;
-            return { ...prevUser, ...profileUpdate };
-        });
+        // Force a refresh of the user object to get the updated profile
+        await currentUser.reload();
+        const refreshedUser = auth.currentUser;
+        setUser(refreshedUser);
 
     } catch (error: any) {
         console.error("Falha ao atualizar o perfil:", error);
