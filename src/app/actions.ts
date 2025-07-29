@@ -2,7 +2,7 @@
 "use server";
 
 import 'dotenv/config'; // Garante que as variáveis de ambiente sejam carregadas
-import { checkoutFormSchema, type CheckoutFormSchema, recipeSchema, type RecipeFormValues } from '@/lib/schemas';
+import { checkoutFormSchema, type CheckoutFormSchema } from '@/lib/schemas';
 import { MercadoPagoConfig, Payment } from 'mercadopago';
 import { auth, db } from '@/lib/firebase-admin';
 import { revalidatePath } from 'next/cache';
@@ -104,4 +104,3 @@ export async function processPixPayment(data: CheckoutFormSchema) {
     throw new Error(errorMessage);
   }
 }
-
