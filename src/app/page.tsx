@@ -10,17 +10,12 @@ export default function HomePage() {
           Bem-vindo à Área de Membros
         </h1>
         <p className="mt-6 text-lg leading-8 text-muted-foreground max-w-2xl mx-auto">
-          Acesse seu conteúdo exclusivo ou crie uma conta para começar.
+          Acesse seu conteúdo exclusivo.
         </p>
         <div className="mt-10 flex items-center justify-center gap-x-6">
           <Button asChild>
             <Link href="/login">
               <LogIn className="mr-2 h-4 w-4" /> Entrar
-            </Link>
-          </Button>
-          <Button asChild variant="outline">
-            <Link href="/signup">
-              Criar Conta
             </Link>
           </Button>
         </div>

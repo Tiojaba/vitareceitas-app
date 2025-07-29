@@ -77,8 +77,6 @@ export function AuthForm({ mode }: AuthFormProps) {
     ? 'Bem-vindo de volta! Insira seus dados para continuar.'
     : 'Vamos começar! Preencha os campos abaixo para se registrar.';
   const buttonText = mode === 'login' ? 'Entrar' : 'Criar Conta';
-  const linkText = mode === 'login' ? 'Não tem uma conta?' : 'Já tem uma conta?';
-  const linkHref = mode === 'login' ? '/signup' : '/login';
 
   return (
     <Card className="w-full max-w-md">
@@ -135,14 +133,6 @@ export function AuthForm({ mode }: AuthFormProps) {
             </Button>
           </form>
         </Form>
-        <div className="mt-6 text-center">
-          <p className="text-sm text-muted-foreground">
-            {linkText}{' '}
-            <Link href={linkHref} className="font-semibold text-primary hover:underline">
-              clique aqui
-            </Link>
-          </p>
-        </div>
       </CardContent>
     </Card>
   );
