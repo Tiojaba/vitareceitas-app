@@ -1,23 +1,64 @@
+
 'use client';
 
 import { useAuth } from '@/hooks/use-auth';
 import { useRouter } from 'next/navigation';
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Award, BookOpen, Edit, PlusCircle } from 'lucide-react';
+import { Award, BookOpen, Edit, PlusCircle, Loader2, Camera } from 'lucide-react';
 import { Header } from '@/components/header';
+import { useToast } from '@/hooks/use-toast';
 
 export default function ProfilePage() {
-  const { user, loading } = useAuth();
+  const { user, loading, updateUserProfile } = useAuth();
   const router = useRouter();
+  const { toast } = useToast();
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const [isUploading, setIsUploading] = useState(false);
 
   useEffect(() => {
     if (!loading && !user) {
       router.push('/login');
     }
   }, [user, loading, router]);
+
+  const handleAvatarClick = () => {
+    fileInputRef.current?.click();
+  };
+
+  const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file || !user) return;
+
+    if (file.size > 2 * 1024 * 1024) { // Limite de 2MB
+        toast({
+            variant: 'destructive',
+            title: 'Arquivo muito grande',
+            description: 'Por favor, escolha uma imagem com menos de 2MB.',
+        });
+        return;
+    }
+
+    setIsUploading(true);
+    try {
+      await updateUserProfile({ photoFile: file });
+      toast({
+        title: 'Sucesso!',
+        description: 'Sua foto de perfil foi atualizada.',
+      });
+    } catch (error) {
+      console.error("Error uploading profile picture:", error);
+      toast({
+        variant: 'destructive',
+        title: 'Erro no Upload',
+        description: 'Não foi possível atualizar sua foto. Tente novamente.',
+      });
+    } finally {
+      setIsUploading(false);
+    }
+  };
 
   if (loading || !user) {
     return (
@@ -43,10 +84,27 @@ export default function ProfilePage() {
       <Header />
       <div className="container mx-auto py-6 px-4 sm:px-6 lg:px-8 max-w-4xl">
         <header className="flex flex-col sm:flex-row items-center gap-6 mb-10">
-          <Avatar className="h-24 w-24 text-3xl">
-            <AvatarImage src={user.photoURL || ''} alt={name} />
-            <AvatarFallback>{userInitials}</AvatarFallback>
-          </Avatar>
+          <div className="relative group">
+            <Avatar className="h-24 w-24 text-3xl cursor-pointer" onClick={handleAvatarClick}>
+              <AvatarImage src={user.photoURL || ''} alt={name} />
+              <AvatarFallback>{userInitials}</AvatarFallback>
+            </Avatar>
+            <div className="absolute inset-0 bg-black/50 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300" onClick={handleAvatarClick}>
+              {isUploading ? (
+                  <Loader2 className="h-8 w-8 animate-spin text-white" />
+              ) : (
+                  <Camera className="h-8 w-8 text-white" />
+              )}
+            </div>
+            <input
+              type="file"
+              ref={fileInputRef}
+              onChange={handleFileChange}
+              accept="image/png, image/jpeg"
+              className="hidden"
+              disabled={isUploading}
+            />
+          </div>
           <div className="text-center sm:text-left">
             <h1 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl font-headline">
               {name}
@@ -60,7 +118,6 @@ export default function ProfilePage() {
         </header>
 
         <main className="space-y-12">
-          {/* Minhas Receitas */}
           <section>
             <Card>
               <CardHeader>
@@ -75,7 +132,6 @@ export default function ProfilePage() {
               <CardContent>
                 {hasRecipes ? (
                   <div>
-                    {/* Recipe list will go here */}
                   </div>
                 ) : (
                   <div className="text-center py-10 border-2 border-dashed rounded-lg">
@@ -92,7 +148,6 @@ export default function ProfilePage() {
             </Card>
           </section>
 
-          {/* Conquistas */}
           <section>
              <Card>
               <CardHeader>

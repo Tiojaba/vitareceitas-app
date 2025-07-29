@@ -8,9 +8,11 @@ import {
   signInWithEmailAndPassword, 
   signOut,
   sendPasswordResetEmail,
+  updateProfile,
   type User 
 } from 'firebase/auth';
-import { auth } from '@/lib/firebase';
+import { auth, storage } from '@/lib/firebase';
+import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { Loader2 } from 'lucide-react';
 
 interface AuthContextType {
@@ -20,6 +22,7 @@ interface AuthContextType {
   signup: (email: string, password: string) => Promise<any>;
   logout: () => Promise<any>;
   resetPassword: (email: string) => Promise<any>;
+  updateUserProfile: (data: { displayName?: string; photoFile?: File }) => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -52,6 +55,30 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const resetPassword = (email: string) => {
     return sendPasswordResetEmail(auth, email);
   }
+  
+  const updateUserProfile = async (data: { displayName?: string; photoFile?: File }) => {
+    if (!auth.currentUser) {
+      throw new Error("Nenhum usuário autenticado encontrado.");
+    }
+  
+    let photoURL = data.displayName ? undefined : '';
+  
+    if (data.photoFile) {
+      const filePath = `profile-pictures/${auth.currentUser.uid}/${data.photoFile.name}`;
+      const storageRef = ref(storage, filePath);
+      const snapshot = await uploadBytes(storageRef, data.photoFile);
+      photoURL = await getDownloadURL(snapshot.ref);
+    }
+  
+    const profileUpdate: { displayName?: string, photoURL?: string } = {};
+    if (data.displayName !== undefined) profileUpdate.displayName = data.displayName;
+    if (photoURL !== undefined) profileUpdate.photoURL = photoURL;
+  
+    await updateProfile(auth.currentUser, profileUpdate);
+  
+    // Forçar a atualização do estado do usuário para refletir a mudança
+    setUser(auth.currentUser);
+  };
 
   const value = {
     user,
@@ -60,6 +87,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     signup,
     logout,
     resetPassword,
+    updateUserProfile
   };
 
   if (loading) {
