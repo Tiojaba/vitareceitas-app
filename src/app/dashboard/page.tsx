@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 import React, { useEffect } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, Cookie, IceCream, Pizza, Wheat, Sprout, Soup, Fish, Drumstick, User, Timer, Users, BarChart3, Tag } from 'lucide-react';
+import { ArrowRight, Cookie, IceCream, Pizza, Wheat, Sprout, Soup, Fish, Drumstick, User, Timer, Users, BarChart3, Tag, BookOpen, ShieldCheck, MessageSquare, Sparkles } from 'lucide-react';
 import Link from 'next/link';
 import { Badge } from '@/components/ui/badge';
 
@@ -80,6 +80,37 @@ export default function DashboardPage() {
     },
   ];
 
+  const bonuses = [
+    {
+      icon: <BookOpen className="w-8 h-8 text-primary" />,
+      title: "E-book 'Técnicas Culinárias'",
+      description: "Domine as substituições para garantir sabor e textura perfeitos em suas receitas.",
+      actionText: "Acessar Conteúdo",
+      href: "#",
+    },
+    {
+      icon: <ShieldCheck className="w-8 h-8 text-primary" />,
+      title: "Guia 'Desvendando Rótulos'",
+      description: "Aprenda a identificar lactose disfarçada e compre com total segurança.",
+      actionText: "Acessar Conteúdo",
+      href: "#",
+    },
+    {
+      icon: <MessageSquare className="w-8 h-8 text-primary" />,
+      title: "Comunidade VIP (30 dias)",
+      description: "Conecte-se, tire dúvidas com especialistas e receba apoio em um grupo exclusivo.",
+      actionText: "Entrar no Grupo",
+      href: "#",
+    },
+    {
+      icon: <Sparkles className="w-8 h-8 text-primary" />,
+      title: "Módulo 'Zero Lactose & Sem Glúten'",
+      description: "Um guia rápido e 5 receitas essenciais para quem tem múltiplas restrições.",
+      actionText: "Ver Receitas",
+      href: "#",
+    }
+  ];
+
   return (
     <div className="container mx-auto py-6 px-4 sm:px-6 lg:px-8">
       <header className="mb-8">
@@ -106,6 +137,29 @@ export default function DashboardPage() {
                     Quero Participar <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
             </div>
+        </section>
+
+        {/* Bônus Exclusivos */}
+        <section>
+          <h2 className="text-2xl font-bold font-headline mb-6">Bônus Exclusivos</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {bonuses.map((bonus) => (
+              <Card key={bonus.title} className="flex flex-col">
+                <CardHeader className="flex-row items-start gap-4 space-y-0">
+                  {bonus.icon}
+                  <div className="flex-1">
+                    <CardTitle>{bonus.title}</CardTitle>
+                    <CardDescription>{bonus.description}</CardDescription>
+                  </div>
+                </CardHeader>
+                <CardFooter className="mt-auto">
+                  <Button asChild className="w-full">
+                    <Link href={bonus.href}>{bonus.actionText}</Link>
+                  </Button>
+                </CardFooter>
+              </Card>
+            ))}
+          </div>
         </section>
 
         {/* Categorias */}
