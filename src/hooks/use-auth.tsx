@@ -79,28 +79,24 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
         if (Object.keys(profileUpdate).length > 0) {
             await updateProfile(auth.currentUser, profileUpdate);
-
-            // Atualiza o estado local para refletir a mudança imediatamente.
-            setUser(prevUser => {
-                if (!prevUser) return null;
-                const updatedUser = { ...prevUser };
-                if (profileUpdate.displayName) {
-                    updatedUser.displayName = profileUpdate.displayName;
-                }
-                if (profileUpdate.photoURL) {
-                    updatedUser.photoURL = profileUpdate.photoURL;
-                }
-                return updatedUser as User;
-            });
         }
-    } catch (error) {
+        
+        // Força a atualização do estado do usuário de forma reativa
+        setUser(prevUser => {
+            if (!auth.currentUser) return null;
+            // Cria um novo objeto para garantir a re-renderização
+            const updatedUser = { ...auth.currentUser, ...profileUpdate };
+            return updatedUser as User;
+        });
+
+    } catch (error: any) {
         console.error("Falha ao atualizar o perfil:", error);
         toast({
             variant: "destructive",
-            title: "Erro na atualização",
-            description: "Não foi possível atualizar o perfil. Verifique as permissões do Firebase Storage se o erro persistir."
+            title: "Erro no Upload",
+            description: "Não foi possível enviar a imagem. Verifique as regras de segurança do seu Firebase Storage. Elas podem estar bloqueando o acesso."
         });
-        // Lança o erro para que a interface possa reagir se necessário
+        // Lança o erro para que a interface possa reagir se necessário (como parar o loading)
         throw error;
     }
   };
