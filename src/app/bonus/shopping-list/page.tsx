@@ -5,7 +5,7 @@ import React, { useState, useMemo } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from '@/components/ui/button';
 import { Checkbox } from "@/components/ui/checkbox";
-import { ListChecks, ShoppingCart, Sparkles, CheckCircle, Wheat, Sprout, Soup, Fish, Drumstick, Cookie, IceCream, Pizza } from "lucide-react";
+import { ListChecks, ShoppingCart, Sparkles, CheckCircle, Wheat, Sprout, Soup, Fish, Drumstick, Cookie, IceCream, Pizza, ClipboardList } from "lucide-react";
 import { allRecipes } from '@/lib/recipes-data';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import Link from 'next/link';
@@ -43,6 +43,7 @@ const categories = [
 export default function ShoppingListPage() {
     const [selectedRecipes, setSelectedRecipes] = useState<string[]>([]);
     const [generatedList, setGeneratedList] = useState<GeneratedList>({});
+    const [consolidatedList, setConsolidatedList] = useState<string[]>([]);
     const [activeFilter, setActiveFilter] = useState<FilterType>('all');
     
     const recipes: RecipeData = allRecipes;
@@ -67,15 +68,24 @@ export default function ShoppingListPage() {
 
     const generateShoppingList = () => {
         const list: GeneratedList = {};
+        const allIngredients = new Set<string>();
 
         selectedRecipes.forEach(key => {
             const recipe = recipes[key];
             if (recipe) {
-                list[recipe.title] = recipe.ingredients.map(ing => ing.value);
+                const ingredients = recipe.ingredients.map(ing => ing.value);
+                list[recipe.title] = ingredients;
+                ingredients.forEach(item => {
+                    // Ignora títulos como "Massa:" ou "Cobertura:"
+                    if (!item.endsWith(':')) {
+                        allIngredients.add(item);
+                    }
+                });
             }
         });
 
         setGeneratedList(list);
+        setConsolidatedList(Array.from(allIngredients).sort());
     };
     
     const handleFilterChange = (filter: FilterType) => {
@@ -91,7 +101,7 @@ export default function ShoppingListPage() {
                     Lista de Compras Otimizada
                 </h1>
                 <p className="mt-4 text-xl text-muted-foreground">
-                    Planeje sua semana! Selecione as receitas que deseja fazer e gere uma lista de compras consolidada.
+                    Planeje sua semana! Selecione as receitas e gere uma lista de compras consolidada.
                 </p>
             </header>
 
@@ -99,7 +109,7 @@ export default function ShoppingListPage() {
                 <Card>
                     <CardHeader>
                         <CardTitle>Passo 1: Selecione suas Receitas</CardTitle>
-                        <CardDescription>Primeiro, filtre por tipo de receita e depois marque as que você planeja cozinhar.</CardDescription>
+                        <CardDescription>Filtre por categoria e depois marque as que você planeja cozinhar.</CardDescription>
                          <div className="flex flex-wrap gap-2 pt-4">
                             <Button
                                 variant={activeFilter === 'all' ? 'default' : 'outline'}
@@ -162,7 +172,7 @@ export default function ShoppingListPage() {
                                 Sua Lista de Compras
                             </CardTitle>
                             <CardDescription>
-                                Aqui estão os ingredientes que você precisa, organizados por receita.
+                                Aqui estão os ingredientes que você precisa, organizados por receita e também em uma lista única.
                             </CardDescription>
                         </CardHeader>
                         <CardContent>
@@ -187,6 +197,23 @@ export default function ShoppingListPage() {
                                         </ul>
                                     </div>
                                 ))}
+                            </div>
+                            <Separator className="my-8" />
+                            <div>
+                                <h3 className="font-headline text-2xl font-semibold text-primary flex items-center gap-3 mb-4">
+                                     <ClipboardList className="h-7 w-7" />
+                                    Lista Consolidada
+                                </h3>
+                                <Card className="bg-muted/50 p-4">
+                                    <ul className="space-y-2 columns-1 sm:columns-2">
+                                        {consolidatedList.map((item, index) => (
+                                            <li key={index} className="flex items-start gap-3">
+                                                <CheckCircle className="h-5 w-5 mt-1 text-green-500 flex-shrink-0" />
+                                                <span>{item}</span>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </Card>
                             </div>
                         </CardContent>
                     </Card>
