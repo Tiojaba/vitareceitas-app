@@ -16,3 +16,14 @@ export const recipeSchema = z.object({
 });
 
 export type RecipeSchema = z.infer<typeof recipeSchema>;
+
+export const checkoutFormSchema = z.object({
+  amount: z.coerce.number().positive("O valor deve ser positivo."),
+  customerName: z.string().min(3, "O nome completo é obrigatório."),
+  customerEmail: z.string().email("Por favor, insira um e-mail válido."),
+  customerPhone: z.string().min(10, "O telefone deve ter pelo menos 10 dígitos."),
+  customerDocument: z.string().min(11, "O CPF deve ter 11 dígitos.").max(11, "O CPF deve ter 11 dígitos."),
+  orderInfo: z.string().min(5, "A informação do pedido é obrigatória."),
+});
+
+export type CheckoutFormSchema = z.infer<typeof checkoutFormSchema>;
