@@ -46,6 +46,8 @@ export default function DashboardPage() {
     slug,
     ...recipe,
   }));
+  
+  const totalRecipes = Object.keys(allRecipes).length;
 
   const bonuses = [
     {
@@ -143,7 +145,7 @@ export default function DashboardPage() {
 
         {/* Categorias */}
         <section>
-          <h2 className="text-2xl font-bold font-headline mb-6">Categorias</h2>
+          <h2 className="text-2xl font-bold font-headline mb-6">Categorias ({totalRecipes} receitas atualmente)</h2>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
             {categories.map((category) => (
               <Link href={category.href} key={category.title}>
