@@ -5,6 +5,10 @@
   # Diretório onde o resultado do build é salvo
   publish = ".next"
 
+# Diretório onde as funções serverless (como nosso webhook) estão localizadas
+[functions]
+  directory = ".next/server/pages/api"
+
 # Configurações para o plugin do Next.js no Netlify
 [[plugins]]
   package = "@netlify/plugin-nextjs"
