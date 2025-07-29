@@ -8,7 +8,12 @@ const findEmailInBody = (body: any): string | null => {
         return null;
     }
 
-    // Lista de possíveis chaves para o e-mail do cliente
+    // Estrutura nova (Kiwify, etc.)
+    if (body.customer && typeof body.customer.email === 'string') {
+        return body.customer.email;
+    }
+
+    // Estruturas legadas (Hotmart, etc.)
     const possibleKeys = [
         'email', 
         'customer_email', 
@@ -22,7 +27,7 @@ const findEmailInBody = (body: any): string | null => {
         }
     }
 
-    // Lógica para objetos aninhados (comuns em algumas plataformas)
+    // Lógica para objetos aninhados (comuns em outras plataformas)
     if (body.data && typeof body.data === 'object') {
         if (body.data.customer && typeof body.data.customer.email === 'string') {
             return body.data.customer.email;
@@ -30,10 +35,6 @@ const findEmailInBody = (body: any): string | null => {
         if (body.data.buyer && typeof body.data.buyer.email === 'string') {
             return body.data.buyer.email;
         }
-    }
-    
-    if (body.customer && typeof body.customer.email === 'string') {
-        return body.customer.email;
     }
     
     if (body.buyer && typeof body.buyer.email === 'string') {
@@ -57,7 +58,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     if (!userEmail) {
         const errorMsg = 'E-mail do comprador não foi encontrado no corpo da requisição. Verifique os logs para ver a estrutura recebida.';
         console.error(`[Webhook] Erro: ${errorMsg}`);
-        // Retornamos 400 (Bad Request) porque a informação esperada não veio.
         return res.status(400).json({ 
             error: errorMsg, 
             message: "O formato dos dados recebidos não continha um campo de e-mail reconhecível.",
@@ -72,7 +72,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         if (error.code === 'auth/user-not-found') {
           return null; // Usuário não existe, o que é o cenário esperado para uma nova compra.
         }
-        // Para outros erros, nós os lançamos para serem pegos pelo bloco catch externo.
         throw error;
       });
 
@@ -83,7 +82,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         
       console.log(`[Webhook] Usuário com e-mail ${userEmail} não encontrado. Prosseguindo para criação...`);
 
-      const customerName = req.body?.customer_name || req.body?.buyer?.name || 'Novo Membro';
+      const customerName = req.body?.customer?.name || req.body?.customer_name || req.body?.buyer?.name || 'Novo Membro';
       
       const newUser = await auth.createUser({
         email: userEmail,
@@ -94,7 +93,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
       console.log(`[Webhook] Usuário criado com sucesso no Firebase! UID: ${newUser.uid}`);
 
-      // Gerar o link de redefinição de senha (que servirá como "crie sua senha")
       const link = await auth.generatePasswordResetLink(userEmail);
       
       console.log(`[Webhook] Link de configuração de senha gerado para ${userEmail}. O e-mail deve ser enviado automaticamente pelo Firebase.`);
