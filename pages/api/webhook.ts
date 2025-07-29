@@ -93,9 +93,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
       console.log(`[Webhook] Usuário criado com sucesso no Firebase! UID: ${newUser.uid}`);
 
-      const link = await auth.generatePasswordResetLink(userEmail);
+      // O Firebase irá, por padrão, enviar um e-mail de "Redefinição de Senha" que serve como o e-mail de boas-vindas para o usuário criar sua senha.
+      await auth.generatePasswordResetLink(userEmail);
       
-      console.log(`[Webhook] Link de configuração de senha gerado para ${userEmail}. O e-mail deve ser enviado automaticamente pelo Firebase.`);
+      console.log(`[Webhook] Gatilho para envio de e-mail de configuração de senha acionado para ${userEmail}. O e-mail é enviado automaticamente pelo Firebase.`);
       console.log(`[Webhook] IMPORTANTE: Verifique se o template de 'Redefinição de Senha' está ativado e personalizado no Console do Firebase > Autenticação > Templates de Email.`);
 
     } catch (userError: any) {
