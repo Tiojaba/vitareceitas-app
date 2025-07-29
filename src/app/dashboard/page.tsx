@@ -1,46 +1,133 @@
-import { Suspense } from 'react';
-import { NavigationBanners } from '@/components/dashboard/navigation-banners';
-import { RecentRecipes, RecentRecipesSkeleton } from '@/components/dashboard/recent-recipes';
-import { WeeklyRanking, WeeklyRankingSkeleton } from '@/components/dashboard/weekly-ranking';
-import { SeedButton } from '@/components/dashboard/seed-button';
+
+'use client';
+
+import { useAuth } from '@/hooks/use-auth';
+import { Card, CardContent } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import Image from 'next/image';
+import Link from 'next/link';
+import { ArrowRight, Award, BookOpen, Brain, Cake, Salad, Soup, WheatOff } from 'lucide-react';
+import type { LucideIcon } from 'lucide-react';
+
+const categories: { name: string; icon: LucideIcon; href: string }[] = [
+  { name: 'Zero Lactose', icon: WheatOff, href: '/recipes/zero-lactose' },
+  { name: 'Sem Glúten', icon: WheatOff, href: '/recipes/sem-gluten' },
+  { name: 'Sobremesas', icon: Cake, href: '/recipes/sobremesas' },
+  { name: 'Saladas', icon: Salad, href: '/recipes/saladas' },
+  { name: 'Sopas', icon: Soup, href: '/recipes/sopas' },
+  { name: 'Pratos Principais', icon: BookOpen, href: '/recipes/pratos-principais' },
+  { name: 'Lanches', icon: Brain, href: '/recipes/lanches' },
+  { name: 'Café da Manhã', icon: Award, href: '/recipes/cafe-da-manha' },
+];
+
+const highlights: { title: string; description: string; imgSrc: string; href: string; dataAiHint: string }[] = [
+    { 
+        title: 'Top 5 Receitas da Semana', 
+        description: 'As receitas mais amadas pela nossa comunidade.', 
+        imgSrc: 'https://placehold.co/600x400.png', 
+        href: '/ranking/top-recipes',
+        dataAiHint: 'top recipes'
+    },
+    { 
+        title: 'Novo Artigo no Blog', 
+        description: 'Dicas para uma vida sem lactose mais fácil.', 
+        imgSrc: 'https://placehold.co/600x400.png', 
+        href: '/blog/new-post',
+        dataAiHint: 'healthy food blog'
+    },
+    { 
+        title: 'Chef em Destaque', 
+        description: 'Conheça o membro que mais contribuiu este mês.', 
+        imgSrc: 'https://placehold.co/600x400.png', 
+        href: '/community/chef-highlight',
+        dataAiHint: 'professional chef'
+    },
+    { 
+        title: 'Ingrediente do Mês', 
+        description: 'Descubra a versatilidade do leite de amêndoas.', 
+        imgSrc: 'https://placehold.co/600x400.png', 
+        href: '/ingredients/almond-milk',
+        dataAiHint: 'almond milk'
+    },
+];
+
 
 export default function DashboardPage() {
+  const { user } = useAuth();
+  const userName = user?.displayName || user?.email?.split('@')[0] || 'Membro';
+
   return (
-    <div className="container mx-auto px-4 py-8 sm:py-12">
-      <header className="text-center mb-10">
-        <h1 className="text-4xl font-bold tracking-tight text-foreground sm:text-5xl font-headline">
-          Bem-vindo(a) ao Minha Receita
+    <div className="p-4 sm:p-6 space-y-8">
+      {/* Welcome Message */}
+      <section>
+        <h1 className="text-2xl font-bold text-foreground">
+          Bem-vindo(a), {userName}!
         </h1>
-        <p className="mt-3 text-lg text-muted-foreground">
-          Seu livro de receitas digital!
-        </p>
-      </header>
+        <p className="text-muted-foreground">O que vamos cozinhar hoje?</p>
+      </section>
 
-      <main className="space-y-12">
-        <NavigationBanners />
-
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12 items-start">
-          {/* Main Content */}
-          <div className="lg:col-span-2">
-            <h2 className="text-2xl font-bold mb-6">Adicionadas Recentemente</h2>
-            <Suspense fallback={<RecentRecipesSkeleton />}>
-              <RecentRecipes />
-            </Suspense>
+      {/* Challenge Banner */}
+      <section>
+        <Card className="bg-primary text-primary-foreground overflow-hidden shadow-lg">
+          <div className="p-6 flex flex-col md:flex-row items-center justify-between gap-4">
+            <div className="text-center md:text-left">
+              <h2 className="text-2xl font-bold">Desafio 7 Dias Sem Lactose</h2>
+              <p className="mt-1 opacity-90 max-w-lg">
+                Aceite o desafio e descubra novas receitas deliciosas e saudáveis para sua rotina.
+              </p>
+            </div>
+            <Button variant="secondary" asChild className="flex-shrink-0">
+              <Link href="/challenge">
+                Começar Agora <ArrowRight className="ml-2 h-4 w-4" />
+              </Link>
+            </Button>
           </div>
+        </Card>
+      </section>
 
-          {/* Sticky Sidebar */}
-          <aside className="lg:col-span-1 lg:sticky lg:top-8">
-            <Suspense fallback={<WeeklyRankingSkeleton />}>
-              <WeeklyRanking />
-            </Suspense>
-          </aside>
+      {/* Categories Section */}
+      <section>
+        <h3 className="text-xl font-semibold mb-4">Categorias</h3>
+        <div className="grid grid-cols-4 gap-3 sm:gap-4">
+          {categories.map((category) => (
+            <Link href={category.href} key={category.name}>
+              <div className="flex flex-col items-center justify-center text-center space-y-2 p-2 group">
+                <div className="p-4 bg-secondary rounded-full group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
+                  <category.icon className="h-6 w-6 sm:h-8 sm:w-8" />
+                </div>
+                <span className="text-xs sm:text-sm font-medium text-muted-foreground group-hover:text-primary transition-colors">
+                  {category.name}
+                </span>
+              </div>
+            </Link>
+          ))}
         </div>
-      </main>
-      
-      {/* SEED BUTTON - REMOVE IN PRODUCTION */}
-      <div className="fixed bottom-4 right-4">
-        <SeedButton />
-      </div>
+      </section>
+
+      {/* Highlights Section */}
+      <section>
+        <h3 className="text-xl font-semibold mb-4">Melhores da Semana</h3>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          {highlights.map((highlight) => (
+             <Link href={highlight.href} key={highlight.title}>
+                <Card className="overflow-hidden group relative h-48">
+                    <Image
+                        src={highlight.imgSrc}
+                        alt={highlight.title}
+                        fill
+                        data-ai-hint={highlight.dataAiHint}
+                        className="object-cover transition-transform duration-300 group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
+                    <div className="absolute bottom-0 left-0 p-4">
+                        <h4 className="text-lg font-bold text-primary-foreground">{highlight.title}</h4>
+                        <p className="text-sm text-primary-foreground/80">{highlight.description}</p>
+                    </div>
+                </Card>
+             </Link>
+          ))}
+        </div>
+      </section>
     </div>
   );
 }
