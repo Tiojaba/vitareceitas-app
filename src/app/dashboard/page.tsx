@@ -31,14 +31,14 @@ export default function DashboardPage() {
   const name = user.displayName || user.email?.split('@')[0] || 'Membro';
   
   const categories = [
-    { title: "Zero Lactose", icon: <Wheat className="w-8 h-8" /> },
-    { title: "Sem Glúten", icon: <Sprout className="w-8 h-8" /> },
-    { title: "Sobremesas", icon: <IceCream className="w-8 h-8" /> },
-    { title: "Lanches", icon: <Pizza className="w-8 h-8" /> },
-    { title: "Prato Principal", icon: <Drumstick className="w-8 h-8" /> },
-    { title: "Sopas e Caldos", icon: <Soup className="w-8 h-8" /> },
-    { title: "Frutos do Mar", icon: <Fish className="w-8 h-8" /> },
-    { title: "Básicos", icon: <Cookie className="w-8 h-8" /> },
+    { title: "Zero Lactose", icon: <Wheat className="w-8 h-8" />, href: "/recipe/moqueca-de-banana-da-terra" },
+    { title: "Sem Glúten", icon: <Sprout className="w-8 h-8" />, href: "#" },
+    { title: "Sobremesas", icon: <IceCream className="w-8 h-8" />, href: "#" },
+    { title: "Lanches", icon: <Pizza className="w-8 h-8" />, href: "#" },
+    { title: "Prato Principal", icon: <Drumstick className="w-8 h-8" />, href: "#" },
+    { title: "Sopas e Caldos", icon: <Soup className="w-8 h-8" />, href: "#" },
+    { title: "Frutos do Mar", icon: <Fish className="w-8 h-8" />, href: "#" },
+    { title: "Básicos", icon: <Cookie className="w-8 h-8" />, href: "#" },
   ];
 
   const highlights = [
@@ -81,10 +81,12 @@ export default function DashboardPage() {
           <h2 className="text-2xl font-bold font-headline mb-6">Categorias</h2>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
             {categories.map((category) => (
-              <Card key={category.title} className="flex flex-col items-center justify-center p-6 text-center hover:bg-accent hover:text-accent-foreground transition-colors cursor-pointer">
-                <div className="text-primary mb-3">{category.icon}</div>
-                <h3 className="font-semibold">{category.title}</h3>
-              </Card>
+              <Link href={category.href} key={category.title}>
+                <Card className="flex flex-col items-center justify-center p-6 text-center hover:bg-accent hover:text-accent-foreground transition-colors cursor-pointer h-full">
+                  <div className="text-primary mb-3">{category.icon}</div>
+                  <h3 className="font-semibold">{category.title}</h3>
+                </Card>
+              </Link>
             ))}
           </div>
         </section>
