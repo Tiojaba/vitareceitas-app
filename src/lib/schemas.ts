@@ -11,3 +11,15 @@ export const checkoutFormSchema = z.object({
 });
 
 export type CheckoutFormSchema = z.infer<typeof checkoutFormSchema>;
+
+
+export const recipeSchema = z.object({
+  title: z.string().min(5, 'O título deve ter pelo menos 5 caracteres.'),
+  description: z.string().min(10, 'A descrição deve ter pelo menos 10 caracteres.'),
+  ingredients: z.string().min(10, 'Os ingredientes devem ter pelo menos 10 caracteres.'),
+  instructions: z.string().min(20, 'O modo de preparo deve ter pelo menos 20 caracteres.'),
+  category: z.string({ required_error: 'Por favor, selecione uma categoria.' }),
+  photoUrl: z.string().url('Por favor, forneça uma URL de imagem válida.').optional().or(z.literal('')),
+});
+
+export type RecipeFormValues = z.infer<typeof recipeSchema>;
