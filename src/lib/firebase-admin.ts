@@ -9,8 +9,8 @@ if (!admin.apps.length) {
       const serviceAccount = JSON.parse(serviceAccountString);
       admin.initializeApp({
         credential: admin.credential.cert(serviceAccount),
-        databaseURL: `https://${serviceAccount.project_id}.firebaseio.com`
       });
+      console.log("Firebase Admin SDK inicializado com sucesso.");
     } catch (e) {
       console.error('Falha CRÍTICA ao parsear ou inicializar o Firebase Admin SDK:', e);
     }
