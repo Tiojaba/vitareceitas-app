@@ -85,8 +85,9 @@ export default function DashboardPage() {
       icon: <BookOpen className="w-8 h-8 text-primary" />,
       title: "E-book 'Técnicas Culinárias'",
       description: "Domine as substituições para garantir sabor e textura perfeitos em suas receitas.",
-      actionText: "Acessar Conteúdo",
-      href: "/bonus/ebook-tecnicas",
+      actionText: "Baixar E-book",
+      href: "/ebook-tecnicas-zero-lactose.pdf",
+      isDownload: true,
     },
     {
       icon: <ShieldCheck className="w-8 h-8 text-primary" />,
@@ -153,8 +154,14 @@ export default function DashboardPage() {
                   </div>
                 </CardHeader>
                 <CardFooter className="mt-auto">
-                  <Button asChild className="w-full">
-                    <Link href={bonus.href}>{bonus.actionText}</Link>
+                   <Button asChild className="w-full">
+                    {bonus.isDownload ? (
+                      <a href={bonus.href} download>
+                        {bonus.actionText}
+                      </a>
+                    ) : (
+                      <Link href={bonus.href}>{bonus.actionText}</Link>
+                    )}
                   </Button>
                 </CardFooter>
               </Card>
