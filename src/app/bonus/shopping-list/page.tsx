@@ -1,30 +1,47 @@
 
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from '@/components/ui/button';
 import { Checkbox } from "@/components/ui/checkbox";
-import { ListChecks, ShoppingCart, Sparkles, CheckCircle } from "lucide-react";
+import { ListChecks, ShoppingCart, Sparkles, CheckCircle, Wheat, Sprout } from "lucide-react";
 import { allRecipes } from '@/lib/recipes-data';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import Link from 'next/link';
+import { cn } from '@/lib/utils';
 
 type Recipe = {
     title: string;
     ingredients: { value: string }[];
+    category: string;
+    tags: string[];
 };
 
 type RecipeData = {
     [key: string]: Recipe;
 }
 
+type FilterType = 'all' | 'Zero Lactose' | 'Sem Glúten';
+
+
 export default function ShoppingListPage() {
     const [selectedRecipes, setSelectedRecipes] = useState<string[]>([]);
     const [generatedList, setGeneratedList] = useState<string[]>([]);
+    const [activeFilter, setActiveFilter] = useState<FilterType>('all');
     
     const recipes: RecipeData = allRecipes;
-    const recipeKeys = Object.keys(recipes);
+    
+    const filteredRecipeKeys = useMemo(() => {
+        if (activeFilter === 'all') {
+            return Object.keys(recipes);
+        }
+        return Object.keys(recipes).filter(key => {
+            const recipe = recipes[key];
+            // Verifica tanto na categoria quanto nas tags
+            return recipe.category === activeFilter || recipe.tags.includes(activeFilter);
+        });
+    }, [activeFilter, recipes]);
 
     const handleCheckboxChange = (recipeKey: string) => {
         setSelectedRecipes(prev => 
@@ -39,28 +56,26 @@ export default function ShoppingListPage() {
             recipes[key].ingredients.map(ing => ing.value)
         );
 
-        // Processar para remover títulos e extrair nomes
         const cleanedIngredients = allIngredients
-            .filter(ing => !ing.endsWith(':')) // Remove títulos como "Massa:"
+            .filter(ing => !ing.endsWith(':'))
             .map(ing => {
-                // Tenta extrair apenas o nome do ingrediente, escapando a barra corretamente
                 const match = ing.match(/^((\d+[\s\\/]*\w*[\s\w]*)|(a gosto))\s(de\s)?(.*)/i);
                  if (match && match[5]) {
-                    // Capitaliza a primeira letra para agrupar melhor
                     return match[5].charAt(0).toUpperCase() + match[5].slice(1).toLowerCase().trim();
                 }
-                // Se não conseguir extrair, retorna o original (melhor que nada)
                  return ing.charAt(0).toUpperCase() + ing.slice(1).toLowerCase().trim();
             });
 
-        // Remove duplicatas
         const uniqueIngredients = [...new Set(cleanedIngredients)];
-        
-        // Ordena alfabeticamente
         uniqueIngredients.sort((a, b) => a.localeCompare(b));
-
         setGeneratedList(uniqueIngredients);
     };
+    
+    const handleFilterChange = (filter: FilterType) => {
+        setActiveFilter(filter);
+        // Limpa a seleção ao mudar o filtro para evitar confusão
+        setSelectedRecipes([]);
+    }
 
     return (
         <div className="container mx-auto max-w-4xl py-8 sm:py-12 px-4">
@@ -78,10 +93,30 @@ export default function ShoppingListPage() {
                 <Card>
                     <CardHeader>
                         <CardTitle>Passo 1: Selecione suas Receitas</CardTitle>
-                        <CardDescription>Marque todas as receitas que você planeja cozinhar.</CardDescription>
+                        <CardDescription>Primeiro, filtre por tipo de receita e depois marque as que você planeja cozinhar.</CardDescription>
+                         <div className="flex flex-wrap gap-2 pt-4">
+                            <Button
+                                variant={activeFilter === 'all' ? 'default' : 'outline'}
+                                onClick={() => handleFilterChange('all')}
+                            >
+                                Todas as Receitas
+                            </Button>
+                            <Button
+                                variant={activeFilter === 'Zero Lactose' ? 'default' : 'outline'}
+                                onClick={() => handleFilterChange('Zero Lactose')}
+                            >
+                                <Wheat className="mr-2 h-4 w-4" /> Zero Lactose
+                            </Button>
+                             <Button
+                                variant={activeFilter === 'Sem Glúten' ? 'default' : 'outline'}
+                                onClick={() => handleFilterChange('Sem Glúten')}
+                            >
+                                <Sprout className="mr-2 h-4 w-4" /> Sem Glúten
+                            </Button>
+                        </div>
                     </CardHeader>
                     <CardContent className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        {recipeKeys.map(key => (
+                        {filteredRecipeKeys.map(key => (
                             <div key={key} className="flex items-center space-x-3 rounded-md border p-4 hover:bg-accent/50 transition-colors">
                                 <Checkbox
                                     id={key}
