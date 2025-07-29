@@ -3,40 +3,6 @@ import type { Handler, HandlerEvent, HandlerContext } from "@netlify/functions";
 import { auth } from '../../src/lib/firebase-admin';
 import sgMail from '@sendgrid/mail';
 
-const findCustomerInBody = (body: any): { email: string | null; name: string } => {
-    if (!body || typeof body !== 'object') {
-        return { email: null, name: 'Novo Membro' };
-    }
-    
-    // Caminho exato para os dados do cliente no payload da Kirvano
-    if (body.customer && typeof body.customer.email === 'string') {
-        const email = body.customer.email;
-        const name = body.customer.name || 'Novo Membro';
-        return { email, name: name.trim() };
-    }
-
-    // Fallback para outros formatos genéricos (manter por segurança)
-    const possibleEmailKeys = ['email', 'customer_email', 'payer_email', 'buyer_email', 'client_email'];
-    const possibleNameKeys = ['name', 'customer_name', 'buyer_name', 'client_name'];
-    let email: string | null = null;
-    let name: string = 'Novo Membro';
-    
-    for (const key of possibleEmailKeys) {
-        if (body[key] && typeof body[key] === 'string') {
-            email = body[key];
-            break;
-        }
-    }
-    for (const key of possibleNameKeys) {
-        if (body[key] && typeof body[key] === 'string') {
-            name = body[key];
-            break;
-        }
-    }
-    
-    return { email, name: name.trim() };
-}
-
 // Configure SendGrid API Key
 if (process.env.SENDGRID_API_KEY) {
     sgMail.setApiKey(process.env.SENDGRID_API_KEY);
@@ -101,15 +67,18 @@ const handler: Handler = async (event: HandlerEvent, context: HandlerContext) =>
         return { statusCode: 400, body: JSON.stringify({ error: 'Request body is empty.' }) };
     }
     body = JSON.parse(event.body);
+    // Log para depuração
+    console.log('[Webhook] Raw Body Received from Kirvano:', JSON.stringify(body, null, 2));
   } catch (e) {
     console.error('[Webhook] Error parsing JSON body:', e);
     return { statusCode: 400, body: JSON.stringify({ error: 'Invalid JSON format.' }) };
   }
 
   try {
-    // Extrai dados do cliente e status usando a estrutura exata da Kirvano
-    const { email: customerEmail, name: customerName } = findCustomerInBody(body);
-    const purchaseStatus = body.status; // Campo exato: "APPROVED"
+    // Acessando os dados diretamente do corpo, conforme o log da Kirvano
+    const customerEmail = body.customer?.email;
+    const customerName = body.customer?.name || 'Novo Membro';
+    const purchaseStatus = body.status;
 
     if (purchaseStatus !== 'APPROVED' || !customerEmail) {
         const errorMsg = `Could not process notification: payment not approved or customer email not found. Status: ${purchaseStatus}, Email: ${customerEmail}`;
@@ -156,7 +125,8 @@ const handler: Handler = async (event: HandlerEvent, context: HandlerContext) =>
       body: JSON.stringify({ message: 'Webhook processed successfully.' })
     };
 
-  } catch (error: any) {
+  } catch (error: any)
+{
     console.error("[Webhook] CRITICAL error in handler:", error);
     return {
       statusCode: 500,
