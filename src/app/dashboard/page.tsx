@@ -32,17 +32,17 @@ export default function DashboardPage() {
   const name = user.displayName || user.email?.split('@')[0] || 'Membro';
   
   const categories = [
-    { title: "Zero Lactose", icon: <Wheat className="w-8 h-8" />, href: "/bonus/shopping-list" },
-    { title: "Sem Glúten", icon: <Sprout className="w-8 h-8" />, href: "/bonus/shopping-list" },
-    { title: "Sobremesas", icon: <IceCream className="w-8 h-8" />, href: "/bonus/shopping-list" },
-    { title: "Lanches", icon: <Pizza className="w-8 h-8" />, href: "/bonus/shopping-list" },
-    { title: "Prato Principal", icon: <Drumstick className="w-8 h-8" />, href: "/bonus/shopping-list" },
-    { title: "Sopas e Caldos", icon: <Soup className="w-8 h-8" />, href: "/bonus/shopping-list" },
-    { title: "Frutos do Mar", icon: <Fish className="w-8 h-8" />, href: "/bonus/shopping-list" },
-    { title: "Básicos", icon: <Cookie className="w-8 h-8" />, href: "/bonus/shopping-list" },
+    { title: "Zero Lactose", icon: <Wheat className="w-8 h-8" />, href: "/recipes?category=Zero Lactose" },
+    { title: "Sem Glúten", icon: <Sprout className="w-8 h-8" />, href: "/recipes?category=Sem Glúten" },
+    { title: "Sobremesas", icon: <IceCream className="w-8 h-8" />, href: "/recipes?category=Sobremesas" },
+    { title: "Lanches", icon: <Pizza className="w-8 h-8" />, href: "/recipes?category=Lanches" },
+    { title: "Prato Principal", icon: <Drumstick className="w-8 h-8" />, href: "/recipes?category=Prato Principal" },
+    { title: "Sopas e Caldos", icon: <Soup className="w-8 h-8" />, href: "/recipes?category=Sopas e Caldos" },
+    { title: "Frutos do Mar", icon: <Fish className="w-8 h-8" />, href: "/recipes?category=Frutos do Mar" },
+    { title: "Básicos", icon: <Cookie className="w-8 h-8" />, href: "/recipes?category=Básicos" },
   ];
 
-  const highlights = Object.entries(allRecipes).map(([slug, recipe]) => ({
+  const highlights = Object.entries(allRecipes).slice(0, 4).map(([slug, recipe]) => ({
     slug,
     ...recipe,
   }));
@@ -142,9 +142,14 @@ export default function DashboardPage() {
 
         {/* Categorias */}
         <section>
-          <h2 className="text-2xl font-bold font-headline mb-6">
-            Categorias <span className="text-lg font-normal text-muted-foreground">({totalRecipes} receitas atualmente)</span>
-          </h2>
+          <div className="flex justify-between items-center mb-6">
+            <h2 className="text-2xl font-bold font-headline">
+              Receitas <span className="text-lg font-normal text-muted-foreground">({totalRecipes} no total)</span>
+            </h2>
+             <Button variant="outline" asChild>
+                <Link href="/recipes">Ver todas <ArrowRight className="ml-2 h-4 w-4" /></Link>
+            </Button>
+          </div>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
             {categories.map((category) => (
               <Link href={category.href} key={category.title}>
@@ -159,7 +164,7 @@ export default function DashboardPage() {
 
         {/* Melhores da Semana */}
         <section>
-          <h2 className="text-2xl font-bold font-headline mb-6">Melhores da Semana</h2>
+          <h2 className="text-2xl font-bold font-headline mb-6">Destaques</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6">
             {highlights.map((item) => (
               <Link href={`/recipe/${item.slug}`} key={item.title} className="group">
