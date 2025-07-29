@@ -14,7 +14,7 @@ if (!admin.apps.length) {
 
       admin.initializeApp({
         credential: admin.credential.cert(serviceAccount),
-        databaseURL: `https://'${serviceAccount.project_id}'.firebaseio.com`
+        databaseURL: `https://${serviceAccount.project_id}.firebaseio.com`
       });
     }
   } catch (error: any) {
