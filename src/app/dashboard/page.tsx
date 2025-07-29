@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 import React, { useEffect } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, Cookie, IceCream, Pizza, Wheat, Sprout, Soup, Fish, Drumstick, User, Timer, Users, BarChart3, Tag, BookOpen, ShieldCheck, MessageSquare, Sparkles, ListChecks } from 'lucide-react';
+import { ArrowRight, Cookie, IceCream, Pizza, Wheat, Sprout, Soup, Fish, Drumstick, User, Timer, Users, BarChart3, BookOpen, ShieldCheck, MessageSquare, ListChecks } from 'lucide-react';
 import Link from 'next/link';
 import { Badge } from '@/components/ui/badge';
 import { allRecipes } from '@/lib/recipes-data';
@@ -32,14 +32,14 @@ export default function DashboardPage() {
   const name = user.displayName || user.email?.split('@')[0] || 'Membro';
   
   const categories = [
-    { title: "Zero Lactose", icon: <Wheat className="w-8 h-8" />, href: "/recipe/moqueca-de-banana-da-terra" },
-    { title: "Sem Glúten", icon: <Sprout className="w-8 h-8" />, href: "/recipe/pao-de-queijo-vegano" },
-    { title: "Sobremesas", icon: <IceCream className="w-8 h-8" />, href: "/recipe/mousse-de-chocolate-com-abacate" },
-    { title: "Lanches", icon: <Pizza className="w-8 h-8" />, href: "/recipe/pao-de-queijo-vegano" },
-    { title: "Prato Principal", icon: <Drumstick className="w-8 h-8" />, href: "#" },
-    { title: "Sopas e Caldos", icon: <Soup className="w-8 h-8" />, href: "#" },
-    { title: "Frutos do Mar", icon: <Fish className="w-8 h-8" />, href: "#" },
-    { title: "Básicos", icon: <Cookie className="w-8 h-8" />, href: "#" },
+    { title: "Zero Lactose", icon: <Wheat className="w-8 h-8" />, href: "/bonus/shopping-list" },
+    { title: "Sem Glúten", icon: <Sprout className="w-8 h-8" />, href: "/bonus/shopping-list" },
+    { title: "Sobremesas", icon: <IceCream className="w-8 h-8" />, href: "/bonus/shopping-list" },
+    { title: "Lanches", icon: <Pizza className="w-8 h-8" />, href: "/bonus/shopping-list" },
+    { title: "Prato Principal", icon: <Drumstick className="w-8 h-8" />, href: "/bonus/shopping-list" },
+    { title: "Sopas e Caldos", icon: <Soup className="w-8 h-8" />, href: "/bonus/shopping-list" },
+    { title: "Frutos do Mar", icon: <Fish className="w-8 h-8" />, href: "/bonus/shopping-list" },
+    { title: "Básicos", icon: <Cookie className="w-8 h-8" />, href: "/bonus/shopping-list" },
   ];
 
   const highlights = Object.entries(allRecipes).map(([slug, recipe]) => ({

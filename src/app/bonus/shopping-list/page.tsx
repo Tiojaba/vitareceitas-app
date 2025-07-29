@@ -5,7 +5,7 @@ import React, { useState, useMemo } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from '@/components/ui/button';
 import { Checkbox } from "@/components/ui/checkbox";
-import { ListChecks, ShoppingCart, Sparkles, CheckCircle, Wheat, Sprout } from "lucide-react";
+import { ListChecks, ShoppingCart, Sparkles, CheckCircle, Wheat, Sprout, Soup, Fish, Drumstick, Cookie, IceCream, Pizza } from "lucide-react";
 import { allRecipes } from '@/lib/recipes-data';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import Link from 'next/link';
@@ -22,8 +22,18 @@ type RecipeData = {
     [key: string]: Recipe;
 }
 
-type FilterType = 'all' | 'Zero Lactose' | 'Sem Glúten';
+type FilterType = 'all' | string;
 
+const categories = [
+    { name: "Zero Lactose", icon: <Wheat className="mr-2 h-4 w-4" /> },
+    { name: "Sem Glúten", icon: <Sprout className="mr-2 h-4 w-4" /> },
+    { name: "Sobremesas", icon: <IceCream className="mr-2 h-4 w-4" /> },
+    { name: "Lanches", icon: <Pizza className="mr-2 h-4 w-4" /> },
+    { name: "Prato Principal", icon: <Drumstick className="mr-2 h-4 w-4" /> },
+    { name: "Sopas e Caldos", icon: <Soup className="mr-2 h-4 w-4" /> },
+    { name: "Frutos do Mar", icon: <Fish className="mr-2 h-4 w-4" /> },
+    { name: "Básicos", icon: <Cookie className="mr-2 h-4 w-4" /> },
+];
 
 export default function ShoppingListPage() {
     const [selectedRecipes, setSelectedRecipes] = useState<string[]>([]);
@@ -39,7 +49,7 @@ export default function ShoppingListPage() {
         return Object.keys(recipes).filter(key => {
             const recipe = recipes[key];
             // Verifica tanto na categoria quanto nas tags
-            return recipe.category === activeFilter || recipe.tags.includes(activeFilter);
+            return recipe.category === activeFilter || recipe.tags.includes(activeFilter as string);
         });
     }, [activeFilter, recipes]);
 
@@ -73,7 +83,6 @@ export default function ShoppingListPage() {
     
     const handleFilterChange = (filter: FilterType) => {
         setActiveFilter(filter);
-        // Limpa a seleção ao mudar o filtro para evitar confusão
         setSelectedRecipes([]);
     }
 
@@ -101,38 +110,39 @@ export default function ShoppingListPage() {
                             >
                                 Todas as Receitas
                             </Button>
-                            <Button
-                                variant={activeFilter === 'Zero Lactose' ? 'default' : 'outline'}
-                                onClick={() => handleFilterChange('Zero Lactose')}
-                            >
-                                <Wheat className="mr-2 h-4 w-4" /> Zero Lactose
-                            </Button>
-                             <Button
-                                variant={activeFilter === 'Sem Glúten' ? 'default' : 'outline'}
-                                onClick={() => handleFilterChange('Sem Glúten')}
-                            >
-                                <Sprout className="mr-2 h-4 w-4" /> Sem Glúten
-                            </Button>
+                            {categories.map((cat) => (
+                                <Button
+                                    key={cat.name}
+                                    variant={activeFilter === cat.name ? 'default' : 'outline'}
+                                    onClick={() => handleFilterChange(cat.name)}
+                                >
+                                    {cat.icon} {cat.name}
+                                </Button>
+                            ))}
                         </div>
                     </CardHeader>
                     <CardContent className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        {filteredRecipeKeys.map(key => (
-                            <div key={key} className="flex items-center space-x-3 rounded-md border p-4 hover:bg-accent/50 transition-colors">
-                                <Checkbox
-                                    id={key}
-                                    checked={selectedRecipes.includes(key)}
-                                    onCheckedChange={() => handleCheckboxChange(key)}
-                                />
-                                <label
-                                    htmlFor={key}
-                                    className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                                >
-                                    <Link href={`/recipe/${key}`} className="hover:underline" target="_blank">
-                                        {recipes[key].title}
-                                    </Link>
-                                </label>
-                            </div>
-                        ))}
+                        {filteredRecipeKeys.length > 0 ? (
+                            filteredRecipeKeys.map(key => (
+                                <div key={key} className="flex items-center space-x-3 rounded-md border p-4 hover:bg-accent/50 transition-colors">
+                                    <Checkbox
+                                        id={key}
+                                        checked={selectedRecipes.includes(key)}
+                                        onCheckedChange={() => handleCheckboxChange(key)}
+                                    />
+                                    <label
+                                        htmlFor={key}
+                                        className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                                    >
+                                        <Link href={`/recipe/${key}`} className="hover:underline" target="_blank">
+                                            {recipes[key].title}
+                                        </Link>
+                                    </label>
+                                </div>
+                            ))
+                        ) : (
+                            <p className="text-muted-foreground col-span-full text-center">Nenhuma receita encontrada para esta categoria.</p>
+                        )}
                     </CardContent>
                 </Card>
 
