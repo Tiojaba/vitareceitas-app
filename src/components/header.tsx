@@ -50,7 +50,7 @@ export function Header() {
             <SheetContent side="left">
               <SheetHeader>
                 <SheetTitle className="flex items-center gap-2">
-                  <span className="font-bold text-lg">VitaReceitas</span>
+                  <span className="font-bold text-lg text-primary">VitaReceitas</span>
                 </SheetTitle>
               </SheetHeader>
               <div className="flex flex-col h-full py-4">
@@ -82,7 +82,7 @@ export function Header() {
         {/* Center: Logo */}
         <div className="flex flex-1 items-center justify-center">
            <Link href="/dashboard" className="flex items-center gap-2">
-              <span className="font-bold text-xl">VitaReceitas</span>
+              <span className="font-bold text-xl text-primary">VitaReceitas</span>
             </Link>
         </div>
 
