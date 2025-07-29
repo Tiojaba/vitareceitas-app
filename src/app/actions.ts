@@ -4,8 +4,7 @@
 import 'dotenv/config'; // Garante que as variáveis de ambiente sejam carregadas
 import { checkoutFormSchema, type CheckoutFormSchema, recipeSchema, type RecipeFormValues } from '@/lib/schemas';
 import { MercadoPagoConfig, Payment } from 'mercadopago';
-import { auth } from '@/lib/firebase-admin';
-import { db } from '@/lib/firebase-admin';
+import { auth, db } from '@/lib/firebase-admin';
 import { revalidatePath } from 'next/cache';
 
 // Helper para extrair a mensagem de erro do Mercado Pago
