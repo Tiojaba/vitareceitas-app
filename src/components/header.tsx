@@ -34,7 +34,6 @@ export function Header() {
     { href: "/dashboard", icon: <Home />, label: "Início" },
     { href: "/profile", icon: <User />, label: "Meu Perfil" },
     { href: "/submit-recipe", icon: <BookUp />, label: "Enviar Receita" },
-    { href: "/settings", icon: <Settings />, label: "Configurações" },
   ]
 
   return (
