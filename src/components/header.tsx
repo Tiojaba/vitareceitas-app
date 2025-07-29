@@ -4,13 +4,19 @@
 import {
   Sheet,
   SheetContent,
-  SheetDescription,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
 import { Button } from "@/components/ui/button"
-import { Menu, Bell, Home, User, Settings, LogOut, UtensilsCrossed, BookUp, Leaf } from "lucide-react"
+import { Menu, Bell, Home, User, LogOut, BookUp } from "lucide-react"
 import Link from "next/link";
 import { useAuth } from "@/hooks/use-auth";
 import { useRouter } from "next/navigation";
@@ -88,10 +94,21 @@ export function Header() {
 
         {/* Right Side: Notifications */}
         <div className="flex items-center justify-end">
-          <Button variant="ghost" size="icon">
-            <Bell className="h-5 w-5" />
-            <span className="sr-only">Notificações</span>
-          </Button>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="ghost" size="icon">
+                <Bell className="h-5 w-5" />
+                <span className="sr-only">Notificações</span>
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              <DropdownMenuLabel>Notificações</DropdownMenuLabel>
+              <DropdownMenuSeparator />
+               <div className="p-4 text-center text-sm text-muted-foreground">
+                Nenhuma nova notificação.
+              </div>
+            </DropdownMenuContent>
+          </DropdownMenu>
         </div>
       </div>
     </header>
