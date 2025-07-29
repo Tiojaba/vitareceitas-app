@@ -8,7 +8,6 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { ListChecks, ShoppingCart, Sparkles, CheckCircle, Wheat, Sprout, Soup, Fish, Drumstick, Cookie, IceCream, Pizza, ClipboardList } from "lucide-react";
 import { allRecipes } from '@/lib/recipes-data';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import Link from 'next/link';
 import { cn } from '@/lib/utils';
 import { Separator } from '@/components/ui/separator';
 
@@ -141,9 +140,7 @@ export default function ShoppingListPage() {
                                         htmlFor={key}
                                         className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                                     >
-                                        <Link href={`/recipe/${key}`} className="hover:underline" target="_blank">
-                                            {recipes[key].title}
-                                        </Link>
+                                        {recipes[key].title}
                                     </label>
                                 </div>
                             ))
