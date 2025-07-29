@@ -105,39 +105,3 @@ export async function processPixPayment(data: CheckoutFormSchema) {
   }
 }
 
-export async function submitRecipe(userId: string, data: RecipeFormValues) {
-  const validation = recipeSchema.safeParse(data);
-  if (!validation.success) {
-    throw new Error('Dados do formulário inválidos.');
-  }
-
-  if (!userId) {
-    throw new Error('Usuário não autenticado.');
-  }
-  
-  const user = await auth.getUser(userId);
-
-  if (!user) {
-    throw new Error('Usuário não encontrado.');
-  }
-
-  try {
-    const recipeRef = db.collection('recipes').doc();
-    await recipeRef.set({
-      ...validation.data,
-      authorId: userId,
-      authorName: user.displayName || user.email,
-      authorAvatar: user.photoURL || `https://placehold.co/40x40.png?text=${(user.email || 'A').charAt(0).toUpperCase()}`,
-      createdAt: new Date(),
-    });
-
-    revalidatePath('/profile');
-    revalidatePath('/dashboard');
-
-    return { success: true, recipeId: recipeRef.id };
-
-  } catch (error) {
-    console.error('Erro ao salvar receita:', error);
-    throw new Error('Não foi possível salvar a receita. Tente novamente mais tarde.');
-  }
-}
