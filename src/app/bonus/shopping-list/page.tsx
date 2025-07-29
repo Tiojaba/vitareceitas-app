@@ -47,6 +47,20 @@ export default function ShoppingListPage() {
     
     const recipes: RecipeData = allRecipes;
     
+    const categoryCounts = useMemo(() => {
+        const counts: { [key: string]: number } = {};
+        const recipeList = Object.values(recipes);
+
+        categories.forEach(cat => {
+            const count = recipeList.filter(recipe => 
+                recipe.category === cat.name || recipe.tags.includes(cat.name)
+            ).length;
+            counts[cat.name] = count;
+        });
+
+        return counts;
+    }, [recipes]);
+
     const filteredRecipeKeys = useMemo(() => {
         if (activeFilter === 'all') {
             return Object.keys(recipes);
@@ -122,7 +136,7 @@ export default function ShoppingListPage() {
                                     variant={activeFilter === cat.name ? 'default' : 'outline'}
                                     onClick={() => handleFilterChange(cat.name)}
                                 >
-                                    {cat.icon} {cat.name}
+                                    {cat.icon} {cat.name} ({categoryCounts[cat.name] || 0})
                                 </Button>
                             ))}
                         </div>
