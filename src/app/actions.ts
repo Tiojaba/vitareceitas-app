@@ -2,10 +2,14 @@
 "use server";
 
 import 'dotenv/config'; // Garante que as variáveis de ambiente sejam carregadas
-import { checkoutFormSchema, type CheckoutFormSchema } from '@/lib/schemas';
+import { checkoutFormSchema, type CheckoutFormSchema, recipeSchema, type RecipeSchema } from '@/lib/schemas';
 import { MercadoPagoConfig, Payment } from 'mercadopago';
 import { auth, db } from '@/lib/firebase-admin';
+import { getAuth } from 'firebase-admin/auth';
+import { getStorage } from 'firebase-admin/storage';
 import { revalidatePath } from 'next/cache';
+import { headers } from 'next/headers';
+import { randomUUID } from 'crypto';
 
 // Helper para extrair a mensagem de erro do Mercado Pago
 function getMercadoPagoErrorMessage(error: any): string {
@@ -103,4 +107,71 @@ export async function processPixPayment(data: CheckoutFormSchema) {
     const errorMessage = getMercadoPagoErrorMessage(error);
     throw new Error(errorMessage);
   }
+}
+
+export async function submitRecipe(formData: FormData) {
+  // 1. Get current user
+  const headersList = headers();
+  const idToken = headersList.get('Authorization')?.split('Bearer ')[1];
+  if (!idToken) {
+    throw new Error('Usuário não autenticado.');
+  }
+  const decodedToken = await auth.verifyIdToken(idToken);
+  const userId = decodedToken.uid;
+  const userName = decodedToken.name || decodedToken.email || 'Anônimo';
+
+  // 2. Validate form data
+  const data = Object.fromEntries(formData.entries());
+   const validationResult = recipeSchema.safeParse({
+    ...data,
+    prepTime: data.prepTime ? Number(data.prepTime) : undefined,
+    servings: data.servings ? Number(data.servings) : undefined,
+  });
+
+  if (!validationResult.success) {
+    const errorMessages = validationResult.error.issues.map(issue => `${issue.path.join('.')}: ${issue.message}`).join('; ');
+    console.error("Validation Errors:", validationResult.error.issues);
+    throw new Error(`Dados inválidos: ${errorMessages}`);
+  }
+
+  const { image, ...recipeData } = validationResult.data;
+
+  // 3. Upload image to Firebase Storage
+  const bucket = getStorage().bucket(process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET);
+  const recipeId = randomUUID();
+  const imagePath = `recipes/${userId}/${recipeId}/${image.name}`;
+  const file = bucket.file(imagePath);
+
+  const buffer = Buffer.from(await image.arrayBuffer());
+
+  await file.save(buffer, {
+    metadata: {
+      contentType: image.type,
+    },
+  });
+  
+  const [imageUrl] = await file.getSignedUrl({
+    action: 'read',
+    expires: '03-09-2491', // Data de expiração muito longa
+  });
+
+  // 4. Save recipe data to Firestore
+  const recipeDocRef = db.collection('recipes').doc(recipeId);
+  await recipeDocRef.set({
+    ...recipeData,
+    authorId: userId,
+    authorName: userName,
+    imageUrl: imageUrl,
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+  });
+
+  // 5. Revalidate paths and return result
+  revalidatePath('/dashboard');
+  revalidatePath('/profile'); 
+  
+  return {
+    success: true,
+    recipeId: recipeId
+  };
 }

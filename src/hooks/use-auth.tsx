@@ -24,6 +24,7 @@ interface AuthContextType {
   logout: () => Promise<any>;
   resetPassword: (email: string) => Promise<any>;
   updateUserProfile: (data: { displayName?: string; photoFile?: File }) => Promise<void>;
+  getAuthToken: () => Promise<string | null>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -57,9 +58,17 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const resetPassword = (email: string) => {
     return sendPasswordResetEmail(auth, email);
   }
+
+  const getAuthToken = async (): Promise<string | null> => {
+    if (auth.currentUser) {
+      return auth.currentUser.getIdToken();
+    }
+    return null;
+  }
   
   const updateUserProfile = async (data: { displayName?: string; photoFile?: File }) => {
-    if (!auth.currentUser) {
+    const currentUser = auth.currentUser;
+    if (!currentUser) {
       throw new Error("Nenhum usuário autenticado encontrado.");
     }
     
@@ -67,26 +76,23 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         const profileUpdate: { displayName?: string, photoURL?: string } = {};
 
         if (data.photoFile) {
-            const filePath = `profile-pictures/${auth.currentUser.uid}/${data.photoFile.name}`;
+            const filePath = `profile-pictures/${currentUser.uid}/${data.photoFile.name}`;
             const storageRef = ref(storage, filePath);
             const snapshot = await uploadBytes(storageRef, data.photoFile);
             profileUpdate.photoURL = await getDownloadURL(snapshot.ref);
         }
 
-        if (data.displayName !== undefined) {
+        if (data.displayName !== undefined && data.displayName !== currentUser.displayName) {
             profileUpdate.displayName = data.displayName;
         }
 
         if (Object.keys(profileUpdate).length > 0) {
-            await updateProfile(auth.currentUser, profileUpdate);
+            await updateProfile(currentUser, profileUpdate);
         }
         
-        // Força a atualização do estado do usuário de forma reativa
         setUser(prevUser => {
-            if (!auth.currentUser) return null;
-            // Cria um novo objeto para garantir a re-renderização
-            const updatedUser = { ...auth.currentUser, ...profileUpdate };
-            return updatedUser as User;
+            if (!prevUser) return null;
+            return { ...prevUser, ...profileUpdate };
         });
 
     } catch (error: any) {
@@ -96,7 +102,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             title: "Erro no Upload",
             description: "Não foi possível enviar a imagem. Verifique as regras de segurança do seu Firebase Storage. Elas podem estar bloqueando o acesso."
         });
-        // Lança o erro para que a interface possa reagir se necessário (como parar o loading)
         throw error;
     }
   };
@@ -109,7 +114,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     signup,
     logout,
     resetPassword,
-    updateUserProfile
+    updateUserProfile,
+    getAuthToken,
   };
 
   if (loading) {

@@ -10,7 +10,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet"
 import { Button } from "@/components/ui/button"
-import { Menu, Bell, Home, User, Settings, LogOut, UtensilsCrossed } from "lucide-react"
+import { Menu, Bell, Home, User, Settings, LogOut, UtensilsCrossed, BookUp } from "lucide-react"
 import { Logo } from "@/components/logo";
 import Link from "next/link";
 import { useAuth } from "@/hooks/use-auth";
@@ -33,15 +33,15 @@ export function Header() {
   const navItems = [
     { href: "/dashboard", icon: <Home />, label: "Início" },
     { href: "/profile", icon: <User />, label: "Meu Perfil" },
-    { href: "/submit-recipe", icon: <UtensilsCrossed />, label: "Enviar Receita" },
+    { href: "/submit-recipe", icon: <BookUp />, label: "Enviar Receita" },
     { href: "/settings", icon: <Settings />, label: "Configurações" },
   ]
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container flex h-16 items-center justify-between">
+      <div className="container flex h-16 items-center">
         {/* Left Side: Hamburger Menu */}
-        <div className="flex items-center">
+        <div className="flex items-center justify-start">
           <Sheet>
             <SheetTrigger asChild>
               <Button variant="ghost" size="icon" className="md:hidden">
@@ -52,7 +52,7 @@ export function Header() {
             <SheetContent side="left">
               <SheetHeader>
                 <SheetTitle className="flex items-center gap-2">
-                  <Logo className="h-8 w-8" />
+                  <Logo className="h-10 w-10" />
                   <span className="font-bold">Zero Lactose</span>
                 </SheetTitle>
               </SheetHeader>
@@ -83,15 +83,15 @@ export function Header() {
         </div>
 
         {/* Center: Logo */}
-        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+        <div className="flex flex-1 items-center justify-center">
            <Link href="/dashboard" className="flex items-center gap-2">
-              <Logo className="h-10 w-10" />
-              <span className="font-bold hidden sm:inline-block">Comunidade Zero Lactose</span>
+              <Logo className="h-12 w-12" />
+              <span className="font-bold hidden sm:inline-block text-lg">Comunidade Zero Lactose</span>
             </Link>
         </div>
 
         {/* Right Side: Notifications */}
-        <div className="flex items-center">
+        <div className="flex items-center justify-end">
           <Button variant="ghost" size="icon">
             <Bell className="h-5 w-5" />
             <span className="sr-only">Notificações</span>
