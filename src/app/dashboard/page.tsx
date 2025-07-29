@@ -6,9 +6,10 @@ import { useRouter } from 'next/navigation';
 import React, { useEffect } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, Cookie, IceCream, Pizza, Wheat, Sprout, Soup, Fish, Drumstick, User, Timer, Users, BarChart3, Tag, BookOpen, ShieldCheck, MessageSquare, Sparkles } from 'lucide-react';
+import { ArrowRight, Cookie, IceCream, Pizza, Wheat, Sprout, Soup, Fish, Drumstick, User, Timer, Users, BarChart3, Tag, BookOpen, ShieldCheck, MessageSquare, Sparkles, ListChecks } from 'lucide-react';
 import Link from 'next/link';
 import { Badge } from '@/components/ui/badge';
+import { allRecipes } from '@/lib/recipes-data';
 
 export default function DashboardPage() {
   const { user, loading } = useAuth();
@@ -41,44 +42,10 @@ export default function DashboardPage() {
     { title: "Básicos", icon: <Cookie className="w-8 h-8" />, href: "#" },
   ];
 
-  const highlights = [
-    { 
-      title: "Moqueca de Banana-da-Terra", 
-      href: "/recipe/moqueca-de-banana-da-terra",
-      author: "Ana G.",
-      prepTime: "45 min",
-      difficulty: "Médio",
-      servings: "4 porções",
-      tags: ["Zero Lactose", "Vegano"]
-    },
-    { 
-      title: "Bolo de Cenoura Fofinho", 
-      href: "/recipe/bolo-de-cenoura-fofinho",
-      author: "Mariana S.",
-      prepTime: "60 min",
-      difficulty: "Fácil",
-      servings: "8 porções",
-      tags: ["Sobremesa", "Zero Lactose"]
-    },
-    { 
-      title: "Pão de Queijo Vegano", 
-      href: "/recipe/pao-de-queijo-vegano",
-      author: "Carlos L.",
-      prepTime: "40 min",
-      difficulty: "Fácil",
-      servings: "16 unidades",
-      tags: ["Lanche", "Sem Glúten"]
-    },
-    { 
-      title: "Mousse de Chocolate com Abacate", 
-      href: "/recipe/mousse-de-chocolate-com-abacate",
-      author: "Juliana P.",
-      prepTime: "15 min",
-      difficulty: "Fácil",
-      servings: "4 porções",
-      tags: ["Sobremesa", "Vegano"]
-    },
-  ];
+  const highlights = Object.entries(allRecipes).map(([slug, recipe]) => ({
+    slug,
+    ...recipe,
+  }));
 
   const bonuses = [
     {
@@ -97,17 +64,17 @@ export default function DashboardPage() {
       href: "/bonus/desvendando-rotulos",
     },
     {
+      icon: <ListChecks className="w-8 h-8 text-primary" />,
+      title: "Lista de Compras Otimizada",
+      description: "Planeje sua semana e gere uma lista de compras a partir das receitas da comunidade.",
+      actionText: "Criar Lista",
+      href: "/bonus/shopping-list",
+    },
+    {
       icon: <MessageSquare className="w-8 h-8 text-primary" />,
       title: "Comunidade VIP (30 dias)",
       description: "Conecte-se, tire dúvidas com especialistas e receba apoio em um grupo exclusivo.",
       actionText: "Entrar no Grupo",
-      href: "#",
-    },
-    {
-      icon: <Sparkles className="w-8 h-8 text-primary" />,
-      title: "Módulo 'Zero Lactose & Sem Glúten'",
-      description: "Um guia rápido e 5 receitas essenciais para quem tem múltiplas restrições.",
-      actionText: "Ver Receitas",
       href: "#",
     }
   ];
@@ -160,7 +127,7 @@ export default function DashboardPage() {
                         {bonus.actionText}
                       </a>
                     ) : (
-                      <Link href={bonus.href}>{bonus.actionText}</Link>
+                      <Link href={bonus.href ?? "#"}>{bonus.actionText}</Link>
                     )}
                   </Button>
                 </CardFooter>
@@ -189,7 +156,7 @@ export default function DashboardPage() {
           <h2 className="text-2xl font-bold font-headline mb-6">Melhores da Semana</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6">
             {highlights.map((item) => (
-              <Link href={item.href} key={item.title} className="group">
+              <Link href={`/recipe/${item.slug}`} key={item.title} className="group">
                 <Card className="overflow-hidden group-hover:shadow-xl transition-shadow h-full flex flex-col justify-between">
                   <CardHeader>
                     <CardTitle>{item.title}</CardTitle>
@@ -204,7 +171,7 @@ export default function DashboardPage() {
                     </div>
                     <div className="flex items-center text-sm text-muted-foreground">
                       <Timer className="w-4 h-4 mr-2 text-primary" />
-                      Tempo de preparo: <span className="font-medium ml-1 text-foreground">{item.prepTime}</span>
+                      Tempo de preparo: <span className="font-medium ml-1 text-foreground">{item.prepTime + item.cookTime} min</span>
                     </div>
                   </CardContent>
                   <CardFooter className="flex justify-between bg-muted/50 p-4">
@@ -214,7 +181,7 @@ export default function DashboardPage() {
                       </div>
                        <div className="flex items-center text-sm">
                           <Users className="w-4 h-4 mr-2 text-primary" />
-                          Serve: <span className="font-medium ml-1">{item.servings}</span>
+                          Serve: <span className="font-medium ml-1">{item.servings} porções</span>
                       </div>
                   </CardFooter>
                 </Card>
