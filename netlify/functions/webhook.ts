@@ -6,6 +6,7 @@ import sgMail from '@sendgrid/mail';
 // Configure SendGrid API Key
 if (process.env.SENDGRID_API_KEY) {
     sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+    console.log("[SendGrid] API Key configured.");
 } else {
     console.error("[SendGrid] CRITICAL ERROR: SENDGRID_API_KEY environment variable is not set.");
 }
