@@ -4,11 +4,11 @@
 import { useAuth } from '@/hooks/use-auth';
 import { useRouter } from 'next/navigation';
 import React, { useEffect } from 'react';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, Cookie, IceCream, Pizza, Wheat, Sprout, Soup, Fish, Drumstick, Star } from 'lucide-react';
-import Image from 'next/image';
+import { ArrowRight, Cookie, IceCream, Pizza, Wheat, Sprout, Soup, Fish, Drumstick, User, Timer, Users, BarChart3, Tag } from 'lucide-react';
 import Link from 'next/link';
+import { Badge } from '@/components/ui/badge';
 
 export default function DashboardPage() {
   const { user, loading } = useAuth();
@@ -42,10 +42,42 @@ export default function DashboardPage() {
   ];
 
   const highlights = [
-    { title: "Moqueca de Banana-da-Terra", image: "https://placehold.co/600x400.png", dataAiHint: "banana moqueca", href: "/recipe/moqueca-de-banana-da-terra" },
-    { title: "Bolo de Cenoura Fofinho", image: "https://placehold.co/600x400.png", dataAiHint: "carrot cake", href: "#" },
-    { title: "Pão de Queijo Vegano", image: "https://placehold.co/600x400.png", dataAiHint: "vegan cheese bread", href: "#" },
-    { title: "Mousse de Chocolate com Abacate", image: "https://placehold.co/600x400.png", dataAiHint: "avocado chocolate mousse", href: "#" },
+    { 
+      title: "Moqueca de Banana-da-Terra", 
+      href: "/recipe/moqueca-de-banana-da-terra",
+      author: "Ana G.",
+      prepTime: "45 min",
+      difficulty: "Médio",
+      servings: "4 porções",
+      tags: ["Zero Lactose", "Vegano"]
+    },
+    { 
+      title: "Bolo de Cenoura Fofinho", 
+      href: "#",
+      author: "Mariana S.",
+      prepTime: "60 min",
+      difficulty: "Fácil",
+      servings: "8 porções",
+      tags: ["Sobremesa", "Zero Lactose"]
+    },
+    { 
+      title: "Pão de Queijo Vegano", 
+      href: "#",
+      author: "Carlos L.",
+      prepTime: "40 min",
+      difficulty: "Fácil",
+      servings: "16 unidades",
+      tags: ["Lanche", "Sem Glúten"]
+    },
+    { 
+      title: "Mousse de Chocolate com Abacate", 
+      href: "#",
+      author: "Juliana P.",
+      prepTime: "15 min",
+      difficulty: "Fácil",
+      servings: "4 porções",
+      tags: ["Sobremesa", "Vegano"]
+    },
   ];
 
   return (
@@ -94,23 +126,36 @@ export default function DashboardPage() {
         {/* Melhores da Semana */}
         <section>
           <h2 className="text-2xl font-bold font-headline mb-6">Melhores da Semana</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6">
             {highlights.map((item) => (
               <Link href={item.href} key={item.title} className="group">
-                <Card className="overflow-hidden group-hover:shadow-xl transition-shadow h-full flex flex-col">
-                  <div className="aspect-video overflow-hidden">
-                    <Image
-                      src={item.image}
-                      alt={item.title}
-                      data-ai-hint={item.dataAiHint}
-                      width={600}
-                      height={400}
-                      className="object-cover w-full h-full group-hover:scale-105 transition-transform"
-                    />
-                  </div>
-                  <CardContent className="p-4 flex-1">
-                    <h3 className="font-semibold text-lg">{item.title}</h3>
+                <Card className="overflow-hidden group-hover:shadow-xl transition-shadow h-full flex flex-col justify-between">
+                  <CardHeader>
+                    <CardTitle>{item.title}</CardTitle>
+                    <div className="flex flex-wrap items-center gap-2 pt-2">
+                      {item.tags.map(tag => <Badge key={tag} variant="secondary">{tag}</Badge>)}
+                    </div>
+                  </CardHeader>
+                  <CardContent className="space-y-3">
+                    <div className="flex items-center text-sm text-muted-foreground">
+                      <User className="w-4 h-4 mr-2 text-primary" />
+                      Postado por: <span className="font-medium ml-1 text-foreground">{item.author}</span>
+                    </div>
+                    <div className="flex items-center text-sm text-muted-foreground">
+                      <Timer className="w-4 h-4 mr-2 text-primary" />
+                      Tempo de preparo: <span className="font-medium ml-1 text-foreground">{item.prepTime}</span>
+                    </div>
                   </CardContent>
+                  <CardFooter className="flex justify-between bg-muted/50 p-4">
+                      <div className="flex items-center text-sm">
+                          <BarChart3 className="w-4 h-4 mr-2 text-primary" />
+                          Dificuldade: <span className="font-medium ml-1">{item.difficulty}</span>
+                      </div>
+                       <div className="flex items-center text-sm">
+                          <Users className="w-4 h-4 mr-2 text-primary" />
+                          Serve: <span className="font-medium ml-1">{item.servings}</span>
+                      </div>
+                  </CardFooter>
                 </Card>
               </Link>
             ))}
