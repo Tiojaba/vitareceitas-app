@@ -10,6 +10,7 @@ import { allRecipes } from '@/lib/recipes-data';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
+import { Separator } from '@/components/ui/separator';
 
 type Recipe = {
     title: string;
@@ -20,6 +21,10 @@ type Recipe = {
 
 type RecipeData = {
     [key: string]: Recipe;
+}
+
+type GeneratedList = {
+    [key: string]: string[];
 }
 
 type FilterType = 'all' | string;
@@ -37,7 +42,7 @@ const categories = [
 
 export default function ShoppingListPage() {
     const [selectedRecipes, setSelectedRecipes] = useState<string[]>([]);
-    const [generatedList, setGeneratedList] = useState<string[]>([]);
+    const [generatedList, setGeneratedList] = useState<GeneratedList>({});
     const [activeFilter, setActiveFilter] = useState<FilterType>('all');
     
     const recipes: RecipeData = allRecipes;
@@ -48,7 +53,6 @@ export default function ShoppingListPage() {
         }
         return Object.keys(recipes).filter(key => {
             const recipe = recipes[key];
-            // Verifica tanto na categoria quanto nas tags
             return recipe.category === activeFilter || recipe.tags.includes(activeFilter as string);
         });
     }, [activeFilter, recipes]);
@@ -62,23 +66,16 @@ export default function ShoppingListPage() {
     };
 
     const generateShoppingList = () => {
-        const allIngredients = selectedRecipes.flatMap(key => 
-            recipes[key].ingredients.map(ing => ing.value)
-        );
+        const list: GeneratedList = {};
 
-        const cleanedIngredients = allIngredients
-            .filter(ing => !ing.endsWith(':'))
-            .map(ing => {
-                const match = ing.match(/^((\d+[\s\\/]*\w*[\s\w]*)|(a gosto))\s(de\s)?(.*)/i);
-                 if (match && match[5]) {
-                    return match[5].charAt(0).toUpperCase() + match[5].slice(1).toLowerCase().trim();
-                }
-                 return ing.charAt(0).toUpperCase() + ing.slice(1).toLowerCase().trim();
-            });
+        selectedRecipes.forEach(key => {
+            const recipe = recipes[key];
+            if (recipe) {
+                list[recipe.title] = recipe.ingredients.map(ing => ing.value);
+            }
+        });
 
-        const uniqueIngredients = [...new Set(cleanedIngredients)];
-        uniqueIngredients.sort((a, b) => a.localeCompare(b));
-        setGeneratedList(uniqueIngredients);
+        setGeneratedList(list);
     };
     
     const handleFilterChange = (filter: FilterType) => {
@@ -157,7 +154,7 @@ export default function ShoppingListPage() {
                     </Button>
                 </div>
 
-                {generatedList.length > 0 && (
+                {Object.keys(generatedList).length > 0 && (
                     <Card className="shadow-lg">
                         <CardHeader>
                             <CardTitle className="flex items-center gap-3">
@@ -165,7 +162,7 @@ export default function ShoppingListPage() {
                                 Sua Lista de Compras
                             </CardTitle>
                             <CardDescription>
-                                Aqui estão todos os ingredientes que você precisa, organizados e sem duplicatas.
+                                Aqui estão os ingredientes que você precisa, organizados por receita.
                             </CardDescription>
                         </CardHeader>
                         <CardContent>
@@ -175,14 +172,22 @@ export default function ShoppingListPage() {
                                     Tire um print ou anote esta lista antes de ir ao supermercado.
                                 </AlertDescription>
                             </Alert>
-                            <ul className="mt-6 space-y-3 columns-1 sm:columns-2 md:columns-3">
-                                {generatedList.map((item, index) => (
-                                    <li key={index} className="flex items-center gap-3">
-                                        <CheckCircle className="h-5 w-5 text-green-500" />
-                                        <span>{item}</span>
-                                    </li>
+                            <div className="mt-6 space-y-6">
+                                {Object.entries(generatedList).map(([recipeTitle, ingredients]) => (
+                                    <div key={recipeTitle}>
+                                        <h3 className="font-headline text-lg font-semibold text-primary">{recipeTitle}</h3>
+                                        <Separator className="my-2" />
+                                        <ul className="space-y-2 columns-1 sm:columns-2">
+                                            {ingredients.map((item, index) => (
+                                                <li key={index} className="flex items-start gap-3">
+                                                    <CheckCircle className="h-5 w-5 mt-1 text-green-500 flex-shrink-0" />
+                                                    <span>{item}</span>
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    </div>
                                 ))}
-                            </ul>
+                            </div>
                         </CardContent>
                     </Card>
                 )}
