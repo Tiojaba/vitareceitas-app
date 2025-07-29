@@ -32,9 +32,9 @@ export default function DashboardPage() {
   
   const categories = [
     { title: "Zero Lactose", icon: <Wheat className="w-8 h-8" />, href: "/recipe/moqueca-de-banana-da-terra" },
-    { title: "Sem Glúten", icon: <Sprout className="w-8 h-8" />, href: "#" },
-    { title: "Sobremesas", icon: <IceCream className="w-8 h-8" />, href: "#" },
-    { title: "Lanches", icon: <Pizza className="w-8 h-8" />, href: "#" },
+    { title: "Sem Glúten", icon: <Sprout className="w-8 h-8" />, href: "/recipe/pao-de-queijo-vegano" },
+    { title: "Sobremesas", icon: <IceCream className="w-8 h-8" />, href: "/recipe/mousse-de-chocolate-com-abacate" },
+    { title: "Lanches", icon: <Pizza className="w-8 h-8" />, href: "/recipe/pao-de-queijo-vegano" },
     { title: "Prato Principal", icon: <Drumstick className="w-8 h-8" />, href: "#" },
     { title: "Sopas e Caldos", icon: <Soup className="w-8 h-8" />, href: "#" },
     { title: "Frutos do Mar", icon: <Fish className="w-8 h-8" />, href: "#" },
@@ -53,7 +53,7 @@ export default function DashboardPage() {
     },
     { 
       title: "Bolo de Cenoura Fofinho", 
-      href: "#",
+      href: "/recipe/bolo-de-cenoura-fofinho",
       author: "Mariana S.",
       prepTime: "60 min",
       difficulty: "Fácil",
@@ -62,7 +62,7 @@ export default function DashboardPage() {
     },
     { 
       title: "Pão de Queijo Vegano", 
-      href: "#",
+      href: "/recipe/pao-de-queijo-vegano",
       author: "Carlos L.",
       prepTime: "40 min",
       difficulty: "Fácil",
@@ -71,7 +71,7 @@ export default function DashboardPage() {
     },
     { 
       title: "Mousse de Chocolate com Abacate", 
-      href: "#",
+      href: "/recipe/mousse-de-chocolate-com-abacate",
       author: "Juliana P.",
       prepTime: "15 min",
       difficulty: "Fácil",
