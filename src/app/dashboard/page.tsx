@@ -54,9 +54,8 @@ export default function DashboardPage() {
       icon: <BookOpen className="w-8 h-8 text-primary" />,
       title: "E-book 'Técnicas Culinárias'",
       description: "Domine as substituições para garantir sabor e textura perfeitos em suas receitas.",
-      actionText: "Baixar E-book",
-      href: "/ebook-tecnicas-zero-lactose.pdf",
-      isDownload: true,
+      actionText: "Acessar Conteúdo",
+      href: "/bonus/ebook-tecnicas",
     },
     {
       icon: <ShieldCheck className="w-8 h-8 text-primary" />,
@@ -77,7 +76,7 @@ export default function DashboardPage() {
       title: "Comunidade VIP (30 dias)",
       description: "Conecte-se, tire dúvidas com especialistas e receba apoio em um grupo exclusivo.",
       actionText: "Entrar no Grupo",
-      href: "https://chat.whatsapp.com/SEU_GRUPO_AQUI", // Placeholder link
+      href: "https://chat.whatsapp.com/SEU_GRUPO_AQUI",
       isExternal: true,
     }
   ];
@@ -125,11 +124,7 @@ export default function DashboardPage() {
                 </CardHeader>
                 <CardFooter className="mt-auto">
                    <Button asChild className="w-full">
-                    {bonus.isDownload ? (
-                      <a href={bonus.href} download>
-                        {bonus.actionText}
-                      </a>
-                    ) : bonus.isExternal ? (
+                    {bonus.isExternal ? (
                        <a href={bonus.href ?? "#"} target="_blank" rel="noopener noreferrer">
                         {bonus.actionText}
                       </a>
@@ -145,7 +140,9 @@ export default function DashboardPage() {
 
         {/* Categorias */}
         <section>
-          <h2 className="text-2xl font-bold font-headline mb-6">Categorias ({totalRecipes} receitas atualmente)</h2>
+          <h2 className="text-2xl font-bold font-headline mb-6">
+            Categorias <span className="text-lg font-normal text-muted-foreground">({totalRecipes} receitas atualmente)</span>
+          </h2>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
             {categories.map((category) => (
               <Link href={category.href} key={category.title}>
