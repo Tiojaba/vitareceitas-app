@@ -3,17 +3,14 @@ import { initializeApp, getApps, getApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
-
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyCJcjuTaQsaPhRfTVE4q8lID_ciQWFHPYs",
-  authDomain: "minha-receita-digital.firebaseapp.com",
-  projectId: "minha-receita-digital",
-  storageBucket: "minha-receita-digital.appspot.com",
-  messagingSenderId: "910220190645",
-  appId: "1:910220190645:web:28824986ededdfe4b56ffc"
+  "projectId": "conisopay",
+  "appId": "1:36928452779:web:dcac5f4747d97f98b49fee",
+  "storageBucket": "conisopay.firebasestorage.app",
+  "apiKey": "AIzaSyCTjIAmZnlCHCUWzTO3anjkP5gvnRdfS_E",
+  "authDomain": "conisopay.firebaseapp.com",
+  "messagingSenderId": "36928452779"
 };
 
 // Initialize Firebase for client-side usage
