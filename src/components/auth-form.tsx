@@ -18,10 +18,9 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { useToast } from '@/hooks/use-toast';
-import { Loader2, Mail, Lock } from 'lucide-react';
+import { Loader2, Mail, Lock, Leaf } from 'lucide-react';
 import Link from 'next/link';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Logo } from '@/components/logo';
 
 const formSchema = z.object({
   email: z.string().email({ message: 'Por favor, insira um e-mail válido.' }),
@@ -81,7 +80,7 @@ export function AuthForm({ mode }: AuthFormProps) {
   return (
     <Card className="w-full max-w-md">
        <CardHeader className="items-center text-center">
-        <Logo className="h-12 w-12 mb-4 text-primary" />
+        <Leaf className="h-12 w-12 mb-4 text-primary" />
         <CardTitle className="text-3xl font-bold tracking-tight font-headline">{title}</CardTitle>
         <CardDescription>{description}</CardDescription>
       </CardHeader>

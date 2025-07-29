@@ -10,8 +10,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet"
 import { Button } from "@/components/ui/button"
-import { Menu, Bell, Home, User, Settings, LogOut, UtensilsCrossed, BookUp } from "lucide-react"
-import { Logo } from "@/components/logo";
+import { Menu, Bell, Home, User, Settings, LogOut, UtensilsCrossed, BookUp, Leaf } from "lucide-react"
 import Link from "next/link";
 import { useAuth } from "@/hooks/use-auth";
 import { useRouter } from "next/navigation";
@@ -51,8 +50,8 @@ export function Header() {
             <SheetContent side="left">
               <SheetHeader>
                 <SheetTitle className="flex items-center gap-2">
-                  <Logo className="h-10 w-10" />
-                  <span className="font-bold">Zero Lactose</span>
+                  <Leaf className="h-8 w-8" />
+                  <span className="font-bold">VitaReceitas</span>
                 </SheetTitle>
               </SheetHeader>
               <div className="flex flex-col h-full py-4">
@@ -84,8 +83,8 @@ export function Header() {
         {/* Center: Logo */}
         <div className="flex flex-1 items-center justify-center">
            <Link href="/dashboard" className="flex items-center gap-2">
-              <Logo className="h-12 w-12" />
-              <span className="font-bold hidden sm:inline-block text-lg">Comunidade Zero Lactose</span>
+              <Leaf className="h-10 w-10" />
+              <span className="font-bold hidden sm:inline-block text-lg">VitaReceitas</span>
             </Link>
         </div>
 

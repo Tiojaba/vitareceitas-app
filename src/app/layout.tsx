@@ -4,8 +4,8 @@ import { AuthProvider } from '@/hooks/use-auth';
 import { Toaster } from "@/components/ui/toaster";
 
 export const metadata: Metadata = {
-  title: 'Área de Membros',
-  description: 'Acesso exclusivo para membros.',
+  title: 'VitaReceitas - Área de Membros',
+  description: 'Acesso exclusivo para membros da VitaReceitas.',
 };
 
 export default function RootLayout({
