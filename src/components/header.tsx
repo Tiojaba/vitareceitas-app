@@ -43,7 +43,7 @@ export function Header() {
           <Sheet>
             <SheetTrigger asChild>
               <Button variant="ghost" size="icon" className="md:hidden">
-                <Menu className="h-6 w-6" />
+                <Menu className="h-6 w-6 text-primary" />
                 <span className="sr-only">Abrir Menu</span>
               </Button>
             </SheetTrigger>
