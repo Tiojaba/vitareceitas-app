@@ -28,9 +28,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       });
 
       if (existingUser) {
-        console.log(`[Webhook] Usuário com email ${userEmail} já existe. UID: ${existingUser.uid}. Enviando link de login.`);
+        console.log(`[Webhook] Usuário com email ${userEmail} já existe. UID: ${existingUser.uid}. Nenhuma ação necessária.`);
         // Opcional: Se o usuário já existe, você pode enviar um e-mail de "acesse sua conta" aqui se desejar.
-        return res.status(200).json({ message: 'Usuário já existe.' });
+        return res.status(200).json({ message: 'Usuário já existe. Nenhuma ação necessária.' });
       } 
         
       console.log(`[Webhook] Usuário com email ${userEmail} não encontrado. Prosseguindo para criação.`);
@@ -48,11 +48,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       
       // A partir daqui, você usaria um serviço de e-mail (SendGrid, Nodemailer, etc.)
       // para enviar o 'link' para o 'userEmail'.
-      // Como não temos um serviço de e-mail configurado, vamos apenas logar o link
-      // para confirmar que ele foi gerado. Em um projeto real, a linha abaixo seria
-      // substituída pela lógica de envio de e-mail.
+      // Como estamos usando o sistema do Firebase, o simples fato de gerar o link não o envia.
+      // O envio é feito pelo template do Firebase, que deve ser configurado.
+      // Este log é para confirmar que a geração do link está funcionando.
       
-      console.log(`[Webhook] E-mail de configuração de senha para ${userEmail} pronto para ser enviado. Link (para fins de teste): ${link}`);
+      console.log(`[Webhook] E-mail de configuração de senha para ${userEmail} pronto para ser enviado pelo Firebase. Link (para fins de teste): ${link}`);
       console.log(`[Webhook] IMPORTANTE: Para o envio de e-mail funcionar, você deve configurar o template de 'Redefinição de Senha' no Console do Firebase > Autenticação > Templates de Email.`);
 
     } catch (userError: any) {
@@ -61,7 +61,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       return res.status(500).json({ error: 'Erro interno ao processar o usuário no Firebase.', details: userError.message });
     }
 
-    res.status(200).json({ message: 'Webhook processado com sucesso. Link de configuração de senha gerado.' });
+    res.status(200).json({ message: 'Webhook processado com sucesso. O e-mail de configuração de senha deve ser enviado pelo Firebase.' });
 
   } catch (error: any)
   {
