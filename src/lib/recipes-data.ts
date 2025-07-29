@@ -1,4 +1,5 @@
 
+
 export const allRecipes: { [key: string]: any } = {
   'moqueca-de-banana-da-terra': {
     title: "Moqueca de Banana-da-Terra",
@@ -443,7 +444,7 @@ export const allRecipes: { [key: string]: any } = {
         "**Gotas de chocolate:** Pode usar chocolate em barra 70% cacau picado.",
         "**Açúcar:** Usar apenas açúcar mascavo deixará os cookies mais macios e úmidos.",
     ],
-    chefTip: "Não asse os cookies demais! O segredo é tirá-los do forno quando as bordas estiverem firmes, mas o centro ainda parecer levemente mole. Eles continuarão a cozinhar no calor da assadeira e ficarão com a textura perfeita.",
+    chefTip: "Não asse os cookies demais! O segredo é tirá-los do forno quando as bordas estarem firmes, mas o centro ainda parecer levemente mole. Eles continuarão a cozinhar no calor da assadeira e ficarão com a textura perfeita.",
   },
   'maionese-de-abacate': {
     title: "Maionese de Abacate",
@@ -1445,7 +1446,1084 @@ export const allRecipes: { [key: string]: any } = {
       "**Xilitol:** Pode usar açúcar de coco ou melado, mas a cor do doce ficará mais escura."
     ],
     chefTip: "A biomassa de banana verde pode ser comprada pronta ou feita em casa, cozinhando bananas verdes na pressão e depois processando a polpa."
+  },
+   'pao-de-forma-sem-gluten': {
+    title: 'Pão de Forma Multigrãos Sem Glúten',
+    author: 'Padaria Saudável',
+    difficulty: 'Médio',
+    description: 'Um pão de forma macio, saboroso e nutritivo, perfeito para sanduíches ou para comer com geleia. Feito com um mix de farinhas sem glúten e sementes.',
+    prepTime: 20,
+    cookTime: 45,
+    servings: 12,
+    category: 'Sem Glúten',
+    tags: ['Pão', 'Vegano', 'Café da Manhã', 'Zero Lactose'],
+    ingredients: [
+      { value: '1 xícara de farinha de arroz integral' },
+      { value: '1/2 xícara de polvilho doce' },
+      { value: '1/2 xícara de farinha de aveia sem glúten' },
+      { value: '1/4 xícara de farinha de linhaça' },
+      { value: '2 colheres de sopa de psyllium' },
+      { value: '1 colher de sopa de fermento biológico seco' },
+      { value: '1 colher de chá de sal' },
+      { value: '2 colheres de sopa de açúcar demerara' },
+      { value: '1 e 3/4 xícara de água morna' },
+      { value: '1/4 xícara de azeite de oliva' },
+      { value: '1/4 xícara de mix de sementes (girassol, abóbora, gergelim)' }
+    ],
+    instructions: [
+      { value: 'Em uma tigela grande, misture todas as farinhas, o polvilho, o psyllium, o fermento e o sal.' },
+      { value: 'Em outra tigela, dissolva o açúcar na água morna e adicione o azeite.' },
+      { value: 'Despeje os líquidos sobre os secos e misture bem com uma espátula até formar uma massa homogênea e pegajosa.' },
+      { value: 'Incorpore o mix de sementes à massa.' },
+      { value: 'Despeje a massa em uma forma de pão untada e alise a superfície com uma espátula molhada.' },
+      { value: 'Cubra com um pano e deixe crescer em um lugar aquecido por cerca de 40 minutos.' },
+      { value: 'Pré-aqueça o forno a 180°C. Asse o pão por 40-45 minutos, ou até dourar e, ao bater no fundo, soar oco.' },
+      { value: 'Deixe esfriar completamente antes de fatiar.' }
+    ],
+    substitutions: [
+      { value: '**Psyllium:** É essencial para a elasticidade da massa, não recomendo substituir.' },
+      { value: '**Açúcar:** Pode usar melado de cana na mesma quantidade.' }
+    ],
+    chefTip: 'A massa de pão sem glúten é mais úmida e pegajosa que a tradicional. Não adicione mais farinha! Confie no processo que o resultado será um pão macio.'
+  },
+  'torta-liquidificador-sem-gluten': {
+    title: 'Torta de Liquidificador Sem Glúten com Frango e Legumes',
+    author: 'Dona Benta',
+    difficulty: 'Fácil',
+    description: 'Uma torta salgada prática e deliciosa, com uma massa fofinha que não leva glúten. O recheio de frango com legumes é suculento e agrada a toda a família.',
+    prepTime: 20,
+    cookTime: 40,
+    servings: 8,
+    category: 'Sem Glúten',
+    tags: ['Torta', 'Lanche', 'Prato Principal', 'Zero Lactose'],
+    ingredients: [
+      { value: 'Massa:' },
+      { value: '3 ovos' },
+      { value: '1 xícara de leite de coco (ou outra bebida vegetal)' },
+      { value: '1/2 xícara de óleo vegetal' },
+      { value: '1 e 1/2 xícara de mix de farinha sem glúten' },
+      { value: '1/2 xícara de amido de milho' },
+      { value: '1 colher de chá de sal' },
+      { value: '1 colher de sopa de fermento em pó' },
+      { value: 'Recheio:' },
+      { value: '2 xícaras de frango cozido e desfiado (ou jaca verde desfiada)' },
+      { value: '1 cenoura pequena ralada' },
+      { value: '1/2 lata de milho verde' },
+      { value: '1/2 xícara de azeitonas picadas' },
+      { value: 'Cheiro-verde picado a gosto' }
+    ],
+    instructions: [
+      { value: 'Pré-aqueça o forno a 180°C. Unte e enfarinhe um refratário.' },
+      { value: 'No liquidificador, bata os ovos, o leite, o óleo, o sal e as farinhas até obter uma massa lisa.' },
+      { value: 'Adicione o fermento e pulse apenas para misturar.' },
+      { value: 'Em uma tigela, misture todos os ingredientes do recheio.' },
+      { value: 'Despeje metade da massa no refratário, espalhe o recheio por cima e cubra com o restante da massa.' },
+      { value: 'Opcional: pincele com gema ou azeite e salpique orégano.' },
+      { value: 'Asse por cerca de 35-40 minutos, ou até dourar.' }
+    ],
+    substitutions: [
+      { value: '**Frango:** Pode usar atum em lata, sardinha, carne moída refogada ou um recheio de palmito com legumes.' },
+      { value: '**Mix de farinha:** Use uma mistura pronta comprada ou faça a sua com farinha de arroz, polvilho e fécula de batata.' }
+    ],
+    chefTip: 'Não encha demais o refratário, pois a massa cresce bastante. Deixe pelo menos dois dedos de borda livre.'
+  },
+  'bolo-de-banana-sem-gluten': {
+    title: 'Bolo de Banana com Aveia e Canela (Sem Glúten)',
+    author: 'Cantinho Fit',
+    difficulty: 'Fácil',
+    description: 'Um bolo funcional, úmido e muito perfumado. Perfeito para um café da manhã ou lanche da tarde sem culpa. Não leva açúcar refinado.',
+    prepTime: 15,
+    cookTime: 35,
+    servings: 10,
+    category: 'Sem Glúten',
+    tags: ['Bolo', 'Sobremesa', 'Vegano', 'Zero Lactose'],
+    ingredients: [
+      { value: '4 bananas nanicas bem maduras, amassadas' },
+      { value: '2 ovos (ou 2 "ovos" de linhaça)' },
+      { value: '1/2 xícara de óleo de coco' },
+      { value: '1/2 xícara de uvas passas' },
+      { value: '2 xícaras de farinha de aveia sem glúten' },
+      { value: '1 colher de sopa de canela em pó' },
+      { value: '1 colher de sopa de fermento em pó' }
+    ],
+    instructions: [
+      { value: 'Pré-aqueça o forno a 180°C. Unte uma forma de bolo inglês.' },
+      { value: 'Em uma tigela, misture as bananas amassadas, os ovos e o óleo de coco.' },
+      { value: 'Adicione a farinha de aveia, a canela, as uvas passas e misture bem.' },
+      { value: 'Por último, incorpore o fermento em pó delicadamente.' },
+      { value: 'Despeje a massa na forma e, se desejar, decore com rodelas de banana e canela.' },
+      { value: 'Asse por aproximadamente 35 minutos, ou até que esteja firme e dourado.' }
+    ],
+    substitutions: [
+      { value: '**Uvas passas:** Pode substituir por tâmaras picadas, ameixas secas ou gotas de chocolate 70%.' },
+      { value: '**Ovos:** Para a versão vegana, misture 2 colheres de sopa de farinha de linhaça com 6 colheres de sopa de água e deixe descansar por 10 minutos.' }
+    ],
+    chefTip: 'Quanto mais madura a banana, mais doce e úmido ficará o seu bolo, dispensando a necessidade de adicionar açúcar.'
+  },
+  'coxinha-de-jaca-sem-gluten': {
+    title: 'Coxinha de Jaca com Massa de Mandioca (Sem Glúten)',
+    author: 'Salgados do Bem',
+    difficulty: 'Difícil',
+    description: 'A coxinha que todo mundo ama, em uma versão vegana, sem glúten e deliciosa. A massa de mandioca fica super macia e o recheio de jaca é surpreendente.',
+    prepTime: 40,
+    cookTime: 30,
+    servings: 15,
+    category: 'Sem Glúten',
+    tags: ['Salgado', 'Lanche', 'Vegano', 'Zero Lactose'],
+    ingredients: [
+      { value: 'Massa:' },
+      { value: '1kg de mandioca cozida e espremida' },
+      { value: '2 colheres de sopa de azeite' },
+      { value: 'Sal a gosto' },
+      { value: 'Recheio:' },
+      { value: '2 xícaras de jaca verde cozida e desfiada' },
+      { value: '1 cebola picada' },
+      { value: '2 dentes de alho picados' },
+      { value: '1/2 xícara de molho de tomate' },
+      { value: 'Cheiro-verde, sal e pimenta a gosto' },
+      { value: 'Para empanar:' },
+      { value: 'Bebida vegetal e farinha de rosca sem glúten' }
+    ],
+    instructions: [
+      { value: 'Para o recheio, refogue a cebola e o alho, junte a jaca, o molho e os temperos. Cozinhe até secar e reserve.' },
+      { value: 'Para a massa, misture a mandioca espremida com o azeite e o sal, sovando bem.' },
+      { value: 'Abra pequenas porções da massa na palma da mão, coloque o recheio e modele as coxinhas.' },
+      { value: 'Passe cada coxinha na bebida vegetal e depois na farinha de rosca sem glúten.' },
+      { value: 'Asse em forno pré-aquecido a 200°C ou em uma airfryer até dourar, ou frite em óleo quente.' }
+    ],
+    substitutions: [
+      { value: '**Jaca:** Pode ser substituída por palmito, cogumelos ou proteína de soja.' },
+      { value: '**Mandioca:** A massa também pode ser feita com batata-doce ou batata baroa (mandioquinha).' }
+    ],
+    chefTip: 'Cozinhe a mandioca sem sal e esprema ainda quente para obter uma massa mais lisa e fácil de trabalhar.'
+  },
+  'muffin-de-laranja-sem-gluten': {
+    title: 'Muffin de Laranja e Amêndoas (Sem Glúten)',
+    author: 'Doce Vida',
+    difficulty: 'Fácil',
+    description: 'Um muffin fofinho, úmido e com um aroma incrível de laranja. As amêndoas dão uma crocância especial. Perfeito para um lanche rápido e saudável.',
+    prepTime: 15,
+    cookTime: 25,
+    servings: 12,
+    category: 'Sem Glúten',
+    tags: ['Muffin', 'Bolo', 'Sobremesa', 'Zero Lactose'],
+    ingredients: [
+      { value: '1 e 1/2 xícara de farinha de amêndoas' },
+      { value: '1/2 xícara de farinha de arroz' },
+      { value: '1/2 xícara de açúcar demerara' },
+      { value: '1 colher de sopa de fermento em pó' },
+      { value: 'Raspas da casca de 2 laranjas' },
+      { value: '2 ovos' },
+      { value: '1/2 xícara de suco de laranja natural' },
+      { value: '1/4 xícara de óleo de coco' },
+      { value: 'Amêndoas em lascas para decorar' }
+    ],
+    instructions: [
+      { value: 'Pré-aqueça o forno a 180°C e prepare forminhas de muffin.' },
+      { value: 'Em uma tigela, misture as farinhas, o açúcar, o fermento e as raspas de laranja.' },
+      { value: "Em outra tigela, bata os ovos, o suco de laranja e o óleo de coco." },
+      { value: 'Despeje os líquidos sobre os secos e misture apenas o suficiente para incorporar.' },
+      { value: 'Distribua a massa nas forminhas, preenchendo até 2/3 da capacidade.' },
+      { value: 'Decore com lascas de amêndoas e asse por 20-25 minutos.' }
+    ],
+    substitutions: [
+      { value: '**Farinha de Amêndoas:** Pode usar farinha de aveia sem glúten, mas a textura ficará menos delicada.' },
+      { value: '**Ovos:** Substitua por "ovos" de linhaça para uma versão vegana.' }
+    ],
+    chefTip: 'Use laranjas frescas e de casca brilhante para obter mais suco e raspas mais aromáticas.'
+  },
+  'sopa-detox-de-couve-e-inhame': {
+    title: 'Sopa Detox de Couve e Inhame',
+    author: 'Mundo Verde',
+    difficulty: 'Fácil',
+    description: 'Uma sopa cremosa, nutritiva e com propriedades detox. O inhame confere cremosidade sem precisar de laticínios, e a couve é rica em nutrientes.',
+    prepTime: 10,
+    cookTime: 25,
+    servings: 4,
+    category: 'Sem Glúten',
+    tags: ['Sopa', 'Vegano', 'Zero Lactose', 'Low Carb'],
+    ingredients: [
+      { value: '2 colheres de sopa de azeite' },
+      { value: '1 cebola picada' },
+      { value: '2 dentes de alho picados' },
+      { value: '500g de inhame descascado e em cubos' },
+      { value: '1 maço de couve manteiga rasgada (sem os talos)' },
+      { value: '1 litro de caldo de legumes caseiro' },
+      { value: 'Sal e pimenta do reino a gosto' },
+      { value: 'Gengibre fresco ralado a gosto (opcional)' }
+    ],
+    instructions: [
+      { value: 'Em uma panela grande, aqueça o azeite e refogue a cebola e o alho.' },
+      { value: 'Adicione o inhame em cubos e o caldo de legumes. Cozinhe até o inhame ficar bem macio.' },
+      { value: 'Junte as folhas de couve e o gengibre (se usar) e cozinhe por mais 3 minutos.' },
+      { value: 'Bata a sopa no liquidificador ou com um mixer de mão até ficar bem cremosa.' },
+      { value: 'Volte para a panela, ajuste o sal e a pimenta e aqueça bem antes de servir.' }
+    ],
+    substitutions: [
+      { value: '**Inhame:** Pode ser substituído por batata-doce ou abóbora.' },
+      { value: '**Couve:** Espinafre ou outra folha verde escura também funcionam bem.' }
+    ],
+    chefTip: 'Para uma sopa ainda mais nutritiva, adicione uma colher de sopa de sementes de chia ou linhaça ao bater no liquidificador.'
+  },
+  'wrap-de-couve-com-frango': {
+    title: 'Wrap de Couve com Pasta de Frango',
+    author: 'Foco na Dieta',
+    difficulty: 'Fácil',
+    description: 'Uma alternativa low-carb e sem glúten ao pão tradicional. A folha de couve grande e firme serve como um wrap delicioso para um recheio de frango cremoso.',
+    prepTime: 15,
+    cookTime: 5,
+    servings: 2,
+    category: 'Sem Glúten',
+    tags: ['Lanche', 'Low Carb', 'Zero Lactose'],
+    ingredients: [
+      { value: '4 folhas grandes de couve manteiga' },
+      { value: '1 xícara de frango cozido e desfiado' },
+      { value: '2 colheres de sopa de maionese de abacate (ver receita no site)' },
+      { value: '1/2 cenoura pequena ralada' },
+      { value: '2 colheres de sopa de cebola roxa picada' },
+      { value: 'Sal, pimenta e salsinha picada a gosto' }
+    ],
+    instructions: [
+      { value: 'Lave as folhas de couve e, com uma faca, retire o excesso do talo grosso na parte de trás para que a folha fique mais maleável.' },
+      { value: 'Mergulhe as folhas em água fervente por 30 segundos e depois em água gelada para parar o cozimento. Seque bem.' },
+      { value: 'Em uma tigela, misture o frango desfiado com a maionese de abacate, cenoura, cebola e temperos.' },
+      { value: 'Coloque uma porção do recheio no centro de cada folha de couve.' },
+      { value: 'Dobre as laterais para dentro e enrole como um wrap ou rolinho primavera.' },
+      { value: 'Corte ao meio e sirva.' }
+    ],
+    substitutions: [
+      { value: '**Frango:** Atum, grão-de-bico amassado ou pasta de tofu são ótimas opções veganas.' },
+      { value: '**Couve:** Folhas de acelga ou alface romana grande também podem ser usadas.' }
+    ],
+    chefTip: 'Não cozinhe demais a folha de couve, o objetivo é apenas amaciá-la para que não quebre ao enrolar.'
+  },
+  'crepioca-sem-lactose': {
+    title: 'Crepioca Simples (Sem Glúten e Sem Lactose)',
+    author: 'Academia em Casa',
+    difficulty: 'Muito Fácil',
+    description: 'A queridinha do mundo fitness! Uma receita versátil, rica em proteína e sem glúten, que pode ser consumida no café da manhã, almoço ou jantar, com recheios doces ou salgados.',
+    prepTime: 5,
+    cookTime: 5,
+    servings: 1,
+    category: 'Sem Glúten',
+    tags: ['Lanche', 'Básico', 'Café da Manhã', 'Zero Lactose'],
+    ingredients: [
+      { value: '1 ovo' },
+      { value: '2 colheres de sopa de goma de tapioca hidratada' },
+      { value: '1 colher de sopa de água (ou bebida vegetal)' },
+      { value: "Pitada de sal (para salgada) ou canela (para doce)" }
+    ],
+    instructions: [
+      { value: 'Em uma tigela pequena, bata o ovo com um garfo ou fouet.' },
+      { value: 'Adicione a goma de tapioca, a água e o tempero (sal ou canela) e misture bem até ficar homogêneo.' },
+      { value: 'Aqueça uma frigideira antiaderente em fogo médio.' },
+      { value: 'Despeje a mistura na frigideira e espalhe para formar um disco fino.' },
+      { value: 'Cozinhe por cerca de 2 minutos, ou até as bordas começarem a se soltar.' },
+      { value: 'Vire com uma espátula e cozinhe por mais 1 minuto.' },
+      { value: 'Adicione o recheio de sua preferência, dobre e sirva.' }
+    ],
+    substitutions: [
+      { value: '**Ovo:** Para uma versão vegana, use 2 colheres de sopa de farinha de grão-de-bico com 4 colheres de sopa de água.' },
+      { value: '**Goma de Tapioca:** O polvilho doce também funciona, mas a textura fica um pouco diferente.' }
+    ],
+    chefTip: 'Para uma crepioca mais fofinha, adicione uma colher de café de fermento em pó à massa.'
+  },
+  'dadinho-de-tapioca-vegano': {
+    title: 'Dadinho de Tapioca Assado (Vegano)',
+    author: 'Boteco em Casa',
+    difficulty: 'Médio',
+    description: 'Um petisco irresistível, crocante por fora e cremoso por dentro. Esta versão não leva queijo e é assada, sendo mais leve e saudável que a original.',
+    prepTime: 15,
+    cookTime: 30,
+    servings: 20,
+    category: 'Sem Glúten',
+    tags: ['Aperitivo', 'Lanche', 'Vegano', 'Zero Lactose'],
+    ingredients: [
+      { value: '500ml de leite de coco (ou outra bebida vegetal)' },
+      { value: '250g de tapioca granulada (não é a goma!)' },
+      { value: '1/2 xícara de levedura nutricional' },
+      { value: '1 colher de chá de sal' },
+      { value: 'Pimenta do reino moída na hora' },
+      { value: 'Geleia de pimenta para servir' }
+    ],
+    instructions: [
+      { value: 'Aqueça o leite de coco em uma panela até quase ferver.' },
+      { value: 'Em uma tigela, misture a tapioca granulada, a levedura nutricional, o sal e a pimenta.' },
+      { value: 'Despeje o leite quente sobre a mistura de tapioca, mexendo vigorosamente com um fouet para não empelotar.' },
+      { value: 'Continue mexendo por cerca de 2 minutos, a mistura vai engrossar rapidamente.' },
+      { value: 'Transfira a massa para um refratário pequeno forrado com plástico filme, pressionando bem para formar uma camada uniforme de cerca de 2cm de altura.' },
+      { value: 'Leve à geladeira por pelo menos 2 horas, ou até firmar completamente.' },
+      { value: 'Corte a massa em cubos (dadinhos) e distribua em uma assadeira untada ou na airfryer.' },
+      { value: 'Asse em forno pré-aquecido a 200°C por 20-30 minutos, virando na metade do tempo, até dourar.' },
+      { value: 'Sirva com geleia de pimenta.' }
+    ],
+    substitutions: [
+      { value: '**Levedura Nutricional:** Essencial para o sabor de "queijo". Se não tiver, pode usar temperos como alho em pó e páprica.' },
+      { value: '**Leite de Coco:** Bebida de castanha de caju também confere ótima cremosidade.' }
+    ],
+    chefTip: 'Não confunda tapioca granulada com a goma de tapioca usada para fazer beiju. São produtos diferentes e a receita só funciona com a granulada.'
+  },
+  'bolo-de-chocolate-low-carb-sem-gluten': {
+    title: 'Bolo de Chocolate Low Carb (Sem Glúten)',
+    author: 'Chef Fit',
+    difficulty: 'Fácil',
+    description: 'Um bolo de chocolate intenso, úmido e delicioso, feito com farinha de amêndoas. É low-carb, sem glúten e pode ser feito sem lactose.',
+    prepTime: 15,
+    cookTime: 30,
+    servings: 8,
+    category: 'Sem Glúten',
+    tags: ['Bolo', 'Sobremesa', 'Low Carb', 'Zero Lactose'],
+    ingredients: [
+      { value: '4 ovos' },
+      { value: '1/2 xícara de adoçante culinário (xilitol, eritritol)' },
+      { value: '1/2 xícara de cacau em pó 100%' },
+      { value: '1 xícara de farinha de amêndoas' },
+      { value: '1/2 xícara de leite de coco' },
+      { value: '1/4 xícara de óleo de coco' },
+      { value: '1 colher de sopa de fermento em pó' }
+    ],
+    instructions: [
+      { value: 'Pré-aqueça o forno a 180°C. Unte uma forma pequena.' },
+      { value: 'No liquidificador, bata os ovos, o adoçante, o cacau, o leite de coco e o óleo de coco.' },
+      { value: 'Transfira a mistura para uma tigela e incorpore a farinha de amêndoas.' },
+      { value: 'Adicione o fermento e misture delicadamente.' },
+      { value: 'Despeje na forma e asse por cerca de 25-30 minutos.' }
+    ],
+    substitutions: [
+      { value: '**Ovos:** Esta receita depende da estrutura dos ovos, a substituição pode alterar muito o resultado.' },
+      { value: '**Adoçante:** Pode usar açúcar de coco se não se importar com o aumento de carboidratos.' }
+    ],
+    chefTip: 'Não asse demais para que o bolo não perca a umidade. O centro deve estar ligeiramente úmido ao espetar o palito.'
+  },
+  'panqueca-de-espinafre-sem-gluten': {
+    title: 'Panqueca Verde de Espinafre (Sem Glúten)',
+    author: 'Mamãe Sarada',
+    difficulty: 'Fácil',
+    description: 'Uma forma divertida e nutritiva de comer mais vegetais! A massa fica verdinha e pode ser recheada com frango, carne moída ou um refogado de legumes.',
+    prepTime: 10,
+    cookTime: 15,
+    servings: 4,
+    category: 'Sem Glúten',
+    tags: ['Panqueca', 'Lanche', 'Prato Principal', 'Zero Lactose'],
+    ingredients: [
+      { value: '1 xícara de folhas de espinafre fresco' },
+      { value: '2 ovos' },
+      { value: '1/2 xícara de goma de tapioca' },
+      { value: '1/2 xícara de água ou bebida vegetal' },
+      { value: '1 colher de sopa de azeite' },
+      { value: 'Sal e pimenta a gosto' }
+    ],
+    instructions: [
+      { value: 'Bata todos os ingredientes no liquidificador até obter uma massa lisa e verde.' },
+      { value: 'Aqueça uma frigideira antiaderente em fogo médio.' },
+      { value: 'Despeje uma concha da massa e espalhe para formar um disco.' },
+      { value: 'Cozinhe por cerca de 2 minutos de cada lado.' },
+      { value: 'Repita com o restante da massa e sirva com o recheio de sua preferência.' }
+    ],
+    substitutions: [
+      { value: '**Espinafre:** Pode usar couve ou outra folha verde escura.' },
+      { value: '**Goma de Tapioca:** Use 1/4 de xícara de polvilho doce e 1/4 de xícara de farinha de arroz.' }
+    ],
+    chefTip: 'Se a massa ficar muito grossa, adicione um pouco mais de água ou bebida vegetal até atingir a consistência desejada.'
+  },
+  'risoto-de-cogumelos-sem-lactose': {
+    title: 'Risoto de Cogumelos (Sem Glúten e Sem Lactose)',
+    author: 'Chef Italiano',
+    difficulty: 'Médio',
+    description: 'Um risoto cremoso e sofisticado, onde os cogumelos são a estrela. O segredo da cremosidade está no cozimento lento e na finalização com azeite.',
+    prepTime: 15,
+    cookTime: 30,
+    servings: 4,
+    category: 'Sem Glúten',
+    tags: ['Prato Principal', 'Vegano', 'Zero Lactose'],
+    ingredients: [
+      { value: '30g de cogumelo funghi seco' },
+      { value: '1 litro de caldo de legumes quente' },
+      { value: '2 colheres de sopa de azeite' },
+      { value: '1 cebola picada' },
+      { value: '200g de cogumelos frescos (paris, portobello) fatiados' },
+      { value: '1 e 1/2 xícara de arroz arbóreo' },
+      { value: '1/2 xícara de vinho branco seco' },
+      { value: 'Sal, pimenta e salsinha picada' },
+      { value: 'Azeite extra virgem para finalizar' }
+    ],
+    instructions: [
+      { value: 'Hidrate o funghi seco em um pouco do caldo de legumes quente por 20 minutos. Pique e reserve o líquido.' },
+      { value: 'Em uma panela, aqueça o azeite e refogue a cebola. Adicione os cogumelos frescos e o funghi picado e cozinhe até dourarem.' },
+      { value: 'Acrescente o arroz e frite por 1 minuto. Adicione o vinho e mexa até evaporar.' },
+      { value: 'Adicione o líquido do funghi (coado) e uma concha do caldo. Mexa até absorver.' },
+      { value: 'Continue adicionando o caldo, concha a concha, mexendo sempre, até o arroz ficar al dente.' },
+      { value: 'Desligue o fogo, tempere com sal e pimenta, junte a salsinha e finalize com um generoso fio de azeite extra virgem.' }
+    ],
+    substitutions: [
+      { value: '**Funghi Seco:** Se não tiver, use uma maior variedade de cogumelos frescos.' },
+      { value: '**Arroz Arbóreo:** Arroz carnaroli é o substituto ideal.' }
+    ],
+    chefTip: 'Mexer o risoto constantemente é o que libera o amido do arroz, criando a cremosidade característica do prato sem precisar de manteiga ou queijo.'
+  },
+  'biscoito-amanteigado-sem-gluten': {
+    title: 'Biscoito Amanteigado (Sem Glúten e Vegano)',
+    author: 'Confeitaria Inclusiva',
+    difficulty: 'Fácil',
+    description: 'Um biscoitinho que derrete na boca, perfeito para acompanhar um café. A combinação de farinhas e a margarina vegetal garantem a textura perfeita.',
+    prepTime: 15,
+    cookTime: 15,
+    servings: 20,
+    category: 'Sem Glúten',
+    tags: ['Biscoito', 'Sobremesa', 'Vegano', 'Zero Lactose'],
+    ingredients: [
+      { value: '1 xícara de mix de farinha sem glúten' },
+      { value: '1/2 xícara de amido de milho' },
+      { value: '1/2 xícara de açúcar de confeiteiro' },
+      { value: '1/2 xícara de margarina vegetal gelada, em cubos' },
+      { value: '1 colher de chá de extrato de baunilha' },
+      { value: 'Raspas de limão (opcional)' }
+    ],
+    instructions: [
+      { value: 'Pré-aqueça o forno a 170°C.' },
+      { value: 'Em uma tigela, misture as farinhas e o açúcar.' },
+      { value: 'Adicione a margarina e, com a ponta dos dedos, misture até formar uma farofa úmida.' },
+      { value: 'Adicione a baunilha e as raspas de limão e amasse levemente até a massa unir.' },
+      { value: 'Faça bolinhas e amasse levemente com um garfo em uma assadeira forrada com papel manteiga.' },
+      { value: 'Asse por cerca de 12-15 minutos, sem deixar dourar muito.' },
+      { value: 'Deixe esfriar completamente na assadeira antes de manusear.' }
+    ],
+    substitutions: [
+      { value: '**Margarina Vegetal:** Óleo de coco gelado também funciona, mas a textura pode mudar.' },
+      { value: '**Açúcar de Confeiteiro:** Essencial para a textura leve. Não substitua por açúcar cristal.' }
+    ],
+    chefTip: 'Não sove a massa em excesso para não desenvolver elasticidade. O segredo é misturar apenas até os ingredientes se unirem.'
+  },
+  'moqueca-de-palmito-pupunha': {
+    title: 'Moqueca de Palmito Pupunha',
+    author: 'Cozinha Caiçara',
+    difficulty: 'Médio',
+    description: 'Uma moqueca leve e saborosa, onde o palmito pupunha fresco substitui o peixe. Os sabores do dendê, pimentões e leite de coco continuam sendo as estrelas.',
+    prepTime: 20,
+    cookTime: 25,
+    servings: 4,
+    category: 'Sem Glúten',
+    tags: ['Prato Principal', 'Vegano', 'Zero Lactose'],
+    ingredients: [
+      { value: '500g de palmito pupunha fresco em rodelas' },
+      { value: '1 cebola grande picada' },
+      { value: '1 pimentão vermelho em rodelas' },
+      { value: '1 pimentão amarelo em rodelas' },
+      { value: '3 tomates em rodelas' },
+      { value: '3 dentes de alho picados' },
+      { value: '400ml de leite de coco' },
+      { value: '2 colheres de sopa de azeite de dendê' },
+      { value: 'Coentro e cebolinha a gosto' },
+      { value: 'Sal e pimenta a gosto' }
+    ],
+    instructions: [
+      { value: 'Em uma panela de barro, faça camadas: azeite, cebola, tomate, pimentões e palmito. Repita as camadas.' },
+      { value: 'Tempere com alho, sal e pimenta.' },
+      { value: 'Regue com metade do leite de coco, tampe a panela e cozinhe em fogo médio por 15 minutos.' },
+      { value: 'Adicione o restante do leite de coco e o azeite de dendê.' },
+      { value: 'Cozinhe por mais 10 minutos.' },
+      { value: 'Finalize com coentro e cebolinha e sirva com arroz e farofa.' }
+    ],
+    substitutions: [
+      { value: '**Palmito Pupunha:** Se usar palmito em conserva, adicione apenas no final do cozimento.' },
+      { value: '**Azeite de Dendê:** Indispensável para o sabor característico, mas pode ser omitido se preferir.' }
+    ],
+    chefTip: 'Montar a moqueca em camadas ajuda a cozinhar os ingredientes de forma uniforme e a concentrar os sabores.'
+  },
+  'salada-de-grao-de-bico-com-tahine': {
+    title: 'Salada de Grão-de-Bico com Molho de Tahine',
+    author: 'Sabores do Oriente',
+    difficulty: 'Fácil',
+    description: 'Uma salada completa, nutritiva e cheia de sabor. O molho cremoso de tahine envolve o grão-de-bico e os vegetais frescos, criando uma refeição perfeita.',
+    prepTime: 15,
+    cookTime: 0,
+    servings: 4,
+    category: 'Sem Glúten',
+    tags: ['Salada', 'Prato Principal', 'Vegano', 'Zero Lactose'],
+    ingredients: [
+      { value: '2 xícaras de grão-de-bico cozido' },
+      { value: '1 pepino japonês em cubos' },
+      { value: '1 tomate em cubos, sem sementes' },
+      { value: '1/2 cebola roxa picada' },
+      { value: 'Salsinha e hortelã frescas picadas a gosto' },
+      { value: 'Molho:' },
+      { value: '1/4 xícara de tahine' },
+      { value: 'Suco de 1 limão' },
+      { value: '2 colheres de sopa de azeite' },
+      { value: '2-3 colheres de sopa de água' },
+      { value: 'Sal e cominho a gosto' }
+    ],
+    instructions: [
+      { value: 'Em uma tigela grande, misture o grão-de-bico, o pepino, o tomate, a cebola roxa e as ervas.' },
+      { value: 'Para o molho, em uma tigela pequena, misture o tahine, o suco de limão e o azeite.' },
+      { value: 'Adicione a água aos poucos, mexendo sempre, até atingir a consistência de um molho cremoso.' },
+      { value: 'Tempere o molho com sal e cominho.' },
+      { value: 'Regue a salada com o molho e misture bem. Sirva fria.' }
+    ],
+    substitutions: [
+      { value: '**Grão-de-Bico:** Lentilha cozida ou feijão fradinho também funcionam.' },
+      { value: '**Vegetais:** Adicione pimentão, azeitonas ou rabanete para mais crocância.' }
+    ],
+    chefTip: 'Deixe a cebola roxa de molho em água gelada por 10 minutos para suavizar seu sabor ardido.'
+  },
+  'bolo-de-mandioca-cremoso-sem-gluten': {
+    title: 'Bolo de Mandioca Cremoso (Aipim/Macaxeira)',
+    author: 'Tesouros da Terra',
+    difficulty: 'Fácil',
+    description: 'Também conhecido como bolo "mané pelado", esta delícia sem glúten tem uma textura incrivelmente cremosa e úmida, quase como um pudim. Imperdível!',
+    prepTime: 20,
+    cookTime: 50,
+    servings: 12,
+    category: 'Sem Glúten',
+    tags: ['Bolo', 'Sobremesa', 'Zero Lactose'],
+    ingredients: [
+      { value: '1kg de mandioca crua, descascada e ralada' },
+      { value: '3 ovos' },
+      { value: '2 xícaras de açúcar' },
+      { value: '400ml de leite de coco' },
+      { value: '100g de coco ralado' },
+      { value: '3 colheres de sopa de margarina vegetal derretida' },
+      { value: '1 colher de sopa de fermento em pó' }
+    ],
+    instructions: [
+      { value: 'Pré-aqueça o forno a 180°C. Unte e enfarinhe uma assadeira.' },
+      { value: 'Esprema bem a mandioca ralada em um pano de prato para retirar o excesso de líquido.' },
+      { value: 'Em uma tigela grande, misture a mandioca espremida com todos os outros ingredientes, exceto o fermento.' },
+      { value: 'Incorpore o fermento por último.' },
+      { value: 'Despeje a massa na assadeira e asse por cerca de 45-50 minutos, ou até que a superfície esteja bem dourada e firme.' },
+      { value: 'Espere esfriar completamente para cortar.' }
+    ],
+    substitutions: [
+      { value: '**Ovos:** Para uma versão vegana, a substituição é difícil, pois eles ajudam na estrutura. Pode-se tentar usar 3 "ovos" de linhaça.' },
+      { value: '**Açúcar:** Açúcar demerara pode ser usado.' }
+    ],
+    chefTip: 'Rale a mandioca no ralo fino para um bolo mais delicado, ou no ralo grosso se preferir sentir os pedacinhos.'
+  },
+  'feijoada-vegana-sem-gluten': {
+    title: 'Feijoada Vegana (Sem Glúten)',
+    author: 'Brasil Vegano',
+    difficulty: 'Médio',
+    description: 'Uma versão robusta e cheia de sabor da nossa amada feijoada, sem nenhum produto de origem animal. Legumes defumados e cogumelos dão o tom.',
+    prepTime: 30,
+    cookTime: 60,
+    servings: 8,
+    category: 'Sem Glúten',
+    tags: ['Prato Principal', 'Vegano', 'Zero Lactose'],
+    ingredients: [
+      { value: '500g de feijão preto, demolhado' },
+      { value: '2 folhas de louro' },
+      { value: '2 colheres de sopa de azeite' },
+      { value: '1 cebola grande picada' },
+      { value: '4 dentes de alho picados' },
+      { value: '1 cenoura em cubos' },
+      { value: '1 talo de salsão em cubos' },
+      { value: '200g de cogumelos portobello em pedaços grandes' },
+      { value: '1 pimenta dedo-de-moça (opcional)' },
+      { value: '2 colheres de chá de páprica defumada' },
+      { value: 'Sal e cheiro-verde a gosto' }
+    ],
+    instructions: [
+      { value: 'Cozinhe o feijão na pressão com as folhas de louro até ficar macio.' },
+      { value: 'Enquanto isso, em uma panela grande, aqueça o azeite e refogue a cebola, o alho, a cenoura e o salsão.' },
+      { value: 'Adicione os cogumelos e a pimenta e cozinhe até dourarem.' },
+      { value: 'Tempere com a páprica defumada e sal.' },
+      { value: 'Junte o feijão cozido (com o caldo) ao refogado de legumes.' },
+      { value: 'Cozinhe em fogo baixo por cerca de 20 minutos para apurar os sabores e engrossar o caldo.' },
+      { value: 'Finalize com cheiro-verde e sirva com arroz, couve refogada e farofa.' }
+    ],
+    substitutions: [
+      { value: '**Cogumelos:** Tofu defumado em cubos ou berinjela também ficam ótimos.' },
+      { value: '**Legumes:** Abóbora, batata-doce e pimentão são boas adições.' }
+    ],
+    chefTip: 'A páprica defumada é o segredo para trazer o gostinho de "embutido" para a feijoada vegana. Não economize!'
+  },
+  'sufle-de-legumes-sem-gluten': {
+    title: 'Suflê de Legumes (Sem Glúten e Sem Lactose)',
+    author: 'Cozinha Leve',
+    difficulty: 'Médio',
+    description: 'Um suflê leve, aerado e delicioso, que usa um molho branco à base de couve-flor para substituir o tradicional molho bechamel.',
+    prepTime: 20,
+    cookTime: 30,
+    servings: 4,
+    category: 'Sem Glúten',
+    tags: ['Prato Principal', 'Vegano', 'Zero Lactose'],
+    ingredients: [
+      { value: '1 cabeça de couve-flor pequena, cozida' },
+      { value: '1/2 xícara de bebida vegetal' },
+      { value: '2 colheres de sopa de levedura nutricional' },
+      { value: 'Noz-moscada, sal e pimenta' },
+      { value: '3 ovos, claras e gemas separadas (ou substituto vegano)' },
+      { value: '1 xícara de legumes cozidos picados (brócolis, cenoura, ervilha)' }
+    ],
+    instructions: [
+      { value: 'Pré-aqueça o forno a 180°C. Unte ramequins individuais.' },
+      { value: 'No liquidificador, bata a couve-flor cozida, a bebida vegetal, a levedura e os temperos até formar um creme liso.' },
+      { value: 'Transfira para uma tigela e misture as gemas e os legumes picados.' },
+      { value: 'Bata as claras em neve bem firme.' },
+      { value: 'Incorpore 1/3 das claras à mistura de legumes para amaciá-la. Depois, incorpore o restante delicadamente.' },
+      { value: 'Distribua a massa nos ramequins e asse por 25-30 minutos, ou até crescer e dourar.' },
+      { value: 'Sirva imediatamente.' }
+    ],
+    substitutions: [
+      { value: '**Ovos:** Para a versão vegana, use 3 colheres de sopa de aquafaba (água do cozimento do grão-de-bico) batida em neve para cada clara, e farinha de grão-de-bico para substituir as gemas.' },
+      { value: '**Legumes:** Use os legumes de sua preferência.' }
+    ],
+    chefTip: 'O segredo do suflê é a leveza das claras em neve e a incorporação delicada. Sirva assim que sair do forno, pois ele murcha rapidamente.'
+  },
+  'cookie-de-amendoim-sem-gluten': {
+    title: 'Cookie de Pasta de Amendoim (3 Ingredientes)',
+    author: 'Praticidade na Cozinha',
+    difficulty: 'Muito Fácil',
+    description: 'O cookie mais fácil do mundo! Com apenas 3 ingredientes, você faz um lanche delicioso, sem glúten e rico em proteína.',
+    prepTime: 5,
+    cookTime: 12,
+    servings: 10,
+    category: 'Sem Glúten',
+    tags: ['Biscoito', 'Sobremesa', 'Lanche', 'Zero Lactose'],
+    ingredients: [
+      { value: '1 xícara de pasta de amendoim integral' },
+      { value: '1/2 xícara de açúcar de coco (ou demerara)' },
+      { value: '1 ovo (ou 1 "ovo" de linhaça)' }
+    ],
+    instructions: [
+      { value: 'Pré-aqueça o forno a 180°C.' },
+      { value: 'Em uma tigela, misture todos os três ingredientes até formar uma massa homogênea.' },
+      { value: 'Faça bolinhas com a massa e coloque em uma assadeira forrada.' },
+      { value: 'Com um garfo, pressione levemente cada bolinha para achatá-las e criar um padrão quadriculado.' },
+      { value: 'Asse por 10-12 minutos.' },
+      { value: 'Deixe esfriar na assadeira antes de manusear, pois saem do forno moles.' }
+    ],
+    substitutions: [
+      { value: '**Pasta de Amendoim:** Pasta de amêndoas ou de castanha de caju também funcionam.' },
+      { value: '**Ovo:** A versão vegana com "ovo" de linhaça fica igualmente deliciosa.' }
+    ],
+    chefTip: 'Para um toque especial, adicione gotas de chocolate 70% ou amendoins torrados picados à massa.'
+  },
+  'arroz-de-couve-flor': {
+    title: 'Arroz de Couve-Flor',
+    author: 'Low Carb Já',
+    difficulty: 'Fácil',
+    description: 'Uma alternativa fantástica e low-carb ao arroz tradicional. Fica soltinho, saboroso e combina com tudo!',
+    prepTime: 10,
+    cookTime: 10,
+    servings: 4,
+    category: 'Sem Glúten',
+    tags: ['Acompanhamento', 'Low Carb', 'Vegano', 'Zero Lactose'],
+    ingredients: [
+      { value: '1 cabeça de couve-flor grande' },
+      { value: '2 colheres de sopa de azeite' },
+      { value: '1/2 cebola picada' },
+      { value: '2 dentes de alho picados' },
+      { value: 'Sal e pimenta a gosto' },
+      { value: 'Cheiro-verde picado para finalizar' }
+    ],
+    instructions: [
+      { value: 'Lave a couve-flor e processe no modo pulsar até ficar com a textura de grãos de arroz. Não processe demais para não virar um purê.' },
+      { value: 'Em uma frigideira grande, aqueça o azeite e refogue a cebola e o alho.' },
+      { value: 'Adicione a couve-flor processada e refogue em fogo médio-alto por cerca de 5-7 minutos, mexendo sempre, até ficar macia mas ainda crocante.' },
+      { value: 'Tempere com sal e pimenta e finalize com o cheiro-verde.' }
+    ],
+    substitutions: [
+      { value: '**Couve-flor:** Brócolis também pode ser usado da mesma forma.' },
+      { value: '**Tempero:** Adicione cenoura ralada, ervilhas ou milho para um "arroz à grega" low-carb.' }
+    ],
+    chefTip: 'O segredo para um arroz de couve-flor soltinho é não tampar a panela durante o cozimento, para que a água evapore e ele não fique empapado.'
+  },
+  'muffin-de-brocolis-sem-gluten': {
+    title: 'Muffin Salgado de Brócolis (Sem Glúten)',
+    author: 'Lancheira Feliz',
+    difficulty: 'Fácil',
+    description: 'Um lanche salgado, nutritivo e perfeito para levar na bolsa ou para a lancheira das crianças. Fofinho e saboroso.',
+    prepTime: 15,
+    cookTime: 25,
+    servings: 12,
+    category: 'Sem Glúten',
+    tags: ['Muffin', 'Lanche', 'Salgado', 'Zero Lactose'],
+    ingredients: [
+      { value: '1 xícara de brócolis cozido e picado' },
+      { value: '3 ovos' },
+      { value: '1/4 xícara de azeite' },
+      { value: '1/2 xícara de polvilho doce' },
+      { value: '1/2 xícara de farinha de aveia sem glúten' },
+      { value: '1/4 xícara de levedura nutricional (opcional)' },
+      { value: '1 colher de chá de fermento em pó' },
+      { value: 'Sal e pimenta a gosto' }
+    ],
+    instructions: [
+      { value: 'Pré-aqueça o forno a 180°C e prepare forminhas de muffin.' },
+      { value: 'Em uma tigela, bata os ovos com o azeite.' },
+      { value: 'Adicione os ingredientes secos (farinhas, levedura, sal, pimenta) e misture bem.' },
+      { value: 'Incorpore o brócolis picado e o fermento.' },
+      { value: 'Distribua a massa nas forminhas e asse por 20-25 minutos.' }
+    ],
+    substitutions: [
+      { value: '**Brócolis:** Pode usar couve-flor, cenoura ralada ou espinafre refogado.' },
+      { value: '**Levedura Nutricional:** Ajuda a dar um sabor de queijo, mas é opcional.' }
+    ],
+    chefTip: 'Cozinhe o brócolis no vapor para que ele não absorva muita água, o que poderia deixar os muffins úmidos demais.'
+  },
+  'barrinha-de-cereal-caseira-sem-gluten': {
+    title: 'Barrinha de Cereal Caseira (Sem Glúten)',
+    author: 'Energia Pura',
+    difficulty: 'Fácil',
+    description: 'Uma barrinha de cereal caseira, sem conservantes, sem glúten e muito mais gostosa e barata que as industrializadas.',
+    prepTime: 10,
+    cookTime: 20,
+    servings: 10,
+    category: 'Sem Glúten',
+    tags: ['Snack', 'Lanche', 'Vegano', 'Zero Lactose'],
+    ingredients: [
+      { value: '1 xícara de aveia em flocos sem glúten' },
+      { value: '1/2 xícara de sementes de girassol' },
+      { value: '1/2 xícara de castanhas picadas (caju, amêndoas)' },
+      { value: '1/4 xícara de sementes de chia' },
+      { value: '1/2 xícara de pasta de amendoim' },
+      { value: '1/2 xícara de melado de cana (ou maple syrup)' },
+      { value: 'Frutas secas picadas a gosto (damasco, uva passa)' }
+    ],
+    instructions: [
+      { value: 'Pré-aqueça o forno a 160°C. Forre uma assadeira pequena com papel manteiga.' },
+      { value: 'Em uma tigela, misture todos os ingredientes secos: aveia, sementes, castanhas e frutas.' },
+      { value: 'Em uma panela pequena, aqueça a pasta de amendoim e o melado até ficarem mais fluidos.' },
+      { value: 'Despeje a mistura líquida sobre os ingredientes secos e misture bem até tudo ficar coberto.' },
+      { value: 'Pressione a mistura firmemente na assadeira, formando uma camada uniforme.' },
+      { value: 'Asse por cerca de 20 minutos, ou até as bordas começarem a dourar.' },
+      { value: 'Deixe esfriar completamente na forma antes de cortar em barrinhas.' }
+    ],
+    substitutions: [
+      { value: '**Pasta de Amendoim:** Pasta de amêndoas ou tahine podem ser usados.' },
+      { value: '**Melado:** Agave ou néctar de coco são boas opções.' }
+    ],
+    chefTip: 'Pressionar bem a mistura na assadeira antes de assar é o segredo para que as barrinhas não esfarelem depois de prontas.'
+  },
+  'sopa-de-ervilha-sem-gluten': {
+    title: 'Sopa Creme de Ervilha com Hortelã',
+    author: 'Clássicos da Vovó',
+    difficulty: 'Fácil',
+    description: 'Uma sopa clássica, reconfortante e cheia de sabor. A hortelã dá um toque de frescor surpreendente que combina perfeitamente com a ervilha.',
+    prepTime: 10,
+    cookTime: 30,
+    servings: 6,
+    category: 'Sem Glúten',
+    tags: ['Sopa', 'Vegano', 'Zero Lactose'],
+    ingredients: [
+      { value: '500g de ervilha seca partida, demolhada' },
+      { value: '2 colheres de sopa de azeite' },
+      { value: '1 cebola picada' },
+      { value: '2 dentes de alho picados' },
+      { value: '1 cenoura em cubos' },
+      { value: '1,5 litro de caldo de legumes' },
+      { value: 'Folhas de hortelã fresca a gosto' },
+      { value: 'Sal e pimenta do reino' }
+    ],
+    instructions: [
+      { value: 'Em uma panela de pressão, aqueça o azeite e refogue a cebola e o alho.' },
+      { value: 'Adicione a cenoura e a ervilha escorrida. Refogue por mais alguns minutos.' },
+      { value: 'Cubra com o caldo de legumes, tampe a panela e cozinhe por 15 minutos após pegar pressão.' },
+      { value: 'Espere a pressão sair, abra a panela e bata a sopa com um mixer ou no liquidificador.' },
+      { value: 'Volte para a panela, adicione as folhas de hortelã, tempere com sal e pimenta e aqueça bem.' }
+    ],
+    substitutions: [
+      { value: '**Ervilha seca:** Pode ser feita com ervilha congelada, mas o tempo de cozimento é bem menor.' },
+      { value: '**Hortelã:** Se não gostar, pode finalizar com cheiro-verde.' }
+    ],
+    chefTip: 'Para uma sopa mais rica, adicione cubos de tofu defumado ou linguiça vegetal picada no final.'
+  },
+  'espaguete-de-abobrinha-ao-pesto': {
+    title: 'Espaguete de Abobrinha ao Pesto',
+    author: 'Cozinha Criativa',
+    difficulty: 'Fácil',
+    description: 'Um prato leve, saudável e delicioso. O espaguete de abobrinha é uma ótima alternativa low-carb ao macarrão tradicional, e o molho pesto caseiro dá todo o sabor.',
+    prepTime: 15,
+    cookTime: 5,
+    servings: 2,
+    category: 'Sem Glúten',
+    tags: ['Prato Principal', 'Low Carb', 'Vegano', 'Zero Lactose'],
+    ingredients: [
+      { value: '2 abobrinhas italianas grandes' },
+      { value: '1 colher de sopa de azeite' },
+      { value: '1/2 xícara de tomate cereja, cortado ao meio' },
+      { value: 'Sal e pimenta' },
+      { value: 'Molho Pesto:' },
+      { value: '2 xícaras de manjericão fresco' },
+      { value: '1/2 xícara de castanha de caju' },
+      { value: '1/4 xícara de azeite' },
+      { value: '1 dente de alho' },
+      { value: '2 colheres de sopa de levedura nutricional' }
+    ],
+    instructions: [
+      { value: 'Com um fatiador de legumes em espiral, faça o espaguete de abobrinha. Se não tiver, use um descascador de legumes para fazer fitas finas.' },
+      { value: 'Para o pesto, bata todos os ingredientes no processador até virar uma pasta.' },
+      { value: 'Aqueça o azeite em uma frigideira grande e salteie o espaguete de abobrinha por 2-3 minutos, apenas para aquecer.' },
+      { value: 'Desligue o fogo, adicione o molho pesto e os tomates cereja. Misture bem.' },
+      { value: 'Tempere com sal e pimenta e sirva imediatamente.' }
+    ],
+    substitutions: [
+      { value: '**Abobrinha:** Cenoura ou pupunha também podem ser transformados em espaguete.' },
+      { value: '**Castanha de Caju:** Nozes ou amêndoas também funcionam bem no pesto.' }
+    ],
+    chefTip: 'Não cozinhe demais o espaguete de abobrinha para que ele não solte muita água e mantenha uma textura "al dente".'
+  },
+  'bolo-de-milho-sem-gluten': {
+    title: 'Bolo de Milho Cremoso de Latinha (Sem Glúten)',
+    author: 'Festa Junina o Ano Todo',
+    difficulty: 'Fácil',
+    description: 'Aquele bolo de milho de liquidificador, super prático, que fica com uma textura cremosa e irresistível. Perfeito para qualquer hora do dia.',
+    prepTime: 10,
+    cookTime: 40,
+    servings: 10,
+    category: 'Sem Glúten',
+    tags: ['Bolo', 'Sobremesa', 'Zero Lactose'],
+    ingredients: [
+      { value: '1 lata de milho verde (com a água)' },
+      { value: '1 lata (medida) de fubá' },
+      { value: '1 lata (medida) de açúcar' },
+      { value: '1/2 lata (medida) de óleo' },
+      { value: '4 ovos' },
+      { value: '200ml de leite de coco' },
+      { value: '1 colher de sopa de fermento em pó' }
+    ],
+    instructions: [
+      { value: 'Pré-aqueça o forno a 180°C. Unte e enfarinhe com fubá uma forma de buraco no meio.' },
+      { value: 'Bata todos os ingredientes no liquidificador, exceto o fermento, até a mistura ficar bem homogênea.' },
+      { value: 'Adicione o fermento e pulse rapidamente, só para incorporar.' },
+      { value: 'Despeje a massa na forma e asse por cerca de 40 minutos, ou até dourar e firmar.' }
+    ],
+    substitutions: [
+      { value: '**Óleo:** Pode usar óleo de coco ou margarina vegetal derretida.' },
+      { value: '**Leite de Coco:** Pode ser substituído por outra bebida vegetal, mas perde um pouco da cremosidade.' }
+    ],
+    chefTip: 'Usar a lata de milho como medida para os outros ingredientes torna a receita ainda mais prática e à prova de erros.'
+  },
+  'kibe-assado-sem-gluten': {
+    title: 'Quibe Assado de Berinjela (Sem Glúten)',
+    author: 'Culinária Árabe',
+    difficulty: 'Médio',
+    description: 'Uma versão surpreendente do quibe, onde a berinjela substitui a carne, trazendo umidade e um sabor defumado delicioso. O arroz é usado no lugar do trigo.',
+    prepTime: 20,
+    cookTime: 40,
+    servings: 6,
+    category: 'Sem Glúten',
+    tags: ['Prato Principal', 'Vegano', 'Zero Lactose'],
+    ingredients: [
+      { value: '2 berinjelas médias' },
+      { value: '1 xícara de arroz cozido' },
+      { value: '1 cebola picada' },
+      { value: '1/2 xícara de hortelã fresca picada' },
+      { value: '1/2 xícara de nozes picadas' },
+      { value: '2 colheres de sopa de azeite' },
+      { value: 'Sal e pimenta síria a gosto' }
+    ],
+    instructions: [
+      { value: 'Asse as berinjelas inteiras diretamente na chama do fogão ou no forno até a casca queimar e o interior ficar macio. Deixe esfriar, retire a polpa e pique bem.' },
+      { value: 'Em uma tigela, misture a polpa da berinjela, o arroz cozido, a cebola, a hortelã, as nozes e os temperos.' },
+      { value: 'Amasse bem até formar uma liga.' },
+      { value: 'Pressione a mistura em um refratário untado com azeite.' },
+      { value: 'Faça marcas de losango na superfície e regue com mais azeite.' },
+      { value: 'Asse em forno a 200°C por cerca de 30 minutos, ou até dourar.' }
+    ],
+    substitutions: [
+      { value: '**Arroz:** Quinoa cozida é um ótimo substituto.' },
+      { value: '**Nozes:** Castanha-do-pará ou sementes de girassol podem ser usadas.' }
+    ],
+    chefTip: 'Queimar a casca da berinjela na chama do fogão é o segredo para o sabor defumado autêntico (baba ghanoush style!).'
+  },
+  'overnight-oats-sem-gluten': {
+    title: 'Overnight Oats (Aveia Amanhecida)',
+    author: 'Café da Manhã Expresso',
+    difficulty: 'Muito Fácil',
+    description: 'Prepare seu café da manhã na noite anterior! Uma opção prática, saudável e deliciosa que fica pronta na geladeira enquanto você dorme.',
+    prepTime: 5,
+    cookTime: 0,
+    servings: 1,
+    category: 'Sem Glúten',
+    tags: ['Café da Manhã', 'Lanche', 'Vegano', 'Zero Lactose'],
+    ingredients: [
+      { value: '1/2 xícara de aveia em flocos sem glúten' },
+      { value: '1 colher de sopa de sementes de chia' },
+      { value: '1/2 xícara de bebida vegetal (amêndoas, coco)' },
+      { value: '1 colher de sopa de melado ou agave (opcional)' },
+      { value: 'Frutas picadas para servir (morango, banana, manga)' },
+      { value: 'Castanhas ou sementes para servir' }
+    ],
+    instructions: [
+      { value: 'Em um pote de vidro com tampa, misture a aveia, a chia, a bebida vegetal e o adoçante (se usar).' },
+      { value: 'Mexa bem, tampe o pote e leve à geladeira por no mínimo 4 horas, ou durante a noite.' },
+      { value: 'Na manhã seguinte, a aveia estará cremosa. Cubra com suas frutas e castanhas favoritas e sirva.' }
+    ],
+    substitutions: [
+      { value: '**Bebida Vegetal:** Iogurte de coco ou de amêndoas também funciona e deixa a mistura ainda mais cremosa.' },
+      { value: '**Adicionais:** Cacau em pó, canela ou pasta de amendoim podem ser misturados na base.' }
+    ],
+    chefTip: 'A proporção básica é 1 parte de aveia para 1 parte de líquido. Ajuste a consistência adicionando mais líquido se preferir uma mistura mais rala.'
+  },
+  'bolo-de-aipim-com-coco': {
+    title: 'Bolo de Aipim com Coco (Sem Glúten)',
+    author: 'Receitas da Vovó',
+    difficulty: 'Fácil',
+    description: 'Um bolo denso, úmido e com um sabor tropical incrível. A combinação de aipim (mandioca) e coco é um clássico que não tem erro.',
+    prepTime: 20,
+    cookTime: 50,
+    servings: 10,
+    category: 'Sem Glúten',
+    tags: ['Bolo', 'Sobremesa', 'Zero Lactose'],
+    ingredients: [
+      { value: '500g de aipim (mandioca) cru e ralado fino' },
+      { value: '200ml de leite de coco' },
+      { value: '3 ovos' },
+      { value: '1 e 1/2 xícara de açúcar' },
+      { value: '100g de coco ralado' },
+      { value: '2 colheres de sopa de óleo de coco' },
+      { value: '1 colher de sopa de fermento em pó' }
+    ],
+    instructions: [
+      { value: 'Pré-aqueça o forno a 180°C.' },
+      { value: 'No liquidificador, bata os ovos, o leite de coco, o açúcar e o óleo de coco.' },
+      { value: 'Em uma tigela grande, misture o aipim ralado e o coco ralado.' },
+      { value: 'Despeje a mistura líquida sobre o aipim e misture bem.' },
+      { value: 'Adicione o fermento e incorpore delicadamente.' },
+      { value: 'Despeje em uma forma untada e asse por 45-50 minutos, ou até dourar.' }
+    ],
+    substitutions: [
+      { value: '**Aipim:** Use aipim fresco, não o congelado, para melhor textura.' },
+      { value: '**Ovos:** Podem ser substituídos por "ovos" de linhaça, mas a textura pode ficar mais densa.' }
+    ],
+    chefTip: 'Após ralar o aipim, não o esprema. A umidade natural da mandioca é o que garante a cremosidade do bolo.'
+  },
+  'escondidinho-de-batata-doce': {
+    title: 'Escondidinho de Carne Seca com Batata-Doce',
+    author: 'Sabor do Sertão',
+    difficulty: 'Médio',
+    description: 'Uma releitura do clássico escondidinho, onde o purê de batata-doce substitui a mandioca, criando um contraste agridoce delicioso com a carne seca.',
+    prepTime: 30,
+    cookTime: 40,
+    servings: 6,
+    category: 'Sem Glúten',
+    tags: ['Prato Principal', 'Zero Lactose'],
+    ingredients: [
+      { value: '500g de carne seca dessalgada e desfiada' },
+      { value: '1 cebola grande em rodelas' },
+      { value: '3 dentes de alho picados' },
+      { value: '1 tomate picado' },
+      { value: 'Cheiro-verde a gosto' },
+      { value: 'Azeite' },
+      { value: 'Purê:' },
+      { value: '1kg de batata-doce cozida e amassada' },
+      { value: '2 colheres de sopa de margarina vegetal' },
+      { value: 'Sal e noz-moscada' }
+    ],
+    instructions: [
+      { value: 'Refogue a cebola e o alho no azeite até dourarem. Adicione a carne seca e refogue bem. Junte o tomate e o cheiro-verde.' },
+      { value: 'Para o purê, misture a batata-doce amassada com a margarina, sal e noz-moscada.' },
+      { value: 'Em um refratário, coloque a carne seca refogada no fundo e cubra com o purê de batata-doce.' },
+      { value: 'Se desejar, pincele azeite por cima.' },
+      { value: 'Leve ao forno a 200°C por cerca de 20 minutos para gratinar.' }
+    ],
+    substitutions: [
+      { value: '**Carne Seca:** Para uma versão vegana, use jaca verde desfiada ou shimeji refogado.' },
+      { value: '**Batata-Doce:** Batata baroa (mandioquinha) ou abóbora cabotiá também ficam ótimos.' }
+    ],
+    chefTip: 'Cozinhe a batata-doce no vapor para que o purê não fique aguado e tenha uma consistência mais firme.'
+  },
+  'farofa-de-ovos-sem-gluten': {
+    title: 'Farofa de Ovos com Farinha de Mandioca',
+    author: 'Churrasco em Família',
+    difficulty: 'Fácil',
+    description: 'A farofa de ovos perfeita para acompanhar o churrasco ou a feijoada. Simples, rápida e agrada a todos.',
+    prepTime: 5,
+    cookTime: 10,
+    servings: 6,
+    category: 'Sem Glúten',
+    tags: ['Acompanhamento', 'Zero Lactose'],
+    ingredients: [
+      { value: '3 colheres de sopa de margarina vegetal (ou azeite)' },
+      { value: '1 cebola picada' },
+      { value: '4 ovos' },
+      { value: '2 xícaras de farinha de mandioca fina' },
+      { value: 'Sal e cheiro-verde a gosto' }
+    ],
+    instructions: [
+      { value: 'Em uma frigideira, derreta a margarina e refogue a cebola até ficar macia.' },
+      { value: 'Quebre os ovos na frigideira e mexa como se estivesse fazendo ovos mexidos.' },
+      { value: 'Quando os ovos estiverem quase cozidos, adicione a farinha de mandioca aos poucos, mexendo sempre.' },
+      { value: 'Continue mexendo em fogo baixo até a farofa ficar douradinha e soltinha.' },
+      { value: 'Desligue o fogo, ajuste o sal e finalize com cheiro-verde.' }
+    ],
+    substitutions: [
+      { value: '**Ovos:** Pode adicionar bacon picado frito ou linguiça para uma versão mais robusta.' },
+      { value: '**Farinha de Mandioca:** Farinha de milho em flocos também fica ótima.' }
+    ],
+    chefTip: 'Para uma farofa mais úmida, adicione um pouco mais de margarina ou azeite. Para uma farofa mais seca, toste a farinha por mais tempo.'
+  },
+  'vatapa-sem-gluten': {
+    title: 'Vatapá Simples (Sem Glúten)',
+    author: 'Bahia em Casa',
+    difficulty: 'Médio',
+    description: 'Uma versão simplificada e sem glúten do clássico baiano. O pão é substituído por creme de arroz, mantendo a cremosidade e o sabor do dendê.',
+    prepTime: 20,
+    cookTime: 30,
+    servings: 6,
+    category: 'Sem Glúten',
+    tags: ['Prato Principal', 'Frutos do Mar', 'Zero Lactose'],
+    ingredients: [
+      { value: '500g de camarão fresco, limpo' },
+      { value: 'Suco de 1 limão, sal e pimenta' },
+      { value: '1/2 xícara de creme de arroz' },
+      { value: '400ml de leite de coco' },
+      { value: '1 cebola picada' },
+      { value: '2 dentes de alho' },
+      { value: '1 tomate picado' },
+      { value: 'Coentro picado' },
+      { value: '3 colheres de sopa de azeite de dendê' }
+    ],
+    instructions: [
+      { value: 'Tempere os camarões com limão, sal e pimenta. Reserve.' },
+      { value: 'No liquidificador, bata o creme de arroz com o leite de coco, a cebola, o alho e o tomate.' },
+      { value: 'Leve essa mistura a uma panela em fogo baixo, mexendo sempre, até engrossar e cozinhar bem (cerca de 15 minutos).' },
+      { value: 'Adicione os camarões temperados e o azeite de dendê. Cozinhe por cerca de 5 minutos, ou até os camarões ficarem rosados.' },
+      { value: 'Finalize com o coentro picado e sirva.' }
+    ],
+    substitutions: [
+      { value: '**Camarão:** Pode ser substituído por peixe branco em cubos ou uma versão vegana com palmito.' },
+      { value: '**Creme de Arroz:** Amido de milho pode ser usado, mas em menor quantidade (cerca de 3 colheres de sopa).' }
+    ],
+    chefTip: 'Não cozinhe o camarão em excesso para que ele não fique borrachudo. Assim que ficar rosado, está no ponto.'
+  },
+  'caldo-verde-sem-gluten': {
+    title: 'Caldo Verde Funcional (Sem Glúten)',
+    author: 'Sopas da Estação',
+    difficulty: 'Fácil',
+    description: 'Uma versão do caldo verde onde a batata é substituída por couve-flor, deixando o prato mais leve e low-carb. O sabor continua incrível!',
+    prepTime: 15,
+    cookTime: 25,
+    servings: 4,
+    category: 'Sem Glúten',
+    tags: ['Sopa', 'Low Carb', 'Zero Lactose'],
+    ingredients: [
+      { value: '1 cabeça de couve-flor média, em floretes' },
+      { value: '1 litro de caldo de legumes' },
+      { value: '1 maço de couve manteiga fatiada bem fina' },
+      { value: '200g de linguiça paio ou calabresa em rodelas (ou linguiça vegetal)' },
+      { value: '1 cebola picada' },
+      { value: '2 dentes de alho picados' },
+      { value: 'Azeite, sal e pimenta' }
+    ],
+    instructions: [
+      { value: 'Em uma panela, cozinhe a couve-flor no caldo de legumes até ficar muito macia.' },
+      { value: 'Bata no liquidificador até obter um creme liso. Reserve.' },
+      { value: 'Na mesma panela, frite a linguiça no azeite até dourar. Retire e reserve.' },
+      { value: 'Na gordura que soltou, refogue a cebola e o alho. Adicione a couve fatiada e refogue rapidamente até murchar.' },
+      { value: 'Volte o creme de couve-flor e a linguiça para a panela. Aqueça bem.' },
+      { value: 'Ajuste o sal e a pimenta e sirva com um fio de azeite.' }
+    ],
+    substitutions: [
+      { value: '**Linguiça:** Bacon em cubos ou tofu defumado são boas alternativas.' },
+      { value: '**Couve-flor:** Para a versão tradicional, use batatas na mesma proporção.' }
+    ],
+    chefTip: 'Fatie a couve o mais fino possível. Adicione-a ao caldo quente e desligue o fogo. O próprio calor do caldo é suficiente para cozinhá-la, mantendo a cor verde vibrante.'
   }
 };
     
+    
+
     
