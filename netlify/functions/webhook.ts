@@ -52,82 +52,63 @@ async function sendWelcomeEmail(email: string, name: string) {
 
 const handler: Handler = async (event: HandlerEvent, context: HandlerContext) => {
   if (event.httpMethod !== 'POST') {
-    return {
-      statusCode: 405,
-      headers: { 'Allow': 'POST' },
-      body: 'Method Not Allowed',
-    };
+    return { statusCode: 405, body: 'Method Not Allowed' };
   }
 
   console.log('[Webhook] Kirvano notification received.');
 
-  let body;
   try {
     if (!event.body) {
-        console.error('[Webhook] Error: Request body is empty.');
-        return { statusCode: 400, body: JSON.stringify({ error: 'Request body is empty.' }) };
+      console.error('[Webhook] Error: Request body is empty.');
+      return { statusCode: 400, body: 'Request body is empty.' };
     }
-    body = JSON.parse(event.body);
-    // Log para depuração
-    console.log('[Webhook] Raw Body Received from Kirvano:', JSON.stringify(body, null, 2));
-  } catch (e) {
-    console.error('[Webhook] Error parsing JSON body:', e);
-    return { statusCode: 400, body: JSON.stringify({ error: 'Invalid JSON format.' }) };
-  }
 
-  try {
-    // Acessando os dados diretamente do corpo, conforme o log da Kirvano
+    const body = JSON.parse(event.body);
+    console.log('[Webhook] Raw Body Received from Kirvano:', JSON.stringify(body, null, 2));
+
     const customerEmail = body.customer?.email;
     const customerName = body.customer?.name || 'Novo Membro';
     const purchaseStatus = body.status;
 
     if (purchaseStatus !== 'APPROVED' || !customerEmail) {
-        const errorMsg = `Could not process notification: payment not approved or customer email not found. Status: ${purchaseStatus}, Email: ${customerEmail}`;
-        console.error(`[Webhook] Error: ${errorMsg}`);
-        return { 
-            statusCode: 400,
-            body: JSON.stringify({ error: errorMsg, receivedBody: body })
-        };
+      console.error(`[Webhook] Invalid payload: status is not APPROVED or email is missing. Status: ${purchaseStatus}, Email: ${customerEmail}`);
+      return { 
+          statusCode: 400,
+          body: JSON.stringify({ error: "Invalid payload from Kirvano.", receivedStatus: purchaseStatus, receivedEmail: customerEmail })
+      };
     }
     
-    console.log(`[Webhook] Processing for: Email: ${customerEmail}, Name: ${customerName}, Status: ${purchaseStatus}`);
+    console.log(`[Webhook] Processing approved purchase for: Email: ${customerEmail}, Name: ${customerName}`);
     
-    try {
-      const existingUser = await auth.getUserByEmail(customerEmail).catch((error) => {
-        if (error.code === 'auth/user-not-found') return null;
-        throw error;
-      });
+    const existingUser = await auth.getUserByEmail(customerEmail).catch((error) => {
+      if (error.code === 'auth/user-not-found') return null;
+      throw error;
+    });
 
-      if (existingUser) {
-        console.log(`[Webhook] User with email ${customerEmail} already exists. UID: ${existingUser.uid}. No action needed.`);
-        return { statusCode: 200, body: JSON.stringify({ message: 'User already exists. No new action was taken.' }) };
-      } 
-        
-      console.log(`[Webhook] User with email ${customerEmail} not found. Creating user in Firebase...`);
+    if (existingUser) {
+      console.log(`[Webhook] User with email ${customerEmail} already exists. UID: ${existingUser.uid}. No action needed.`);
+      return { statusCode: 200, body: 'User already exists.' };
+    } 
       
-      const newUser = await auth.createUser({
-        email: customerEmail,
-        emailVerified: true,
-        displayName: customerName,
-        disabled: false,
-      });
+    console.log(`[Webhook] Creating new user in Firebase for ${customerEmail}...`);
+    
+    const newUser = await auth.createUser({
+      email: customerEmail,
+      emailVerified: true,
+      displayName: customerName,
+      disabled: false,
+    });
 
-      console.log(`[Webhook] User created successfully in Firebase! UID: ${newUser.uid}. Now sending welcome email.`);
-      
-      await sendWelcomeEmail(customerEmail, customerName);
-
-    } catch (userError: any) {
-      console.error(`[Webhook] CRITICAL Firebase or SendGrid error for ${customerEmail}:`, userError);
-      return { statusCode: 500, body: JSON.stringify({ error: 'Internal error while processing user or sending email.', details: userError.message }) };
-    }
+    console.log(`[Webhook] User created successfully in Firebase! UID: ${newUser.uid}. Sending welcome email.`);
+    
+    await sendWelcomeEmail(customerEmail, customerName);
 
     return {
       statusCode: 200,
       body: JSON.stringify({ message: 'Webhook processed successfully.' })
     };
 
-  } catch (error: any)
-{
+  } catch (error: any) {
     console.error("[Webhook] CRITICAL error in handler:", error);
     return {
       statusCode: 500,
