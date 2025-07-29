@@ -60,12 +60,8 @@ export default function ProfilePage() {
         description: 'Sua foto de perfil foi atualizada.',
       });
     } catch (error) {
+      // A notificação de erro já é tratada dentro de useAuth
       console.error("Error uploading profile picture:", error);
-      toast({
-        variant: 'destructive',
-        title: 'Erro no Upload',
-        description: 'Não foi possível atualizar sua foto. Tente novamente.',
-      });
     } finally {
       setIsUploading(false);
     }
