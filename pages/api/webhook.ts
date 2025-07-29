@@ -135,7 +135,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             if (paymentDetails.status === 'approved') {
                  customerEmail = paymentDetails.payer?.email || null;
                  customerName = `${paymentDetails.payer?.first_name || ''} ${paymentDetails.payer?.last_name || ''}`.trim() || 'Novo Membro';
-                 console.log(`[Webhook] Pagamento ${paymentId} APROVADO. Cliente: ${customerName} &lt;${customerEmail}&gt;`);
+                 console.log(`[Webhook] Pagamento ${paymentId} APROVADO. Cliente: ${customerName} <${customerEmail}>`);
             } else {
                  console.log(`[Webhook] Pagamento ${paymentId} com status: ${paymentDetails.status}. Ignorando.`);
                  return res.status(200).json({ message: 'Notificação recebida mas não processada (status não aprovado).' });
@@ -145,8 +145,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
              return res.status(200).json({ message: 'Notificação do MP sem ID. Ignorada.' });
         }
     } else {
-        // Lógica antiga para outros provedores
-        console.log('[Webhook] Notificação não parece ser do Mercado Pago, usando lógica antiga.');
+        // Lógica geral para outros provedores (Kiwify, Hotmart, etc.)
+        console.log('[Webhook] Notificação não parece ser do Mercado Pago, usando lógica geral.');
         const { email, name } = findCustomerInBody(req.body);
         customerEmail = email;
         customerName = name;
@@ -156,6 +156,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     if (!customerEmail) {
         const errorMsg = 'E-mail do comprador não foi encontrado no corpo da requisição. Verifique os logs para ver a estrutura recebida.';
         console.error(`[Webhook] Erro: ${errorMsg}`);
+        console.error('[Webhook] Corpo recebido:', JSON.stringify(req.body));
         return res.status(400).json({ 
             error: errorMsg, 
             message: "O formato dos dados recebidos não continha um campo de e-mail reconhecível.",
@@ -201,5 +202,3 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     res.status(500).json({ error: 'Falha crítica ao processar notificação.', details: error.message });
   }
 }
-
-    
