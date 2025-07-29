@@ -94,7 +94,7 @@ export default function DashboardPage() {
       title: "Guia 'Desvendando Rótulos'",
       description: "Aprenda a identificar lactose disfarçada e compre com total segurança.",
       actionText: "Acessar Conteúdo",
-      href: "#",
+      href: "/bonus/desvendando-rotulos",
     },
     {
       icon: <MessageSquare className="w-8 h-8 text-primary" />,
