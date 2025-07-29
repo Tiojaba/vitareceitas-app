@@ -3,41 +3,35 @@ import type { Handler, HandlerEvent, HandlerContext } from "@netlify/functions";
 import { auth } from '../../src/lib/firebase-admin';
 import sgMail from '@sendgrid/mail';
 
-// Helper function to find customer data from various potential fields in the request body
-// Now more generic to help us find the data from Kirvano
 const findCustomerInBody = (body: any): { email: string | null; name: string } => {
     if (!body || typeof body !== 'object') {
         return { email: null, name: 'Novo Membro' };
     }
+    
+    // Caminho exato para os dados do cliente no payload da Kirvano
+    if (body.customer && typeof body.customer.email === 'string') {
+        const email = body.customer.email;
+        const name = body.customer.name || 'Novo Membro';
+        return { email, name: name.trim() };
+    }
 
+    // Fallback para outros formatos genéricos (manter por segurança)
+    const possibleEmailKeys = ['email', 'customer_email', 'payer_email', 'buyer_email', 'client_email'];
+    const possibleNameKeys = ['name', 'customer_name', 'buyer_name', 'client_name'];
     let email: string | null = null;
     let name: string = 'Novo Membro';
-
-    // Generic search for email and name keys, common in many webhooks.
-    // We are looking for the exact structure Kirvano sends.
-    const possibleEmailKeys = ['email', 'customer_email', 'payer_email', 'buyer_email', 'client_email', 'customer.email'];
-    const possibleNameKeys = ['name', 'customer_name', 'buyer_name', 'client_name', 'customer.name'];
-
+    
     for (const key of possibleEmailKeys) {
         if (body[key] && typeof body[key] === 'string') {
             email = body[key];
             break;
         }
     }
-    // Specific check for nested customer object
-    if (!email && body.customer && typeof body.customer.email === 'string') {
-        email = body.customer.email;
-    }
-
-
     for (const key of possibleNameKeys) {
         if (body[key] && typeof body[key] === 'string') {
             name = body[key];
             break;
         }
-    }
-    if (name === 'Novo Membro' && body.customer && typeof body.customer.name === 'string') {
-        name = body.customer.name;
     }
     
     return { email, name: name.trim() };
@@ -89,7 +83,6 @@ async function sendWelcomeEmail(email: string, name: string) {
     }
 }
 
-
 const handler: Handler = async (event: HandlerEvent, context: HandlerContext) => {
   if (event.httpMethod !== 'POST') {
     return {
@@ -105,56 +98,29 @@ const handler: Handler = async (event: HandlerEvent, context: HandlerContext) =>
   try {
     if (!event.body) {
         console.error('[Webhook] Error: Request body is empty.');
-        return {
-            statusCode: 400,
-            body: JSON.stringify({ error: 'Request body is empty.' })
-        };
+        return { statusCode: 400, body: JSON.stringify({ error: 'Request body is empty.' }) };
     }
-    // !! IMPORTANTE: Logando o corpo bruto da requisição para diagnóstico !!
-    console.log('[Webhook] Raw Body Received from Kirvano:', event.body);
     body = JSON.parse(event.body);
-    console.log('[Webhook] Parsed Body:', JSON.stringify(body, null, 2));
   } catch (e) {
     console.error('[Webhook] Error parsing JSON body:', e);
-    return {
-        statusCode: 400,
-        body: JSON.stringify({ error: 'Invalid JSON format.' })
-    };
+    return { statusCode: 400, body: JSON.stringify({ error: 'Invalid JSON format.' }) };
   }
 
   try {
-    let customerEmail: string | null = null;
-    let customerName: string = 'Novo Membro';
-    let purchaseStatus: string = 'unknown';
+    // Extrai dados do cliente e status usando a estrutura exata da Kirvano
+    const { email: customerEmail, name: customerName } = findCustomerInBody(body);
+    const purchaseStatus = body.status; // Campo exato: "APPROVED"
 
-    // Logic to find customer data from Kirvano payload
-    const { email, name } = findCustomerInBody(body);
-    customerEmail = email;
-    customerName = name;
-    
-    // Status check for Kirvano (this is a guess, we need logs to confirm)
-    // Common status values are 'paid', 'approved', 'completed', 'billet_paid', 'refunded', 'chargeback'
-    const status = body.status || body.sale_status || body.event;
-    console.log(`[Webhook] Detected status field: ${status}`);
-
-    const approvedStatus = ['paid', 'approved', 'completed', 'billet_paid', 'aprovada'];
-    
-    purchaseStatus = approvedStatus.includes(String(status).toLowerCase()) ? 'approved' : 'not_approved';
-
-
-    if (purchaseStatus !== 'approved' || !customerEmail) {
-        const errorMsg = 'Could not process notification: payment not approved or customer email not found in Kirvano payload.';
-        console.error(`[Webhook] Error: ${errorMsg}. Email found: ${customerEmail}, Status found: ${status}`);
+    if (purchaseStatus !== 'APPROVED' || !customerEmail) {
+        const errorMsg = `Could not process notification: payment not approved or customer email not found. Status: ${purchaseStatus}, Email: ${customerEmail}`;
+        console.error(`[Webhook] Error: ${errorMsg}`);
         return { 
             statusCode: 400,
-            body: JSON.stringify({ 
-                error: errorMsg,
-                receivedBody: body 
-            })
+            body: JSON.stringify({ error: errorMsg, receivedBody: body })
         };
     }
     
-    console.log(`[Webhook] Processing for: Email: ${customerEmail}, Name: ${customerName}`);
+    console.log(`[Webhook] Processing for: Email: ${customerEmail}, Name: ${customerName}, Status: ${purchaseStatus}`);
     
     try {
       const existingUser = await auth.getUserByEmail(customerEmail).catch((error) => {
@@ -171,7 +137,7 @@ const handler: Handler = async (event: HandlerEvent, context: HandlerContext) =>
       
       const newUser = await auth.createUser({
         email: customerEmail,
-        emailVerified: true, // User is considered verified because they paid
+        emailVerified: true,
         displayName: customerName,
         disabled: false,
       });
