@@ -75,7 +75,8 @@ export default function DashboardPage() {
       title: "Comunidade VIP (30 dias)",
       description: "Conecte-se, tire dúvidas com especialistas e receba apoio em um grupo exclusivo.",
       actionText: "Entrar no Grupo",
-      href: "#",
+      href: "https://chat.whatsapp.com/SEU_GRUPO_AQUI", // Placeholder link
+      isExternal: true,
     }
   ];
 
@@ -124,6 +125,10 @@ export default function DashboardPage() {
                    <Button asChild className="w-full">
                     {bonus.isDownload ? (
                       <a href={bonus.href} download>
+                        {bonus.actionText}
+                      </a>
+                    ) : bonus.isExternal ? (
+                       <a href={bonus.href ?? "#"} target="_blank" rel="noopener noreferrer">
                         {bonus.actionText}
                       </a>
                     ) : (
