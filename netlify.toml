@@ -1,0 +1,10 @@
+# Configurações para o build no Netlify
+[build]
+  # Comando para construir o projeto Next.js
+  command = "next build"
+  # Diretório onde o resultado do build é salvo
+  publish = ".next"
+
+# Configurações para o plugin do Next.js no Netlify
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
