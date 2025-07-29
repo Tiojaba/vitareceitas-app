@@ -7,24 +7,20 @@ const projectId = process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID;
 
 const hasAdminConfig = privateKey && clientEmail && projectId;
 
-function initializeAdmin() {
-  if (hasAdminConfig && !admin.apps.length) {
-    try {
-      admin.initializeApp({
-        credential: admin.credential.cert({
-          projectId,
-          clientEmail,
-          privateKey,
-        }),
-        databaseURL: `https://${projectId}.firebaseio.com`
-      });
-    } catch (error: any) {
-      console.error('Falha ao inicializar o Firebase Admin SDK:', error.message);
-    }
+if (hasAdminConfig && !admin.apps.length) {
+  try {
+    admin.initializeApp({
+      credential: admin.credential.cert({
+        projectId,
+        clientEmail,
+        privateKey,
+      }),
+      databaseURL: `https://${projectId}.firebaseio.com`
+    });
+  } catch (error: any) {
+    console.error('Falha ao inicializar o Firebase Admin SDK:', error.message);
   }
 }
-
-initializeAdmin();
 
 const auth = admin.auth();
 const db = admin.firestore();
