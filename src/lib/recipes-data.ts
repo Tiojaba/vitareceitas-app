@@ -2521,9 +2521,1018 @@ export const allRecipes: { [key: string]: any } = {
       { value: '**Couve-flor:** Para a versão tradicional, use batatas na mesma proporção.' }
     ],
     chefTip: 'Fatie a couve o mais fino possível. Adicione-a ao caldo quente e desligue o fogo. O próprio calor do caldo é suficiente para cozinhá-la, mantendo a cor verde vibrante.'
+  },
+  'lasanha-a-bolonhesa-classica': {
+    title: 'Lasanha à Bolonhesa Clássica',
+    author: 'Nonna Carmela',
+    difficulty: 'Médio',
+    description: 'A receita de lasanha que passa de geração em geração. Com um molho bolonhesa rico, molho bechamel cremoso e camadas de queijo, é o prato perfeito para o almoço de domingo.',
+    prepTime: 30,
+    cookTime: 60,
+    servings: 8,
+    category: 'Prato Principal',
+    tags: ['Massa', 'Italiano', 'Conforto'],
+    ingredients: [
+        { value: '500g de massa de lasanha pré-cozida' },
+        { value: '500g de carne moída (patinho)' },
+        { value: '1 cebola picada' },
+        { value: '2 dentes de alho picados' },
+        { value: '800g de tomate pelado' },
+        { value: '1/2 xícara de vinho tinto seco' },
+        { value: 'Sal, pimenta e orégano a gosto' },
+        { value: '400g de muçarela fatiada' },
+        { value: '100g de queijo parmesão ralado' },
+        { value: 'Molho Bechamel:' },
+        { value: '1 litro de leite integral' },
+        { value: '2 colheres de sopa de manteiga' },
+        { value: '2 colheres de sopa de farinha de trigo' },
+        { value: 'Noz-moscada ralada na hora' }
+    ],
+    instructions: [
+        { value: 'Para o molho bolonhesa, refogue a cebola e o alho em azeite. Adicione a carne moída e cozinhe até dourar. Junte o vinho e deixe evaporar. Adicione o tomate pelado, tempere e cozinhe por 30 minutos.' },
+        { value: 'Para o bechamel, derreta a manteiga, junte a farinha e cozinhe por 1 minuto. Adicione o leite aos poucos, mexendo sempre, até engrossar. Tempere com sal e noz-moscada.' },
+        { value: 'Monte a lasanha em um refratário grande: molho bolonhesa, massa, bechamel, muçarela. Repita as camadas, finalizando com bechamel e queijo parmesão.' },
+        { value: 'Cubra com papel alumínio e asse em forno pré-aquecido a 180°C por 20 minutos. Retire o alumínio e asse por mais 15 minutos para gratinar.' }
+    ],
+    substitutions: [
+        { value: '**Carne moída:** Pode ser substituída por linguiça toscana esmigalhada ou um mix de cogumelos para uma versão vegetariana.' },
+        { value: '**Massa pré-cozida:** Se usar massa seca, cozinhe-a antes de montar.' }
+    ],
+    chefTip: 'Um molho bolonhesa cozido lentamente por pelo menos uma hora desenvolve um sabor muito mais rico e profundo. Se tiver tempo, vale a pena!'
+  },
+  'pudim-de-leite-condensado-perfeito': {
+    title: 'Pudim de Leite Condensado Perfeito',
+    author: 'Doce de Vó',
+    difficulty: 'Fácil',
+    description: 'A sobremesa mais amada do Brasil, na sua versão mais clássica e infalível. Lisinho, sem furinhos e com uma calda de caramelo dourada.',
+    prepTime: 15,
+    cookTime: 50,
+    servings: 10,
+    category: 'Sobremesa',
+    tags: ['Clássico', 'Doce', 'Festa'],
+    ingredients: [
+        { value: 'Pudim:' },
+        { value: '1 lata de leite condensado' },
+        { value: 'A mesma medida (da lata) de leite integral' },
+        { value: '3 ovos inteiros' },
+        { value: 'Calda:' },
+        { value: '1 xícara de açúcar' },
+        { value: '1/2 xícara de água quente' }
+    ],
+    instructions: [
+        { value: 'Para a calda, derreta o açúcar em uma panela em fogo baixo. Quando virar um caramelo dourado, junte a água quente com cuidado e mexa até dissolver. Caramelize uma forma de pudim e reserve.' },
+        { value: 'No liquidificador, bata o leite condensado, o leite e os ovos por 2 minutos.' },
+        { value: 'Passe a mistura por uma peneira e despeje na forma caramelizada.' },
+        { value: 'Cubra a forma com papel alumínio e asse em banho-maria em forno pré-aquecido a 180°C por cerca de 45-50 minutos.' },
+        { value: 'Espere esfriar completamente e leve à geladeira por no mínimo 4 horas antes de desenformar.' }
+    ],
+    substitutions: [
+        { value: '**Leite:** Para um pudim mais cremoso, use metade leite e metade creme de leite.' },
+        { value: '**Ovos:** Use ovos frescos e de boa qualidade para evitar o cheiro característico.' }
+    ],
+    chefTip: 'O segredo para um pudim lisinho e sem furinhos é assar em banho-maria com o forno em temperatura baixa (180°C no máximo) e bater os ingredientes no liquidificador apenas o suficiente para misturar, sem incorporar muito ar.'
+  },
+  'bife-a-parmegiana': {
+    title: 'Bife à Parmegiana Suculento',
+    author: 'Cantina do Zé',
+    difficulty: 'Médio',
+    description: 'Um clássico que agrada a todos: bife empanado crocante, coberto com molho de tomate caseiro e muito queijo derretido. Sirva com arroz branco e batata frita!',
+    prepTime: 25,
+    cookTime: 20,
+    servings: 4,
+    category: 'Prato Principal',
+    tags: ['Carne', 'Clássico', 'Italiano'],
+    ingredients: [
+        { value: '4 bifes de filé mignon ou contrafilé' },
+        { value: '2 ovos batidos' },
+        { value: '1 xícara de farinha de rosca' },
+        { value: '1/2 xícara de farinha de trigo' },
+        { value: 'Sal e pimenta do reino a gosto' },
+        { value: 'Óleo para fritar' },
+        { value: '2 xícaras de molho de tomate' },
+        { value: '200g de queijo muçarela fatiado' },
+        { value: 'Queijo parmesão ralado a gosto' }
+    ],
+    instructions: [
+        { value: 'Tempere os bifes com sal e pimenta. Passe cada bife na farinha de trigo, depois nos ovos batidos e por último na farinha de rosca.' },
+        { value: 'Frite os bifes em óleo quente até dourarem dos dois lados. Escorra em papel toalha.' },
+        { value: 'Em um refratário, coloque os bifes fritos, cubra com o molho de tomate e as fatias de muçarela.' },
+        { value: 'Salpique queijo parmesão e leve ao forno pré-aquecido a 200°C por 10 minutos, ou até o queijo derreter e borbulhar.' }
+    ],
+    substitutions: [
+        { value: '**Bife:** Filé de frango ou berinjela em fatias grossas são ótimas alternativas.' },
+        { value: '**Farinha de rosca:** Para uma crosta mais crocante, use farinha Panko.' }
+    ],
+    chefTip: 'Para um bife mais macio, use um martelo de carne para deixá-lo com espessura uniforme antes de empanar.'
+  },
+  'pao-caseiro-simples': {
+    title: 'Pão Caseiro Simples e Fofinho',
+    author: 'Padaria da Vovó',
+    difficulty: 'Médio',
+    description: 'Não há nada como o cheiro de pão fresco assando em casa. Esta receita é simples e resulta em um pão incrivelmente macio e delicioso.',
+    prepTime: 20,
+    cookTime: 30,
+    servings: 1,
+    category: 'Básicos',
+    tags: ['Pão', 'Café da Manhã', 'Lanche'],
+    ingredients: [
+        { value: '1kg de farinha de trigo' },
+        { value: '10g de fermento biológico seco' },
+        { value: '2 colheres de sopa de açúcar' },
+        { value: '1 colher de sopa de sal' },
+        { value: '2 xícaras de água morna' },
+        { value: '1/2 xícara de leite morno' },
+        { value: '1/4 xícara de óleo' },
+        { value: '1 ovo' }
+    ],
+    instructions: [
+        { value: 'Em uma tigela grande, misture a farinha, o fermento, o açúcar e o sal.' },
+        { value: 'Em outra tigela, misture a água, o leite, o óleo e o ovo.' },
+        { value: 'Despeje os líquidos sobre os secos e misture até formar uma massa. Sove por 10 minutos em uma superfície enfarinhada.' },
+        { value: 'Coloque a massa em uma tigela untada, cubra e deixe crescer por 1 hora.' },
+        { value: 'Modele o pão, coloque em uma forma untada e deixe crescer por mais 30 minutos.' },
+        { value: 'Asse em forno pré-aquecido a 180°C por cerca de 30-35 minutos.' }
+    ],
+    substitutions: [
+        { value: '**Fermento:** Se usar fermento fresco, use 30g.' },
+        { value: '**Leite:** Pode usar apenas água se preferir.' }
+    ],
+    chefTip: 'O segredo de um pão fofinho é sovar bem a massa para desenvolver o glúten e ter paciência no tempo de crescimento.'
+  },
+  'cheesecake-de-frutas-vermelhas': {
+    title: 'Cheesecake de Frutas Vermelhas',
+    author: 'Patisserie La Vie',
+    difficulty: 'Difícil',
+    description: 'Uma sobremesa elegante e deliciosa, com uma base crocante de biscoito, um recheio cremoso de cream cheese e uma calda azedinha de frutas vermelhas.',
+    prepTime: 40,
+    cookTime: 60,
+    servings: 12,
+    category: 'Sobremesa',
+    tags: ['Torta', 'Doce', 'Festa'],
+    ingredients: [
+        { value: 'Base:' },
+        { value: '200g de biscoito de maisena triturado' },
+        { value: '100g de manteiga derretida' },
+        { value: 'Recheio:' },
+        { value: '900g de cream cheese em temperatura ambiente' },
+        { value: '1 e 1/2 xícara de açúcar' },
+        { value: '4 ovos' },
+        { value: '1/4 xícara de creme de leite fresco' },
+        { value: 'Suco de 1 limão' },
+        { value: '1 colher de chá de extrato de baunilha' },
+        { value: 'Cobertura:' },
+        { value: '300g de frutas vermelhas congeladas' },
+        { value: '1/2 xícara de açúcar' }
+    ],
+    instructions: [
+        { value: 'Para a base, misture o biscoito triturado com a manteiga e forre o fundo de uma forma de fundo removível. Asse por 10 minutos a 180°C.' },
+        { value: 'Para o recheio, na batedeira, bata o cream cheese com o açúcar até ficar cremoso. Adicione os ovos, um a um. Incorpore o creme de leite, o limão e a baunilha.' },
+        { value: 'Despeje o recheio sobre a base e asse por cerca de 50-60 minutos. O centro deve parecer ligeiramente mole. Desligue o forno e deixe esfriar lá dentro.' },
+        { value: 'Para a calda, leve as frutas e o açúcar ao fogo baixo até engrossar.' },
+        { value: 'Refrigere o cheesecake por pelo menos 6 horas. Sirva com a calda fria.' }
+    ],
+    substitutions: [
+        { value: '**Frutas Vermelhas:** Pode usar geleia de goiabada ou doce de leite como cobertura.' },
+        { value: '**Cream Cheese:** Use uma marca de boa qualidade para o melhor resultado.' }
+    ],
+    chefTip: 'Para evitar que o cheesecake rache, não bata demais o recheio após adicionar os ovos e deixe-o esfriar lentamente dentro do forno desligado.'
+  },
+  'camarao-na-moranga': {
+    title: 'Camarão na Moranga',
+    author: 'Sabores do Mar',
+    difficulty: 'Médio',
+    description: 'Um prato clássico, festivo e delicioso. O creme de camarão é servido dentro de uma moranga assada, o que confere um sabor e uma apresentação incríveis.',
+    prepTime: 30,
+    cookTime: 90,
+    servings: 6,
+    category: 'Prato Principal',
+    tags: ['Frutos do Mar', 'Festa'],
+    ingredients: [
+        { value: '1 abóbora moranga média' },
+        { value: '1kg de camarão grande, limpo' },
+        { value: '2 colheres de sopa de azeite' },
+        { value: '1 cebola picada' },
+        { value: '3 dentes de alho picados' },
+        { value: '2 tomates picados, sem pele' },
+        { value: '1 lata de creme de leite' },
+        { value: '1/2 xícara de requeijão cremoso' },
+        { value: 'Sal, pimenta e cheiro-verde a gosto' }
+    ],
+    instructions: [
+        { value: 'Lave a moranga, corte uma tampa e retire as sementes. Tempere o interior com sal, enrole em papel alumínio e asse a 180°C por cerca de 1 hora, ou até ficar macia.' },
+        { value: 'Enquanto isso, tempere os camarões com sal, pimenta e limão.' },
+        { value: 'Em uma panela, refogue a cebola e o alho no azeite. Adicione os tomates e cozinhe. Junte os camarões e cozinhe por 3 minutos. Não cozinhe demais.' },
+        { value: 'Desligue o fogo, misture o creme de leite, o requeijão e o cheiro-verde.' },
+        { value: 'Retire a polpa da moranga assada com uma colher, deixando uma borda grossa. Misture essa polpa ao creme de camarão.' },
+        { value: 'Recheie a moranga com o creme, salpique queijo parmesão e leve ao forno para gratinar.' }
+    ],
+    substitutions: [
+        { value: '**Camarão:** Frango desfiado ou palmito são bons substitutos.' },
+        { value: '**Requeijão:** Pode ser substituído por mais creme de leite.' }
+    ],
+    chefTip: 'Pincele azeite ou manteiga dentro da moranga antes de assar para realçar o sabor.'
+  },
+  'feijao-tropeiro-completo': {
+    title: 'Feijão Tropeiro Completo',
+    author: 'Cozinha Mineira',
+    difficulty: 'Médio',
+    description: 'Um dos pratos mais emblemáticos da culinária mineira. Uma mistura rica de feijão, farinha de mandioca, linguiça, torresmo e ovos. É uma refeição completa e cheia de sabor.',
+    prepTime: 20,
+    cookTime: 40,
+    servings: 6,
+    category: 'Prato Principal',
+    tags: ['Regional', 'Clássico'],
+    ingredients: [
+        { value: '500g de feijão cozido e escorrido (sem caldo)' },
+        { value: '200g de bacon em cubos' },
+        { value: '200g de linguiça calabresa em rodelas' },
+        { value: '1 cebola grande picada' },
+        { value: '4 ovos' },
+        { value: '2 xícaras de farinha de mandioca' },
+        { value: '1 maço de couve fatiada fina' },
+        { value: 'Torresmo a gosto' },
+        { value: 'Sal, pimenta e cheiro-verde' }
+    ],
+    instructions: [
+        { value: 'Frite o bacon na própria gordura até ficar crocante. Retire e reserve. Na mesma panela, frite a linguiça. Retire e reserve.' },
+        { value: 'Na gordura que ficou, refogue a cebola e o alho. Adicione os ovos e mexa até cozinharem. Junte a couve e refogue rapidamente.' },
+        { value: 'Adicione o feijão cozido, a farinha de mandioca e misture bem.' },
+        { value: 'Volte o bacon e a linguiça para a panela. Tempere com sal e pimenta.' },
+        { value: 'Finalize com o cheiro-verde picado e sirva com o torresmo por cima.' }
+    ],
+    substitutions: [
+        { value: '**Feijão:** O feijão carioca é o tradicional, mas o fradinho também funciona.' },
+        { value: '**Carnes:** Pode adicionar carne seca desfiada para uma versão ainda mais rica.' }
+    ],
+    chefTip: 'O segredo é usar o feijão cozido "al dente", para que ele não desmanche ao ser misturado com a farinha.'
+  },
+  'macarrao-carbonara-original': {
+    title: 'Macarrão à Carbonara (Receita Original)',
+    author: 'Trattoria Romana',
+    difficulty: 'Médio',
+    description: 'A verdadeira receita de Carbonara, como se faz em Roma. Sem creme de leite! A cremosidade vem da emulsão das gemas com o queijo e a água do cozimento da massa.',
+    prepTime: 10,
+    cookTime: 15,
+    servings: 2,
+    category: 'Prato Principal',
+    tags: ['Massa', 'Italiano', 'Clássico'],
+    ingredients: [
+        { value: '200g de espaguete' },
+        { value: '100g de guanciale ou pancetta em cubos' },
+        { value: '2 gemas de ovo caipira' },
+        { value: '1 ovo inteiro' },
+        { value: '50g de queijo Pecorino Romano ralado fino' },
+        { value: 'Pimenta do reino moída na hora' }
+    ],
+    instructions: [
+        { value: 'Cozinhe o espaguete em água fervente com sal.' },
+        { value: 'Enquanto isso, frite o guanciale em uma frigideira grande até ficar crocante. Desligue o fogo.' },
+        { value: 'Em uma tigela, bata as gemas, o ovo, o queijo pecorino e muita pimenta do reino.' },
+        { value: 'Quando a massa estiver al dente, escorra (reservando uma xícara da água do cozimento) e jogue na frigideira com o guanciale e sua gordura.' },
+        { value: 'Fora do fogo, despeje a mistura de ovos e queijo sobre a massa quente, adicionando um pouco da água do cozimento reservada. Mexa vigorosamente para criar um molho cremoso.' },
+        { value: 'Sirva imediatamente com mais queijo e pimenta.' }
+    ],
+    substitutions: [
+        { value: '**Guanciale:** É o tradicional, mas pode ser substituído por pancetta ou bacon de boa qualidade.' },
+        { value: '**Pecorino Romano:** Parmesão de boa qualidade pode ser usado, mas o sabor será diferente.' }
+    ],
+    chefTip: 'O truque é misturar os ovos com a massa fora do fogo, mas com a panela ainda quente. O calor residual cozinha os ovos sem que eles virem ovos mexidos, criando o molho cremoso.'
+  },
+  'tiramisu-italiano': {
+    title: 'Tiramisù Italiano Clássico',
+    author: 'Dolce Vita',
+    difficulty: 'Médio',
+    description: 'A famosa sobremesa italiana em sua forma mais autêntica. Camadas de biscoito champagne embebidas em café forte e um creme aveludado de mascarpone.',
+    prepTime: 30,
+    cookTime: 0,
+    servings: 8,
+    category: 'Sobremesa',
+    tags: ['Italiano', 'Clássico', 'Doce'],
+    ingredients: [
+        { value: '6 gemas de ovo' },
+        { value: '1 xícara de açúcar' },
+        { value: '500g de queijo mascarpone' },
+        { value: '4 claras de ovo batidas em neve' },
+        { value: '1 pacote de biscoito champagne (savoiardi)' },
+        { value: '2 xícaras de café forte, frio e sem açúcar' },
+        { value: 'Cacau em pó para polvilhar' }
+    ],
+    instructions: [
+        { value: 'Na batedeira, bata as gemas com o açúcar até obter um creme claro e fofo.' },
+        { value: 'Adicione o mascarpone e bata em velocidade baixa só para incorporar.' },
+        { value: 'Incorpore as claras em neve delicadamente à mistura, com uma espátula.' },
+        { value: 'Molhe rapidamente os biscoitos no café frio e faça uma camada no fundo de um refratário.' },
+        { value: 'Cubra com uma camada do creme de mascarpone. Repita as camadas, finalizando com o creme.' },
+        { value: 'Leve à geladeira por no mínimo 6 horas. Antes de servir, polvilhe generosamente com cacau em pó.' }
+    ],
+    substitutions: [
+        { value: '**Mascarpone:** É o coração da receita, difícil de substituir. Cream cheese de alta qualidade pode ser uma alternativa, mas o sabor muda.' },
+        { value: '**Café:** Pode adicionar um cálice de licor de café ou rum ao café para um sabor extra.' }
+    ],
+    chefTip: 'Use ovos muito frescos, pois eles são consumidos crus. Se preferir, pode usar gemas pasteurizadas.'
+  },
+  'sopa-de-cebola-gratinada': {
+    title: 'Sopa de Cebola Gratinada (Soupe à l\'oignon)',
+    author: 'Le Bistrot Parisien',
+    difficulty: 'Médio',
+    description: 'Um clássico francês reconfortante. Cebolas caramelizadas lentamente em um caldo de carne rico, coberto com uma fatia de pão e queijo Gruyère derretido.',
+    prepTime: 15,
+    cookTime: 50,
+    servings: 4,
+    category: 'Sopa',
+    tags: ['Francês', 'Clássico', 'Inverno'],
+    ingredients: [
+        { value: '4 cebolas grandes em fatias finas' },
+        { value: '3 colheres de sopa de manteiga' },
+        { value: '1 colher de sopa de farinha de trigo' },
+        { value: '1/2 xícara de vinho branco seco' },
+        { value: '1,5 litro de caldo de carne de boa qualidade' },
+        { value: 'Sal e pimenta do reino' },
+        { value: '4 fatias de pão baguete tostadas' },
+        { value: '200g de queijo Gruyère ralado' }
+    ],
+    instructions: [
+        { value: 'Em uma panela grande, derreta a manteiga em fogo baixo. Adicione as cebolas e cozinhe lentamente por 30-40 minutos, mexendo ocasionalmente, até ficarem bem caramelizadas e douradas.' },
+        { value: 'Polvilhe a farinha sobre as cebolas e cozinhe por 1 minuto. Adicione o vinho e mexa, raspando o fundo da panela.' },
+        { value: 'Adicione o caldo de carne, tempere com sal e pimenta e cozinhe em fogo baixo por mais 15 minutos.' },
+        { value: 'Divida a sopa em cumbucas refratárias. Coloque uma fatia de pão sobre cada uma e cubra com o queijo Gruyère.' },
+        { value: 'Leve ao forno para gratinar até o queijo derreter e dourar.' }
+    ],
+    substitutions: [
+        { value: '**Caldo de carne:** Caldo de legumes pode ser usado para uma versão vegetariana.' },
+        { value: '**Queijo Gruyère:** Emmental ou um bom queijo prato podem substituir.' }
+    ],
+    chefTip: 'A paciência é o ingrediente principal. Caramelizar as cebolas lentamente, em fogo baixo, é o que desenvolve a doçura e a profundidade de sabor da sopa.'
+  },
+  'risoto-de-camarao-com-limao-siciliano': {
+    title: 'Risoto de Camarão com Limão Siciliano',
+    author: 'Cucina Italiana',
+    difficulty: 'Médio',
+    description: 'Um risoto leve, sofisticado e cheio de sabor. A combinação do camarão com o frescor do limão siciliano é perfeita.',
+    prepTime: 20,
+    cookTime: 30,
+    servings: 4,
+    category: 'Prato Principal',
+    tags: ['Frutos do Mar', 'Italiano', 'Massa'],
+    ingredients: [
+        { value: '400g de camarões grandes, limpos' },
+        { value: '2 colheres de sopa de manteiga' },
+        { value: '1 cebola picada' },
+        { value: '1 e 1/2 xícara de arroz arbóreo' },
+        { value: '1/2 xícara de vinho branco seco' },
+        { value: '1,5 litro de caldo de legumes quente' },
+        { value: 'Raspas e suco de 1 limão siciliano' },
+        { value: '1/2 xícara de queijo parmesão ralado' },
+        { value: 'Salsinha picada para decorar' }
+    ],
+    instructions: [
+        { value: 'Tempere os camarões com sal e pimenta. Em uma frigideira, derreta 1 colher de manteiga e salteie os camarões rapidamente. Reserve.' },
+        { value: 'Na panela do risoto, derreta o restante da manteiga e refogue a cebola. Adicione o arroz e frite por um minuto.' },
+        { value: 'Junte o vinho e mexa até evaporar. Comece a adicionar o caldo quente, concha por concha, mexendo sempre, até o arroz ficar al dente.' },
+        { value: 'Desligue o fogo. Incorpore os camarões reservados, as raspas e o suco de limão, e o queijo parmesão. Mexa vigorosamente para criar cremosidade (mantecare).' },
+        { value: 'Sirva imediatamente, decorado com salsinha.' }
+    ],
+    substitutions: [
+        { value: '**Camarão:** Vieiras ou lascas de salmão também funcionam bem.' },
+        { value: '**Limão Siciliano:** Pode usar limão tahiti, mas o siciliano é mais aromático e menos ácido.' }
+    ],
+    chefTip: 'O risoto deve ser servido "all\'onda", ou seja, cremoso e fluido o suficiente para formar ondas quando o prato é balançado. Se estiver muito seco, adicione mais uma colher de caldo.'
+  },
+  'mousse-de-maracuja-tradicional': {
+    title: 'Mousse de Maracujá Tradicional',
+    author: 'Confeitaria da Vovó',
+    difficulty: 'Muito Fácil',
+    description: 'A sobremesa mais fácil e rápida do mundo! Cremosa, azedinha e doce na medida certa. Uma explosão de sabor tropical.',
+    prepTime: 10,
+    cookTime: 0,
+    servings: 6,
+    category: 'Sobremesa',
+    tags: ['Doce', 'Rápido', 'Festa'],
+    ingredients: [
+        { value: '1 lata de leite condensado' },
+        { value: '1 lata de creme de leite' },
+        { value: 'A mesma medida (da lata de leite condensado) de suco de maracujá concentrado' },
+        { value: 'Polpa de 1 maracujá fresco para decorar (opcional)' }
+    ],
+    instructions: [
+        { value: 'No liquidificador, bata o leite condensado, o creme de leite e o suco de maracujá por cerca de 3 minutos, até a mistura ficar bem homogênea e cremosa.' },
+        { value: 'Despeje a mousse em uma travessa ou em taças individuais.' },
+        { value: 'Leve à geladeira por pelo menos 2 horas para firmar.' },
+        { value: 'Antes de servir, decore com a polpa de maracujá fresco por cima.' }
+    ],
+    substitutions: [
+        { value: '**Suco concentrado:** Se usar suco natural, use menos quantidade e ajuste a doçura, pois ele é menos doce e mais ácido.' },
+        { value: '**Creme de leite:** Para uma mousse mais aerada, use creme de leite fresco batido em ponto de chantilly mole.' }
+    ],
+    chefTip: 'O segredo da firmeza desta mousse está na acidez do maracujá, que reage com as proteínas do leite e faz a mistura engrossar. Por isso é importante usar um suco bem concentrado.'
+  },
+  'carne-de-panela-com-batatas': {
+    title: 'Carne de Panela com Batatas',
+    author: 'Comida de Mãe',
+    difficulty: 'Fácil',
+    description: 'Um prato clássico de comida caseira que aquece a alma. A carne fica desmanchando e as batatas cozinham no molho, absorvendo todo o sabor.',
+    prepTime: 15,
+    cookTime: 50,
+    servings: 5,
+    category: 'Prato Principal',
+    tags: ['Carne', 'Conforto', 'Clássico'],
+    ingredients: [
+        { value: '1kg de acém ou músculo em cubos grandes' },
+        { value: '2 colheres de sopa de óleo' },
+        { value: '1 cebola grande picada' },
+        { value: '3 dentes de alho picados' },
+        { value: '2 tomates picados' },
+        { value: '1/2 xícara de molho de tomate' },
+        { value: 'Sal, pimenta do reino e cheiro-verde' },
+        { value: '4 batatas médias, descascadas e em pedaços grandes' },
+        { value: 'Água quente o suficiente para cobrir' }
+    ],
+    instructions: [
+        { value: 'Na panela de pressão, aqueça o óleo e doure bem os cubos de carne de todos os lados. Retire e reserve.' },
+        { value: 'Na mesma panela, refogue a cebola e o alho. Adicione os tomates e o molho e refogue mais um pouco.' },
+        { value: 'Volte a carne para a panela, cubra com água quente, tempere com sal e pimenta.' },
+        { value: 'Tampe a panela e, após pegar pressão, cozinhe por 30-40 minutos.' },
+        { value: 'Retire a pressão, abra a panela, junte as batatas e cozinhe por mais 10-15 minutos (sem pressão), até as batatas ficarem macias e o caldo engrossar.' },
+        { value: 'Finalize com cheiro-verde.' }
+    ],
+    substitutions: [
+        { value: '**Batatas:** Mandioca ou cenoura também ficam deliciosas.' },
+        { value: '**Acém/Músculo:** Paleta ou coxão duro são outros cortes bons para cozinhar.' }
+    ],
+    chefTip: 'Selar bem a carne antes de cozinhar é crucial para garantir um molho mais saboroso e uma carne mais suculenta.'
+  },
+  'panqueca-de-carne-moida': {
+    title: 'Panqueca de Carne Moída',
+    author: 'Almoço de Família',
+    difficulty: 'Fácil',
+    description: 'Uma receita clássica e versátil. Massa fininha e um recheio de carne moída bem temperado. Perfeita para um almoço ou jantar rápido.',
+    prepTime: 20,
+    cookTime: 25,
+    servings: 10,
+    category: 'Lanche',
+    tags: ['Massa', 'Carne', 'Clássico'],
+    ingredients: [
+        { value: 'Massa:' },
+        { value: '2 xícaras de leite' },
+        { value: '2 ovos' },
+        { value: '2 xícaras de farinha de trigo' },
+        { value: '2 colheres de sopa de óleo' },
+        { value: '1 pitada de sal' },
+        { value: 'Recheio:' },
+        { value: '500g de carne moída' },
+        { value: '1 cebola picada' },
+        { value: '2 dentes de alho' },
+        { value: 'Azeitonas e cheiro-verde a gosto' }
+    ],
+    instructions: [
+        { value: 'Para a massa, bata todos os ingredientes no liquidificador. Aqueça uma frigideira antiaderente e faça discos finos de panqueca. Reserve.' },
+        { value: 'Para o recheio, refogue a cebola e o alho, adicione a carne moída e cozinhe bem. Tempere e adicione as azeitonas e o cheiro-verde.' },
+        { value: 'Recheie cada disco de panqueca com a carne moída e enrole.' },
+        { value: 'Arrume as panquecas em um refratário, cubra com molho de tomate e queijo parmesão e leve ao forno para gratinar.' }
+    ],
+    substitutions: [
+        { value: '**Recheio:** Frango desfiado, queijo e presunto ou um refogado de legumes são ótimas opções.' },
+        { value: '**Farinha:** Pode usar metade farinha integral para uma massa mais nutritiva.' }
+    ],
+    chefTip: 'Para uma massa de panqueca sem grumos, peneire a farinha antes de bater no liquidificador.'
+  },
+  'arroz-de-forno-cremoso': {
+    title: 'Arroz de Forno Cremoso',
+    author: 'Aproveitando as Sobras',
+    difficulty: 'Fácil',
+    description: 'Uma ótima maneira de transformar o arroz do dia anterior em uma refeição nova e deliciosa. Cremoso, com queijo e o que mais você tiver na geladeira!',
+    prepTime: 10,
+    cookTime: 20,
+    servings: 5,
+    category: 'Prato Principal',
+    tags: ['Arroz', 'Aproveitamento', 'Conforto'],
+    ingredients: [
+        { value: '3 xícaras de arroz cozido' },
+        { value: '1 lata de milho verde' },
+        { value: '1 xícara de frango desfiado ou presunto picado' },
+        { value: '1/2 xícara de azeitonas' },
+        { value: '1 lata de creme de leite' },
+        { value: '1/2 xícara de requeijão' },
+        { value: '200g de queijo muçarela' },
+        { value: 'Batata palha para cobrir' }
+    ],
+    instructions: [
+        { value: 'Em uma tigela grande, misture o arroz cozido, o milho, o frango/presunto e as azeitonas.' },
+        { value: 'Adicione o creme de leite e o requeijão e misture bem até ficar cremoso. Tempere com sal se necessário.' },
+        { value: 'Transfira metade da mistura para um refratário. Faça uma camada com metade da muçarela.' },
+        { value: 'Cubra com o restante do arroz e finalize com o resto da muçarela.' },
+        { value: 'Leve ao forno pré-aquecido a 180°C por 15-20 minutos, ou até o queijo derreter.' },
+        { value: 'Retire do forno e cubra com batata palha antes de servir.' }
+    ],
+    substitutions: [
+        { value: '**Proteína:** Atum, linguiça ou legumes refogados também funcionam.' },
+        { value: '**Requeijão:** Pode substituir por molho bechamel para ainda mais cremosidade.' }
+    ],
+    chefTip: 'Se o arroz estiver muito seco, adicione um pouco de leite à mistura para ajudar na cremosidade.'
+  },
+  'brigadeirao-facil': {
+    title: 'Brigadeirão Fácil de Liquidificador',
+    author: 'Sobremesa Rápida',
+    difficulty: 'Fácil',
+    description: 'Um pudim de chocolate intenso e cremoso que não vai ao fogo. Tudo é batido no liquidificador e assado em banho-maria. Uma sobremesa prática e impressionante.',
+    prepTime: 10,
+    cookTime: 50,
+    servings: 8,
+    category: 'Sobremesa',
+    tags: ['Chocolate', 'Doce', 'Festa'],
+    ingredients: [
+        { value: '1 lata de leite condensado' },
+        { value: '1 lata de creme de leite' },
+        { value: '1 xícara de chocolate em pó' },
+        { value: '3 ovos' },
+        { value: '1 colher de sopa de manteiga' },
+        { value: 'Chocolate granulado para decorar' }
+    ],
+    instructions: [
+        { value: 'Unte uma forma de pudim com manteiga e polvilhe açúcar.' },
+        { value: 'No liquidificador, bata todos os ingredientes (exceto o granulado) por cerca de 3 minutos.' },
+        { value: 'Despeje a mistura na forma e cubra com papel alumínio.' },
+        { value: 'Asse em banho-maria em forno a 180°C por cerca de 50 minutos.' },
+        { value: 'Espere amornar para desenformar e leve à geladeira. Sirva gelado, coberto com chocolate granulado.' }
+    ],
+    substitutions: [
+        { value: '**Chocolate em pó:** Use um de boa qualidade (50% cacau) para um sabor mais intenso.' },
+        { value: '**Creme de leite:** Use o creme de leite de lata com o soro.' }
+    ],
+    chefTip: 'Assim como o pudim, deixe o brigadeirão esfriar bem e gelar por algumas horas antes de desenformar para garantir que ele não quebre.'
+  },
+  'macarrao-alho-e-oleo': {
+    title: 'Macarrão Alho e Óleo Simples',
+    author: 'Cozinha de Estudante',
+    difficulty: 'Muito Fácil',
+    description: 'A receita mais simples e uma das mais saborosas de macarrão. O segredo está em usar bons ingredientes e no ponto certo do alho.',
+    prepTime: 5,
+    cookTime: 10,
+    servings: 2,
+    category: 'Prato Principal',
+    tags: ['Massa', 'Rápido', 'Básico'],
+    ingredients: [
+        { value: '200g de espaguete' },
+        { value: '4 dentes de alho fatiados finamente' },
+        { value: '1/4 xícara de azeite de oliva extra virgem' },
+        { value: 'Pimenta calabresa a gosto' },
+        { value: 'Salsinha fresca picada' },
+        { value: 'Sal' }
+    ],
+    instructions: [
+        { value: 'Cozinhe o macarrão em bastante água com sal até ficar al dente. Reserve uma concha da água do cozimento.' },
+        { value: 'Enquanto o macarrão cozinha, aqueça o azeite em uma frigideira grande em fogo baixo. Adicione as fatias de alho e a pimenta calabresa.' },
+        { value: 'Cozinhe o alho lentamente até começar a dourar. Cuidado para não queimar.' },
+        { value: 'Escorra o macarrão e jogue-o diretamente na frigideira com o alho e óleo. Adicione a água do cozimento reservada e a salsinha.' },
+        { value: 'Misture tudo rapidamente para emulsionar o molho. Sirva imediatamente.' }
+    ],
+    substitutions: [
+        { value: '**Salsinha:** Folhas de manjericão também combinam bem.' },
+        { value: '**Adicional:** Adicione camarões salteados ou cogumelos para um prato mais completo.' }
+    ],
+    chefTip: 'O segredo é cozinhar o alho em fogo baixo para que ele libere seu sabor no azeite sem amargar. Ele deve ficar dourado, nunca marrom escuro.'
+  },
+  'salada-caprese-no-palito': {
+    title: 'Salada Caprese no Palito',
+    author: 'Aperitivos Fáceis',
+    difficulty: 'Muito Fácil',
+    description: 'Uma forma charmosa e prática de servir a clássica salada caprese como um aperitivo.',
+    prepTime: 15,
+    cookTime: 0,
+    servings: 10,
+    category: 'Aperitivo',
+    tags: ['Festa', 'Rápido', 'Italiano'],
+    ingredients: [
+        { value: '20 tomates cereja' },
+        { value: '20 bolinhas de muçarela de búfala' },
+        { value: 'Folhas de manjericão fresco' },
+        { value: 'Azeite de oliva extra virgem' },
+        { value: 'Redução de balsâmico (ou vinagre balsâmico)' },
+        { value: 'Sal e pimenta do reino' },
+        { value: 'Palitos de churrasco pequenos' }
+    ],
+    instructions: [
+        { value: 'Monte os espetinhos intercalando um tomate cereja, uma folha de manjericão dobrada e uma bolinha de muçarela.' },
+        { value: 'Arrume os espetinhos em uma travessa.' },
+        { value: 'Na hora de servir, regue com azeite e a redução de balsâmico.' },
+        { value: 'Tempere com sal e pimenta do reino moída na hora.' }
+    ],
+    substitutions: [
+        { value: '**Muçarela de búfala:** Queijo minas frescal em cubos pode ser uma alternativa.' },
+        { value: '**Redução de balsâmico:** Se não tiver, pode fazer a sua própria cozinhando vinagre balsâmico em fogo baixo até reduzir e engrossar.' }
+    ],
+    chefTip: 'Escolha tomates cereja doces e manjericão bem fresco para o melhor sabor.'
+  },
+  'pao-de-alho-caseiro': {
+    title: 'Pão de Alho Cremoso para Churrasco',
+    author: 'Rei do Churrasco',
+    difficulty: 'Fácil',
+    description: 'A receita definitiva de pão de alho. Um creme de alho com maionese e queijo que deixa o pão incrivelmente saboroso e suculento.',
+    prepTime: 10,
+    cookTime: 15,
+    servings: 8,
+    category: 'Acompanhamento',
+    tags: ['Churrasco', 'Pão', 'Lanche'],
+    ingredients: [
+        { value: '1 baguete ou pão filão' },
+        { value: '1 cabeça de alho' },
+        { value: '1 xícara de maionese' },
+        { value: '1/2 xícara de queijo muçarela ralado' },
+        { value: '1/4 xícara de queijo parmesão ralado' },
+        { value: 'Cheiro-verde picado a gosto' },
+        { value: 'Sal e pimenta' }
+    ],
+    instructions: [
+        { value: 'Amasse ou pique muito bem os dentes de alho.' },
+        { value: 'Em uma tigela, misture o alho, a maionese, os queijos e o cheiro-verde. Tempere com sal e pimenta.' },
+        { value: 'Fatie o pão sem separar as fatias completamente, como uma sanfona.' },
+        { value: 'Passe a pasta de alho generosamente entre cada fatia.' },
+        { value: 'Enrole o pão em papel alumínio e leve à churrasqueira ou ao forno a 200°C por cerca de 10 minutos.' },
+        { value: 'Abra o papel alumínio e deixe dourar por mais 5 minutos.' }
+    ],
+    substitutions: [
+        { value: '**Maionese:** Pode substituir parte da maionese por requeijão cremoso.' },
+        { value: '**Alho:** Para um sabor mais suave, use alho assado em vez de cru.' }
+    ],
+    chefTip: 'Não economize no recheio! O segredo é ter bastante pasta de alho para que o pão fique bem úmido por dentro.'
+  },
+  'sufle-de-queijo': {
+    title: 'Suflê de Queijo Clássico',
+    author: 'Escola de Culinária Francesa',
+    difficulty: 'Difícil',
+    description: 'Um prato elegante e impressionante. Leve, aerado e com um sabor intenso de queijo. Requer técnica, mas o resultado é espetacular. Sirva imediatamente!',
+    prepTime: 20,
+    cookTime: 30,
+    servings: 4,
+    category: 'Prato Principal',
+    tags: ['Francês', 'Ovos', 'Queijo'],
+    ingredients: [
+        { value: '3 colheres de sopa de manteiga' },
+        { value: '3 colheres de sopa de farinha de trigo' },
+        { value: '1 xícara de leite quente' },
+        { value: '4 gemas' },
+        { value: '5 claras' },
+        { value: '1 xícara de queijo Gruyère ou Emmental ralado' },
+        { value: 'Sal, pimenta e noz-moscada' }
+    ],
+    instructions: [
+        { value: 'Unte muito bem 4 ramequins individuais com manteiga e polvilhe com queijo parmesão. Leve à geladeira.' },
+        { value: 'Faça um molho bechamel: derreta a manteiga, junte a farinha e cozinhe por um minuto. Adicione o leite quente aos poucos, mexendo sempre, até engrossar. Tempere.' },
+        { value: 'Retire o bechamel do fogo e incorpore as gemas, uma a uma. Junte o queijo Gruyère ralado.' },
+        { value: 'Bata as claras em neve com uma pitada de sal até atingir picos firmes.' },
+        { value: 'Incorpore 1/3 das claras à base de queijo para amaciá-la. Depois, adicione o restante das claras delicadamente, em movimentos de baixo para cima.' },
+        { value: 'Distribua nos ramequins e asse em forno pré-aquecido a 200°C por 20-25 minutos, até crescer e dourar. Não abra o forno durante o cozimento.' }
+    ],
+    substitutions: [
+        { value: '**Queijo:** Uma mistura de queijos como parmesão e prato também funciona.' },
+        { value: '**Leite:** Use leite integral para um resultado mais rico.' }
+    ],
+    chefTip: 'O segredo para um suflê que cresce é não ter nenhuma gordura nas claras ao bater (use uma tigela bem limpa) e incorporá-las com extrema delicadeza para não perder o ar.'
+  },
+  'creme-de-abobora-com-gorgonzola': {
+    title: 'Creme de Abóbora com Gorgonzola',
+    author: 'Delícias de Inverno',
+    difficulty: 'Fácil',
+    description: 'Uma sopa creme aveludada e elegante. A doçura da abóbora contrasta perfeitamente com o sabor forte e salgado do queijo gorgonzola.',
+    prepTime: 15,
+    cookTime: 30,
+    servings: 4,
+    category: 'Sopa',
+    tags: ['Queijo', 'Inverno', 'Creme'],
+    ingredients: [
+        { value: '1kg de abóbora cabotiá em cubos' },
+        { value: '1 cebola picada' },
+        { value: '2 dentes de alho' },
+        { value: '1 litro de caldo de legumes' },
+        { value: 'Sal e pimenta branca' },
+        { value: '150g de queijo gorgonzola em cubos' },
+        { value: 'Croutons ou sementes de abóbora para servir' }
+    ],
+    instructions: [
+        { value: 'Em uma panela, refogue a cebola e o alho em azeite. Adicione a abóbora e o caldo de legumes.' },
+        { value: 'Cozinhe até a abóbora ficar muito macia.' },
+        { value: 'Bata a sopa no liquidificador ou com um mixer até obter um creme liso.' },
+        { value: 'Volte o creme para a panela, tempere com sal e pimenta.' },
+        { value: 'Sirva a sopa quente em cumbucas, adicionando os cubos de gorgonzola no centro. O queijo irá derreter com o calor da sopa.' }
+    ],
+    substitutions: [
+        { value: '**Abóbora:** Abóbora moranga ou butternut também podem ser usadas.' },
+        { value: '**Gorgonzola:** Se preferir um sabor mais suave, use queijo de cabra.' }
+    ],
+    chefTip: 'Assar a abóbora em vez de cozinhar concentra o sabor e deixa o creme ainda mais delicioso.'
+  },
+  'bolo-de-fuba-com-goiabada': {
+    title: 'Bolo de Fubá com Goiabada',
+    author: 'Café da Tarde',
+    difficulty: 'Fácil',
+    description: 'O par perfeito! Um bolo de fubá fofinho e caseiro, recheado com pedaços de goiabada que derretem no forno. Impossível comer um pedaço só.',
+    prepTime: 15,
+    cookTime: 40,
+    servings: 12,
+    category: 'Sobremesa',
+    tags: ['Bolo', 'Clássico', 'Festa Junina'],
+    ingredients: [
+        { value: '3 ovos' },
+        { value: '2 xícaras de açúcar' },
+        { value: '1 xícara de óleo' },
+        { value: '1 xícara de leite' },
+        { value: '2 xícaras de fubá' },
+        { value: '1 xícara de farinha de trigo' },
+        { value: '1 colher de sopa de fermento em pó' },
+        { value: '200g de goiabada em cubos' }
+    ],
+    instructions: [
+        { value: 'Passe os cubos de goiabada na farinha de trigo e reserve. Isso evita que afundem na massa.' },
+        { value: 'No liquidificador, bata os ovos, o açúcar, o óleo e o leite.' },
+        { value: 'Em uma tigela, misture o fubá e a farinha. Despeje a mistura líquida e mexa bem.' },
+        { value: 'Adicione o fermento e a goiabada em cubos, misturando delicadamente.' },
+        { value: 'Despeje em uma forma de buraco no meio, untada e enfarinhada.' },
+        { value: 'Asse em forno pré-aquecido a 180°C por cerca de 40 minutos.' }
+    ],
+    substitutions: [
+        { value: '**Goiabada:** Pode ser substituída por queijo minas em cubos para uma versão "Romeu e Julieta".' },
+        { value: '**Leite:** Leite de coco também combina muito bem.' }
+    ],
+    chefTip: 'O truque de passar a goiabada na farinha antes de incorporar à massa é essencial para que os pedaços fiquem bem distribuídos no bolo.'
+  },
+  'arancini-bolinho-de-risoto': {
+    title: 'Arancini (Bolinho de Risoto)',
+    author: 'Aperitivo Italiano',
+    difficulty: 'Médio',
+    description: 'Uma forma genial de aproveitar sobras de risoto. Bolinhos crocantes por fora, cremosos por dentro e com um recheio de queijo derretido. O aperitivo perfeito!',
+    prepTime: 20,
+    cookTime: 15,
+    servings: 15,
+    category: 'Aperitivo',
+    tags: ['Italiano', 'Frito', 'Aproveitamento'],
+    ingredients: [
+        { value: '3 xícaras de risoto frio (de preferência do dia anterior)' },
+        { value: '100g de queijo muçarela em cubos pequenos' },
+        { value: '2 ovos batidos' },
+        { value: 'Farinha de rosca para empanar' },
+        { value: 'Óleo para fritar' }
+    ],
+    instructions: [
+        { value: 'Com as mãos úmidas, pegue uma porção de risoto e abra na palma da mão.' },
+        { value: 'Coloque um cubo de muçarela no centro e feche, formando uma bolinha (arancini significa "pequena laranja").' },
+        { value: 'Passe cada bolinho no ovo batido e depois na farinha de rosca, cobrindo bem.' },
+        { value: 'Frite em óleo quente até ficarem dourados e crocantes.' },
+        { value: 'Sirva imediatamente com molho de tomate ou uma maionese de alho.' }
+    ],
+    substitutions: [
+        { value: '**Risoto:** Qualquer sabor de risoto funciona. Risoto de açafrão é o mais tradicional.' },
+        { value: '**Recheio:** Um pedacinho de presunto ou um pouco de ragu de carne também são recheios clássicos.' }
+    ],
+    chefTip: 'O risoto precisa estar completamente frio e firme para que os bolinhos não desmanchem. O ideal é usar o risoto feito no dia anterior.'
+  },
+  'bruschetta-de-tomate-e-manjericao': {
+    title: 'Bruschetta de Tomate e Manjericão',
+    author: 'Antipasto Rápido',
+    difficulty: 'Muito Fácil',
+    description: 'Um antepasto italiano clássico, simples e delicioso. A combinação do pão crocante com o frescor do tomate e do manjericão é imbatível.',
+    prepTime: 15,
+    cookTime: 5,
+    servings: 4,
+    category: 'Aperitivo',
+    tags: ['Italiano', 'Rápido', 'Entrada'],
+    ingredients: [
+        { value: '4 fatias grossas de pão italiano' },
+        { value: '2 tomates maduros, sem sementes, em cubos pequenos' },
+        { value: '1 dente de alho' },
+        { value: 'Folhas de manjericão fresco' },
+        { value: 'Azeite de oliva extra virgem' },
+        { value: 'Sal e pimenta do reino' }
+    ],
+    instructions: [
+        { value: 'Toste as fatias de pão no forno ou em uma grelha até ficarem crocantes.' },
+        { value: 'Corte o dente de alho ao meio e esfregue levemente sobre a superfície do pão ainda quente.' },
+        { value: 'Em uma tigela, misture os tomates picados, as folhas de manjericão rasgadas, sal e pimenta. Regue com azeite.' },
+        { value: 'Coloque uma porção da mistura de tomate sobre cada fatia de pão.' },
+        { value: 'Regue com mais um fio de azeite e sirva imediatamente.' }
+    ],
+    substitutions: [
+        { value: '**Tomate:** Tomate cereja cortado ao meio também fica ótimo.' },
+        { value: '**Adicionais:** Lascas de parmesão ou um pouco de queijo de cabra por cima elevam o sabor.' }
+    ],
+    chefTip: 'O segredo é a simplicidade e a qualidade dos ingredientes. Use um bom pão, tomates maduros e um azeite de oliva de primeira linha.'
+  },
+  'focaccia-de-alecrim-e-sal-grosso': {
+    title: 'Focaccia de Alecrim e Sal Grosso',
+    author: 'Pão Italiano',
+    difficulty: 'Médio',
+    description: 'Um pão chato italiano, macio por dentro, com uma casquinha crocante e coberto com azeite, alecrim e sal grosso. Perfeito para servir como entrada ou para fazer sanduíches.',
+    prepTime: 20,
+    cookTime: 25,
+    servings: 8,
+    category: 'Básicos',
+    tags: ['Pão', 'Italiano', 'Aperitivo'],
+    ingredients: [
+        { value: '500g de farinha de trigo' },
+        { value: '7g de fermento biológico seco' },
+        { value: '1 colher de chá de açúcar' },
+        { value: '1 colher de chá de sal' },
+        { value: '350ml de água morna' },
+        { value: '4 colheres de sopa de azeite de oliva' },
+        { value: 'Ramos de alecrim fresco' },
+        { value: 'Sal grosso a gosto' }
+    ],
+    instructions: [
+        { value: 'Em uma tigela, misture a farinha, o fermento, o açúcar e o sal. Adicione a água e 2 colheres de azeite. Misture até formar uma massa pegajosa.' },
+        { value: 'Cubra e deixe crescer por 1 hora. A massa vai ficar cheia de bolhas.' },
+        { value: 'Unte uma assadeira com azeite. Despeje a massa e, com os dedos molhados em azeite, espalhe-a pela forma.' },
+        { value: 'Faça furos na massa com as pontas dos dedos. Regue com o restante do azeite, espalhe os ramos de alecrim e salpique sal grosso.' },
+        { value: 'Deixe descansar por mais 20 minutos. Asse em forno a 220°C por 20-25 minutos.' }
+    ],
+    substitutions: [
+        { value: '**Cobertura:** Azeitonas pretas, tomates cereja ou fatias finas de cebola roxa são ótimas adições.' },
+        { value: '**Farinha:** Use farinha própria para pães para um melhor resultado.' }
+    ],
+    chefTip: 'Não tenha medo de usar bastante azeite. É ele que dá o sabor característico e a textura úmida à focaccia.'
+  },
+  'polenta-cremosa-com-ragu-de-linguica': {
+    title: 'Polenta Cremosa com Ragu de Linguiça',
+    author: 'Cozinha da Nonna',
+    difficulty: 'Médio',
+    description: 'Um prato reconfortante e cheio de sabor, perfeito para dias frios. A polenta macia e cremosa serve como base para um ragu rústico de linguiça toscana.',
+    prepTime: 15,
+    cookTime: 50,
+    servings: 4,
+    category: 'Prato Principal',
+    tags: ['Italiano', 'Conforto', 'Inverno'],
+    ingredients: [
+        { value: 'Ragu:' },
+        { value: '400g de linguiça toscana fresca, sem a pele' },
+        { value: '1 cebola picada' },
+        { value: '2 dentes de alho picados' },
+        { value: '1 cenoura pequena em cubos' },
+        { value: '1/2 xícara de vinho tinto' },
+        { value: '400g de tomate pelado' },
+        { value: 'Polenta:' },
+        { value: '1 xícara de fubá para polenta' },
+        { value: '4 xícaras de caldo de legumes ou água' },
+        { value: '2 colheres de sopa de manteiga' },
+        { value: '1/2 xícara de queijo parmesão ralado' }
+    ],
+    instructions: [
+        { value: 'Para o ragu, refogue a linguiça esmigalhada até dourar. Adicione a cebola, o alho e a cenoura e refogue mais. Junte o vinho e deixe evaporar. Adicione o tomate, amasse com uma colher e cozinhe em fogo baixo por 30 minutos.' },
+        { value: 'Para a polenta, leve o caldo para ferver. Adicione o fubá aos poucos, em chuva, mexendo constantemente com um fouet para não empelotar. Cozinhe por 20-25 minutos, mexendo sempre.' },
+        { value: 'Quando a polenta estiver cozida e cremosa, desligue o fogo e incorpore a manteiga e o queijo parmesão.' },
+        { value: 'Sirva a polenta cremosa em um prato fundo com o ragu por cima.' }
+    ],
+    substitutions: [
+        { value: '**Linguiça:** Carne moída ou um mix de cogumelos podem ser usados para o ragu.' },
+        { value: '**Fubá:** Use o fubá específico para polenta (geralmente mais grosso) para a textura correta.' }
+    ],
+    chefTip: 'Cozinhar a polenta lentamente e mexer constantemente é o segredo para um resultado final liso e cremoso.'
+  },
+  'frango-xadrez-simples': {
+    title: 'Frango Xadrez Simples',
+    author: 'Cozinha Asiática Fácil',
+    difficulty: 'Fácil',
+    description: 'Um clássico da culinária sino-brasileira. Frango macio e legumes crocantes envoltos em um molho agridoce e encorpado.',
+    prepTime: 20,
+    cookTime: 15,
+    servings: 4,
+    category: 'Prato Principal',
+    tags: ['Asiático', 'Frango', 'Rápido'],
+    ingredients: [
+        { value: '500g de filé de frango em cubos' },
+        { value: '1 pimentão verde em cubos' },
+        { value: '1 pimentão vermelho em cubos' },
+        { value: '1 cebola em cubos' },
+        { value: '1/2 xícara de amendoim torrado' },
+        { value: 'Molho:' },
+        { value: '1/2 xícara de molho shoyu' },
+        { value: '2 colheres de sopa de amido de milho' },
+        { value: '1 colher de sopa de açúcar' },
+        { value: '1 xícara de água' }
+    ],
+    instructions: [
+        { value: 'Tempere o frango com sal e pimenta. Em uma panela wok ou frigideira grande, sele o frango em óleo quente. Reserve.' },
+        { value: 'Na mesma panela, salteie a cebola e os pimentões até ficarem macios, mas ainda crocantes.' },
+        { value: 'Em uma tigela, misture todos os ingredientes do molho até dissolver o amido.' },
+        { value: 'Volte o frango para a panela, adicione o molho e cozinhe, mexendo, até o molho engrossar.' },
+        { value: 'Junte o amendoim, misture e sirva imediatamente com arroz branco.' }
+    ],
+    substitutions: [
+        { value: '**Frango:** Carne de porco ou tofu firme em cubos são boas alternativas.' },
+        { value: '**Amendoim:** Pode ser substituído por castanha de caju.' }
+    ],
+    chefTip: 'O segredo do frango xadrez é o cozimento rápido dos legumes em fogo alto para que mantenham a crocância.'
+  },
+  'torta-holandesa-facil': {
+    title: 'Torta Holandesa Fácil',
+    author: 'Doceria da Cidade',
+    difficulty: 'Médio',
+    description: 'Uma sobremesa clássica e elegante. Base de biscoito, um creme branco aveludado e uma cobertura brilhante de ganache de chocolate, cercada por biscoitos Calipso.',
+    prepTime: 30,
+    cookTime: 10,
+    servings: 10,
+    category: 'Sobremesa',
+    tags: ['Torta', 'Doce', 'Festa'],
+    ingredients: [
+        { value: 'Base e Lateral:' },
+        { value: '1 pacote de biscoito maisena triturado' },
+        { value: '100g de manteiga derretida' },
+        { value: '1 pacote de biscoito Calipso' },
+        { value: 'Creme:' },
+        { value: '1 lata de leite condensado' },
+        { value: '1 lata de creme de leite sem soro' },
+        { value: '1/2 xícara de manteiga sem sal' },
+        { value: '1 colher de chá de essência de baunilha' },
+        { value: 'Cobertura:' },
+        { value: '200g de chocolate meio amargo picado' },
+        { value: '1 caixinha de creme de leite' }
+    ],
+    instructions: [
+        { value: 'Misture o biscoito triturado com a manteiga e forre o fundo de uma forma de fundo removível.' },
+        { value: 'Disponha os biscoitos Calipso na lateral da forma, com o chocolate virado para fora. Leve à geladeira.' },
+        { value: 'Para o creme, bata a manteiga com o leite condensado até ficar um creme fofo. Adicione a baunilha e o creme de leite e misture.' },
+        { value: 'Despeje o creme sobre a base e leve à geladeira por 4 horas.' },
+        { value: 'Para a cobertura, derreta o chocolate com o creme de leite no micro-ondas ou em banho-maria. Espere esfriar e cubra a torta.' },
+        { value: 'Volte à geladeira por mais 1 hora antes de servir.' }
+    ],
+    substitutions: [
+        { value: '**Biscoito Calipso:** Se não encontrar, pode usar biscoito champagne.' },
+        { value: '**Chocolate:** Use chocolate de boa qualidade para uma ganache mais saborosa.' }
+    ],
+    chefTip: 'Para o creme ficar bem liso, use a manteiga e o creme de leite em temperatura ambiente.'
+  },
+  'empadao-de-frango-cremoso': {
+    title: 'Empadão de Frango Cremoso',
+    author: 'Lanches da Tarde',
+    difficulty: 'Médio',
+    description: 'Uma massa que derrete na boca e um recheio de frango super cremoso com requeijão. Perfeito para qualquer ocasião.',
+    prepTime: 40,
+    cookTime: 40,
+    servings: 8,
+    category: 'Lanche',
+    tags: ['Torta', 'Salgado', 'Clássico'],
+    ingredients: [
+        { value: 'Massa:' },
+        { value: '3 xícaras de farinha de trigo' },
+        { value: '200g de manteiga gelada em cubos' },
+        { value: '1 ovo' },
+        { value: '1/2 caixinha de creme de leite' },
+        { value: '1 colher de chá de sal' },
+        { value: 'Recheio:' },
+        { value: '500g de peito de frango cozido e desfiado' },
+        { value: '1 cebola picada' },
+        { value: '1 xícara de molho de tomate' },
+        { value: '1 copo de requeijão cremoso' },
+        { value: 'Azeitonas e palmito a gosto' },
+        { value: 'Gema para pincelar' }
+    ],
+    instructions: [
+        { value: 'Para a massa, misture a farinha e o sal. Adicione a manteiga e misture com a ponta dos dedos até formar uma farofa. Junte o ovo e o creme de leite e amasse até unir. Deixe descansar na geladeira por 30 minutos.' },
+        { value: 'Para o recheio, refogue a cebola, junte o frango, o molho e os outros ingredientes. Deixe esfriar.' },
+        { value: 'Abra 2/3 da massa e forre uma forma. Coloque o recheio frio.' },
+        { value: 'Abra o restante da massa e cubra o empadão. Pincele com a gema.' },
+        { value: 'Asse em forno pré-aquecido a 180°C por cerca de 40 minutos.' }
+    ],
+    substitutions: [
+        { value: '**Recheio:** Palmito ou camarão são excelentes alternativas.' },
+        { value: '**Manteiga:** Pode usar margarina culinária.' }
+    ],
+    chefTip: 'Tanto o recheio quanto a massa devem estar frios na hora da montagem para que a massa não desmanche.'
+  },
+  'mac-and-cheese-americano': {
+    title: 'Mac and Cheese (Macarrão com Queijo Americano)',
+    author: 'Comfort Food USA',
+    difficulty: 'Fácil',
+    description: 'A versão definitiva do macarrão com queijo. Super cremoso, feito com um molho bechamel e uma combinação de queijos que derretem perfeitamente.',
+    prepTime: 10,
+    cookTime: 20,
+    servings: 4,
+    category: 'Prato Principal',
+    tags: ['Massa', 'Queijo', 'Conforto'],
+    ingredients: [
+        { value: '300g de macarrão caracol ou penne' },
+        { value: '2 colheres de sopa de manteiga' },
+        { value: '2 colheres de sopa de farinha de trigo' },
+        { value: '2 xícaras de leite' },
+        { value: '200g de queijo cheddar em pedaços' },
+        { value: '100g de queijo muçarela ralado' },
+        { value: 'Sal, pimenta e uma pitada de páprica doce' }
+    ],
+    instructions: [
+        { value: 'Cozinhe o macarrão até ficar al dente. Escorra e reserve.' },
+        { value: 'Em uma panela, derreta a manteiga, adicione a farinha e cozinhe por um minuto.' },
+        { value: 'Adicione o leite aos poucos, mexendo sem parar, até o molho engrossar.' },
+        { value: 'Reduza o fogo e adicione os queijos, mexendo até derreter completamente. Tempere com sal, pimenta e páprica.' },
+        { value: 'Junte o macarrão cozido ao molho e misture bem.' },
+        { value: 'Opcional: transfira para um refratário, cubra com farinha de rosca e leve ao forno para gratinar.' }
+    ],
+    substitutions: [
+        { value: '**Queijo:** Use uma combinação de queijos que derretem bem, como prato, gruyère ou emmental.' },
+        { value: '**Leite:** Para um molho mais rico, use creme de leite fresco no lugar de parte do leite.' }
+    ],
+    chefTip: 'Use queijo em barra e rale ou pique em casa. Queijos já ralados costumam ter amido para não grudar, o que pode afetar a cremosidade do molho.'
   }
 };
     
     
 
     
+
+      
