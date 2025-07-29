@@ -10,6 +10,16 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Award, BookOpen, Edit, PlusCircle, Loader2, Camera } from 'lucide-react';
 import { Header } from '@/components/header';
 import { useToast } from '@/hooks/use-toast';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { EditProfileForm } from '@/components/edit-profile-form';
+
 
 export default function ProfilePage() {
   const { user, loading, updateUserProfile } = useAuth();
@@ -17,6 +27,7 @@ export default function ProfilePage() {
   const { toast } = useToast();
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [isUploading, setIsUploading] = useState(false);
+  const [isProfileDialogOpen, setIsProfileDialogOpen] = useState(false);
 
   useEffect(() => {
     if (!loading && !user) {
@@ -111,10 +122,23 @@ export default function ProfilePage() {
             </h1>
             <p className="mt-1 text-lg text-muted-foreground">{user.email}</p>
           </div>
-          <Button variant="outline" className="sm:ml-auto">
-            <Edit className="mr-2 h-4 w-4" />
-            Editar Perfil
-          </Button>
+          <Dialog open={isProfileDialogOpen} onOpenChange={setIsProfileDialogOpen}>
+            <DialogTrigger asChild>
+               <Button variant="outline" className="sm:ml-auto">
+                <Edit className="mr-2 h-4 w-4" />
+                Editar Perfil
+              </Button>
+            </DialogTrigger>
+            <DialogContent>
+              <DialogHeader>
+                <DialogTitle>Editar Perfil</DialogTitle>
+                <DialogDescription>
+                  Faça alterações no seu perfil aqui. Clique em salvar quando terminar.
+                </DialogDescription>
+              </DialogHeader>
+              <EditProfileForm onSave={() => setIsProfileDialogOpen(false)} />
+            </DialogContent>
+          </Dialog>
         </header>
 
         <main className="space-y-12">
@@ -134,13 +158,11 @@ export default function ProfilePage() {
                   <div>
                   </div>
                 ) : (
-                  <div className="text-center py-10 border-2 border-dashed rounded-lg">
+                   <div className="text-center py-10 border-2 border-dashed rounded-lg">
                     <h3 className="text-lg font-semibold text-muted-foreground">Você ainda não compartilhou nenhuma receita</h3>
-                    <Button className="mt-4" asChild>
-                      <a href="/submit-recipe">
+                    <Button className="mt-4">
                         <PlusCircle className="mr-2 h-4 w-4" />
                         Compartilhe sua primeira receita!
-                      </a>
                     </Button>
                   </div>
                 )}
