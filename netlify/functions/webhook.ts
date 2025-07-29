@@ -3,7 +3,6 @@ import type { Handler, HandlerEvent, HandlerContext } from "@netlify/functions";
 import { auth } from '../../src/lib/firebase-admin';
 import sgMail from '@sendgrid/mail';
 
-// Configura a chave da API do SendGrid
 if (process.env.SENDGRID_API_KEY) {
     sgMail.setApiKey(process.env.SENDGRID_API_KEY);
     console.log("[SendGrid] API Key configurada.");
@@ -19,7 +18,6 @@ async function sendWelcomeEmail(email: string, name: string) {
     }
 
     try {
-        // Gera o link para o usuário criar sua senha
         const actionLink = await auth.generatePasswordResetLink(email);
         const loginUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://helpful-dusk-fee471.netlify.app/login';
 
@@ -72,41 +70,36 @@ const handler: Handler = async (event: HandlerEvent, context: HandlerContext) =>
     const purchaseStatus = body.status;
 
     if (purchaseStatus !== 'APPROVED' || !customerEmail) {
-      console.error(`[Webhook] Payload inválido: status não é 'APPROVED' ou e-mail está ausente. Status: ${purchaseStatus}, Email: ${customerEmail}`);
+      console.log(`[Webhook] Payload ignorado: status não é 'APPROVED' ou e-mail está ausente. Status: ${purchaseStatus}, Email: ${customerEmail}`);
       return { 
-          statusCode: 400,
-          body: JSON.stringify({ error: "Payload inválido da Kirvano.", receivedStatus: purchaseStatus, receivedEmail: customerEmail })
+          statusCode: 200,
+          body: JSON.stringify({ message: "Payload ignorado, não é uma compra aprovada." })
       };
     }
     
     console.log(`[Webhook] Processando compra aprovada para: Email: ${customerEmail}, Nome: ${customerName}`);
     
-    let existingUser;
     try {
-        existingUser = await auth.getUserByEmail(customerEmail);
+        const existingUser = await auth.getUserByEmail(customerEmail);
+        console.log(`[Webhook] Usuário com e-mail ${customerEmail} já existe. UID: ${existingUser.uid}. Nenhuma ação necessária.`);
+        return { statusCode: 200, body: 'Usuário já existe.' };
     } catch (error: any) {
         if (error.code !== 'auth/user-not-found') {
-            throw error; // Lança outros erros inesperados do Firebase
+            console.error('[Firebase] Erro inesperado ao verificar usuário:', error);
+            throw error;
         }
-        // Se o usuário não for encontrado, existingUser continuará undefined
     }
-
-
-    if (existingUser) {
-      console.log(`[Webhook] Usuário com e-mail ${customerEmail} já existe. UID: ${existingUser.uid}. Nenhuma ação necessária.`);
-      return { statusCode: 200, body: 'Usuário já existe.' };
-    } 
       
     console.log(`[Webhook] Criando novo usuário no Firebase para ${customerEmail}...`);
     
     const newUser = await auth.createUser({
       email: customerEmail,
-      emailVerified: true, // O e-mail da Kirvano já é considerado verificado
+      emailVerified: true,
       displayName: customerName,
       disabled: false,
     });
 
-    console.log(`[Webhook] Usuário criado com sucesso no Firebase! UID: ${newUser.uid}. Enviando e-mail de boas-vindas.`);
+    console.log(`[Webhook] Usuário criado com sucesso! UID: ${newUser.uid}. Enviando e-mail de boas-vindas...`);
     
     await sendWelcomeEmail(customerEmail, customerName);
 
