@@ -86,7 +86,7 @@ export default function DashboardPage() {
       title: "E-book 'Técnicas Culinárias'",
       description: "Domine as substituições para garantir sabor e textura perfeitos em suas receitas.",
       actionText: "Acessar Conteúdo",
-      href: "#",
+      href: "/bonus/ebook-tecnicas",
     },
     {
       icon: <ShieldCheck className="w-8 h-8 text-primary" />,
