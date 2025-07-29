@@ -59,7 +59,7 @@ export default function ProfilePage() {
             <div className="text-center text-muted-foreground p-8 border-2 border-dashed rounded-lg bg-secondary/30">
                 <p className='mb-4'>Você ainda não compartilhou nenhuma receita. Que tal começar agora?</p>
                 <Button asChild>
-                    {/* O Link será adicionado na próxima etapa */}
+                    {/* O Link foi removido temporariamente para evitar o erro 404 */}
                     <span className="cursor-pointer"> 
                         <ChefHat className="mr-2 h-4 w-4"/>
                         Compartilhe sua primeira receita!
