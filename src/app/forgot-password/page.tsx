@@ -25,19 +25,22 @@ const formSchema = z.object({
   email: z.string().email({ message: 'Por favor, insira um e-mail válido.' }),
 });
 
+// Definindo o tipo separado para evitar o erro de sintaxe
+type ForgotPasswordFormValues = z.infer<typeof formSchema>;
+
 export default function ForgotPasswordPage() {
   const [isSubmitting, setIsSubmitting] = React.useState(false);
   const { toast } = useToast();
   const { resetPassword } = useAuth();
 
-  const form = useForm<z.infer<typeof formSchema>>({
+  const form = useForm<ForgotPasswordFormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       email: '',
     },
   });
 
-  const onSubmit = async (values: z.infer<typeof formSchema>>) => {
+  const onSubmit = async (values: ForgotPasswordFormValues) => {
     setIsSubmitting(true);
     try {
       await resetPassword(values.email);
