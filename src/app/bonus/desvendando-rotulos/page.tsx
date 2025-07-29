@@ -7,7 +7,7 @@ import {
 } from "@/components/ui/card"
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import { Separator } from "@/components/ui/separator"
-import { ShieldCheck, Search, Info, CheckCircle, Wheat, MilkOff } from "lucide-react"
+import { ShieldCheck, Search, Info, CheckCircle, Wheat, MilkOff, LifeBuoy, Vegan, Pill } from "lucide-react"
 
 export default function LabelsGuidePage() {
   return (
@@ -15,17 +15,17 @@ export default function LabelsGuidePage() {
       <header className="mb-10 text-center">
         <ShieldCheck className="h-20 w-20 text-primary mx-auto mb-4" />
         <h1 className="text-4xl font-bold tracking-tight text-foreground sm:text-5xl font-headline">
-          Guia: Desvendando Rótulos e Ingredientes Ocultos
+          Guia Definitivo: Desvendando Rótulos e Ingredientes
         </h1>
         <p className="mt-4 text-xl text-muted-foreground">
-          Sua bússola para compras seguras e sem ansiedade.
+          Sua bússola para compras seguras, sem ansiedade e com total confiança.
         </p>
       </header>
 
       <article className="prose prose-lg max-w-none dark:prose-invert">
         <section className="mb-12">
           <p className="lead text-lg">
-            "Será que posso comer isso?" — se você já se fez essa pergunta segurando um produto no supermercado, este guia é para você. A lactose se esconde nos lugares mais inesperados. Vamos aprender a encontrá-la e a fazer escolhas com total confiança.
+            "Será que posso comer isso?" — Se você já se fez essa pergunta segurando um produto no supermercado, este guia é para você. A lactose e os derivados do leite se escondem nos lugares mais inesperados. Vamos aprender a encontrá-los e a fazer escolhas com total segurança.
           </p>
         </section>
 
@@ -57,21 +57,26 @@ export default function LabelsGuidePage() {
               <Info className="h-4 w-4 !text-destructive" />
               <AlertTitle className="font-headline !text-destructive">"ALÉRGICOS: CONTÉM LEITE E DERIVADOS."</AlertTitle>
               <AlertDescription className="!text-destructive/80">
-                <p>Se encontrar esta frase, o produto **não é seguro** para você. Simples assim.</p>
+                <p>Se encontrar esta frase, o produto **não é seguro**. Ele contém ingredientes à base de leite.</p>
               </AlertDescription>
             </Alert>
              <Alert className="bg-primary/10 border-primary/40 text-primary">
               <CheckCircle className="h-4 w-4 !text-primary" />
               <AlertTitle className="font-headline !text-primary">"ALÉRGICOS: PODE CONTER LEITE."</AlertTitle>
               <AlertDescription className="!text-primary/80">
-                <p>Isso indica **risco de contaminação cruzada**. O produto não tem leite como ingrediente, mas é fabricado em equipamentos que processam produtos com leite. Para intolerantes à lactose, geralmente é seguro. Para alérgicos à proteína do leite (APLV), é melhor evitar.</p>
+                <p>Isso indica **risco de contaminação cruzada**. O produto não tem leite como ingrediente, mas é fabricado em equipamentos que também processam produtos com leite.</p>
+                <p className="mt-2 font-semibold">**Diferença Crucial:**</p>
+                <ul className="list-disc pl-5">
+                    <li>**Para Intolerantes à Lactose:** Geralmente é seguro, pois a quantidade de lactose por contaminação é mínima.</li>
+                    <li>**Para Alérgicos à Proteína do Leite (APLV):** **NÃO É SEGURO!** A alergia é uma reação do sistema imunológico a proteínas, e mesmo traços podem ser perigosos.</li>
+                </ul>
               </AlertDescription>
             </Alert>
              <Alert className="bg-green-600/10 border-green-600/40 text-green-700">
               <ShieldCheck className="h-4 w-4 !text-green-700" />
               <AlertTitle className="font-headline !text-green-700">"NÃO CONTÉM LACTOSE" ou "ZERO LACTOSE"</AlertTitle>
               <AlertDescription className="!text-green-700/80">
-                <p>Este é o selo de segurança máximo. Significa que o produto é seguro ou que a enzima lactase foi adicionada para quebrar a lactose.</p>
+                <p>Este é o selo de segurança máximo para intolerantes. Significa que o produto é seguro ou que a enzima lactase foi adicionada para quebrar a lactose. **Atenção APLV:** Mesmo "zero lactose", o produto pode conter as proteínas do leite, então sempre verifique se ele também diz "não contém derivados de leite".</p>
               </AlertDescription>
             </Alert>
           </div>
@@ -79,34 +84,34 @@ export default function LabelsGuidePage() {
 
         <Separator className="my-12" />
 
-        <section>
-            <h2 className="font-headline text-3xl mb-4">Ingredientes "Pega-Ratinha"</h2>
-            <p>Alguns ingredientes parecem ter lactose, mas não têm. Não precisa temê-los!</p>
+        <section className="mb-12">
+            <h2 className="font-headline text-3xl mb-4">Ingredientes "Pega-Ratinha" (Que São Seguros!)</h2>
+            <p>Alguns ingredientes têm nomes que assustam, mas não têm relação com o leite. Não precisa temê-los!</p>
             <Card className="mt-6">
                  <CardContent className="p-6 grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4">
                     <div className="flex items-start gap-3">
-                        <CheckCircle className="h-6 w-6 text-primary flex-shrink-0 mt-1" />
+                        <CheckCircle className="h-6 w-6 text-green-600 flex-shrink-0 mt-1" />
                         <div>
                             <h4 className="font-semibold">Ácido Lático</h4>
-                            <p className="text-sm text-muted-foreground">Apesar do nome, não tem relação com o leite. É obtido pela fermentação de açúcares (como o de milho ou beterraba) e é seguro.</p>
+                            <p className="text-sm text-muted-foreground">Apesar do nome, não vem do leite. É obtido pela fermentação de açúcares (como os de milho ou beterraba) e é seguro.</p>
                         </div>
                     </div>
                      <div className="flex items-start gap-3">
-                        <CheckCircle className="h-6 w-6 text-primary flex-shrink-0 mt-1" />
+                        <CheckCircle className="h-6 w-6 text-green-600 flex-shrink-0 mt-1" />
                         <div>
                             <h4 className="font-semibold">Lactato de Sódio</h4>
                             <p className="text-sm text-muted-foreground">É um sal derivado do ácido lático. Também é seguro e não contém lactose.</p>
                         </div>
                     </div>
                      <div className="flex items-start gap-3">
-                        <CheckCircle className="h-6 w-6 text-primary flex-shrink-0 mt-1" />
+                        <CheckCircle className="h-6 w-6 text-green-600 flex-shrink-0 mt-1" />
                         <div>
                             <h4 className="font-semibold">Manteiga de Cacau</h4>
-                            <p className="text-sm text-muted-foreground">É a gordura natural da semente de cacau. É totalmente vegetal e segura. Cuidado apenas com chocolates que adicionam leite à fórmula.</p>
+                            <p className="text-sm text-muted-foreground">É a gordura natural da semente de cacau. Totalmente vegetal e segura. Cuidado apenas com chocolates que adicionam leite à fórmula (verifique sempre o rótulo!).</p>
                         </div>
                     </div>
                      <div className="flex items-start gap-3">
-                        <Wheat className="h-6 w-6 text-primary flex-shrink-0 mt-1" />
+                        <Wheat className="h-6 w-6 text-amber-600 flex-shrink-0 mt-1" />
                         <div>
                             <h4 className="font-semibold">E o glúten?</h4>
                             <p className="text-sm text-muted-foreground">Glúten e lactose são coisas diferentes. Um produto pode ser "Sem Glúten", mas conter lactose, e vice-versa. Sempre verifique os dois se tiver ambas as restrições.</p>
@@ -114,6 +119,42 @@ export default function LabelsGuidePage() {
                     </div>
                  </CardContent>
             </Card>
+        </section>
+
+        <Separator className="my-12" />
+
+         <section>
+            <h2 className="font-headline text-3xl mb-4">Dicas Práticas do Detetive</h2>
+            <p>Com o tempo, você se tornará um(a) expert. Aqui estão alguns atalhos e pontos de atenção para o dia a dia:</p>
+            <div className="space-y-6 mt-6">
+                 <Card>
+                    <CardHeader className="flex-row items-center gap-4 space-y-0">
+                        <LifeBuoy className="h-10 w-10 text-primary flex-shrink-0" />
+                        <div>
+                            <CardTitle>Lactose Onde Você Menos Espera</CardTitle>
+                            <CardDescription>Fique atento a presunto, peito de peru, salsichas, molhos prontos, sopas instantâneas e até mesmo alguns pães de forma. O soro de leite é frequentemente usado como um aditivo para dar liga e textura.</CardDescription>
+                        </div>
+                    </CardHeader>
+                </Card>
+                <Card>
+                    <CardHeader className="flex-row items-center gap-4 space-y-0">
+                        <Vegan className="h-10 w-10 text-green-600 flex-shrink-0" />
+                        <div>
+                            <CardTitle>O Atalho Vegano</CardTitle>
+                            <CardDescription>Se um produto tem um selo de certificação "Vegano", pode comprar com tranquilidade. Produtos veganos, por definição, não contêm nenhum ingrediente de origem animal, incluindo leite e seus derivados.</CardDescription>
+                        </div>
+                    </CardHeader>
+                </Card>
+                 <Card>
+                    <CardHeader className="flex-row items-center gap-4 space-y-0">
+                        <Pill className="h-10 w-10 text-destructive flex-shrink-0" />
+                        <div>
+                            <CardTitle>Atenção aos Medicamentos</CardTitle>
+                            <CardDescription>Sim, até remédios podem conter lactose! Ela é usada como excipiente (um ingrediente inativo) em muitos comprimidos e cápsulas. Sempre verifique a bula na seção "Composição" ou pergunte ao seu médico ou farmacêutico.</CardDescription>
+                        </div>
+                    </CardHeader>
+                </Card>
+            </div>
         </section>
 
       </article>
