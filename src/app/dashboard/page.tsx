@@ -103,8 +103,10 @@ export default function DashboardPage() {
                 <p className="mt-2 text-primary-foreground/90">
                     Junte-se a nós em uma jornada de uma semana com receitas incríveis e dicas para uma vida mais leve e saborosa.
                 </p>
-                <Button variant="secondary" className="mt-6">
-                    Quero Participar <ArrowRight className="ml-2 h-4 w-4" />
+                <Button variant="secondary" className="mt-6" asChild>
+                    <Link href="/challenge">
+                        Quero Participar <ArrowRight className="ml-2 h-4 w-4" />
+                    </Link>
                 </Button>
             </div>
         </section>
