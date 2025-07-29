@@ -3,47 +3,68 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import { auth } from '@/lib/firebase-admin';
 import sgMail from '@sendgrid/mail';
 
-// Função para extrair o e-mail de diferentes possíveis campos no corpo da requisição
-const findEmailInBody = (body: any): string | null => {
+// Função para extrair dados do cliente de diferentes possíveis campos no corpo da requisição
+const findCustomerInBody = (body: any): { email: string | null; name: string } => {
     if (!body || typeof body !== 'object') {
-        return null;
+        return { email: null, name: 'Novo Membro' };
     }
 
+    let email: string | null = null;
+    let name: string = 'Novo Membro';
+
     // Estrutura nova (Kiwify, etc.)
-    if (body.customer && typeof body.customer.email === 'string') {
-        return body.customer.email;
+    if (body.customer && typeof body.customer === 'object') {
+        email = body.customer.email || null;
+        name = body.customer.name || name;
     }
 
     // Estruturas legadas (Hotmart, etc.)
-    const possibleKeys = [
-        'email', 
-        'customer_email', 
-        'payer_email', 
-        'buyer_email'
-    ];
-
-    for (const key of possibleKeys) {
-        if (typeof body[key] === 'string') {
-            return body[key];
-        }
+    if (!email) {
+      const possibleEmailKeys = ['email', 'customer_email', 'payer_email', 'buyer_email'];
+      for (const key of possibleEmailKeys) {
+          if (typeof body[key] === 'string') {
+              email = body[key];
+              break;
+          }
+      }
     }
-
-    // Lógica para objetos aninhados (comuns em outras plataformas)
-    if (body.data && typeof body.data === 'object') {
-        if (body.data.customer && typeof body.data.customer.email === 'string') {
-            return body.data.customer.email;
-        }
-        if (body.data.buyer && typeof body.data.buyer.email === 'string') {
-            return body.data.buyer.email;
+    
+    if (name === 'Novo Membro') {
+        const possibleNameKeys = ['customer_name', 'name'];
+         for (const key of possibleNameKeys) {
+            if (typeof body[key] === 'string') {
+                name = body[key];
+                break;
+            }
         }
     }
     
-    if (body.buyer && typeof body.buyer.email === 'string') {
-        return body.buyer.email;
+    // Lógica para objetos aninhados
+    if (body.data && typeof body.data === 'object') {
+        if (!email && body.data.customer && typeof body.data.customer.email === 'string') {
+            email = body.data.customer.email;
+        }
+        if (name === 'Novo Membro' && body.data.customer && typeof body.data.customer.name === 'string') {
+            name = body.data.customer.name;
+        }
+         if (!email && body.data.buyer && typeof body.data.buyer.email === 'string') {
+            email = body.data.buyer.email;
+        }
+        if (name === 'Novo Membro' && body.data.buyer && typeof body.data.buyer.name === 'string') {
+            name = body.data.buyer.name;
+        }
     }
 
-    return null;
+    if (!email && body.buyer && typeof body.buyer.email === 'string') {
+        email = body.buyer.email;
+    }
+    if (name === 'Novo Membro' && body.buyer && typeof body.buyer.name === 'string') {
+        name = body.buyer.name;
+    }
+
+    return { email, name };
 }
+
 
 // Configura a chave da API do SendGrid
 if (process.env.SENDGRID_API_KEY) {
@@ -63,9 +84,7 @@ async function sendWelcomeEmail(email: string, name: string) {
 
     try {
         console.log(`[SendGrid] Gerando link de criação de senha para ${email}...`);
-        // Gera o link de criação de senha
         const actionLink = await auth.generatePasswordResetLink(email);
-
         const loginUrl = 'https://helpful-dusk-fee471.netlify.app/login';
 
         console.log(`[SendGrid] Montando e-mail para ${email}...`);
@@ -107,7 +126,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   console.log('[Webhook] Notificação recebida. Corpo completo:', JSON.stringify(req.body, null, 2));
 
   try {
-    const userEmail = findEmailInBody(req.body);
+    const { email: userEmail, name: customerName } = findCustomerInBody(req.body);
 
     if (!userEmail) {
         const errorMsg = 'E-mail do comprador não foi encontrado no corpo da requisição. Verifique os logs para ver a estrutura recebida.';
@@ -119,7 +138,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         });
     }
     
-    console.log(`[Webhook] E-mail extraído com sucesso: ${userEmail}`);
+    console.log(`[Webhook] E-mail extraído: ${userEmail}, Nome: ${customerName}`);
     
     try {
       const existingUser = await auth.getUserByEmail(userEmail).catch((error) => {
@@ -135,8 +154,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       } 
         
       console.log(`[Webhook] Usuário com e-mail ${userEmail} não encontrado. Prosseguindo para criação...`);
-
-      const customerName = req.body?.customer?.name || req.body?.customer_name || req.body?.buyer?.name || 'Novo Membro';
       
       const newUser = await auth.createUser({
         email: userEmail,
@@ -147,7 +164,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
       console.log(`[Webhook] Usuário criado com sucesso no Firebase! UID: ${newUser.uid}`);
       
-      // Envia o e-mail de boas-vindas usando o SendGrid
       await sendWelcomeEmail(userEmail, customerName);
       
 
