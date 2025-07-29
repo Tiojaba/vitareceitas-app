@@ -3,8 +3,8 @@
 
 import * as React from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { Loader2, User, Mail, Phone, FileText, Image as ImageIcon, PlusCircle, ChefHat, Timer, Users, BookMarked } from "lucide-react";
+import { useForm, useFieldArray } from "react-hook-form";
+import { Loader2, Image as ImageIcon, PlusCircle, ChefHat, Timer, Users, BookMarked, Trash2 } from "lucide-react";
 import { useRouter } from 'next/navigation';
 
 import { Button } from "@/components/ui/button";
@@ -49,13 +49,23 @@ export function SubmitRecipeForm() {
     defaultValues: {
       title: "",
       description: "",
-      ingredients: "",
-      instructions: "",
+      ingredients: [{ value: "" }],
+      instructions: [{ value: "" }],
       category: "",
       prepTime: 0,
       servings: 0,
       image: undefined,
     },
+  });
+
+  const { fields: ingredients, append: appendIngredient, remove: removeIngredient } = useFieldArray({
+    control: form.control,
+    name: "ingredients"
+  });
+
+  const { fields: instructions, append: appendInstruction, remove: removeInstruction } = useFieldArray({
+    control: form.control,
+    name: "instructions"
   });
 
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -74,12 +84,22 @@ export function SubmitRecipeForm() {
     setIsSubmitting(true);
     
     const formData = new FormData();
-    Object.entries(values).forEach(([key, value]) => {
-        if (key === 'image' && value instanceof File) {
-            formData.append(key, value);
-        } else if (value !== undefined && value !== null) {
-            formData.append(key, String(value));
-        }
+    formData.append('title', values.title);
+    formData.append('description', values.description);
+    formData.append('prepTime', String(values.prepTime));
+    formData.append('servings', String(values.servings));
+    formData.append('category', values.category);
+    
+    if (values.image instanceof File) {
+      formData.append('image', values.image);
+    }
+
+    values.ingredients.forEach(item => {
+        formData.append('ingredients', item.value);
+    });
+
+    values.instructions.forEach(item => {
+        formData.append('instructions', item.value);
     });
 
     try {
@@ -233,35 +253,72 @@ export function SubmitRecipeForm() {
                 />
             </div>
 
-            <FormField
-              control={form.control}
-              name="ingredients"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Ingredientes</FormLabel>
-                  <FormDescription>Liste um ingrediente por linha.</FormDescription>
-                  <FormControl>
-                    <Textarea placeholder="2 xícaras de farinha de amêndoas&#10;1 xícara de açúcar de coco&#10;..." {...field} rows={8}/>
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+            <div>
+              <FormLabel>Ingredientes</FormLabel>
+              <FormDescription>Liste um ingrediente de cada vez.</FormDescription>
+              <div className="space-y-2 mt-2">
+                {ingredients.map((field, index) => (
+                    <FormField
+                      key={field.id}
+                      control={form.control}
+                      name={`ingredients.${index}.value`}
+                      render={({ field }) => (
+                        <FormItem>
+                          <div className="flex items-center gap-2">
+                              <FormControl>
+                                <Input placeholder="ex: 2 xícaras de farinha de amêndoas" {...field} />
+                              </FormControl>
+                              {ingredients.length > 1 && (
+                                <Button type="button" variant="ghost" size="icon" onClick={() => removeIngredient(index)}>
+                                  <Trash2 className="h-4 w-4" />
+                                </Button>
+                              )}
+                          </div>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                ))}
+              </div>
+              <Button type="button" variant="outline" size="sm" className="mt-2" onClick={() => appendIngredient({ value: "" })}>
+                <PlusCircle className="mr-2 h-4 w-4" />
+                Adicionar Ingrediente
+              </Button>
+            </div>
 
-            <FormField
-              control={form.control}
-              name="instructions"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Modo de Preparo</FormLabel>
-                   <FormDescription>Descreva o passo a passo. Numere os passos se preferir.</FormDescription>
-                  <FormControl>
-                    <Textarea placeholder="1. Pré-aqueça o forno a 180°C.&#10;2. Em uma tigela grande, misture os ingredientes secos.&#10;..." {...field} rows={12}/>
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+            <div>
+              <FormLabel>Modo de Preparo</FormLabel>
+              <FormDescription>Descreva o passo a passo. Um passo de cada vez.</FormDescription>
+               <div className="space-y-4 mt-2">
+                {instructions.map((field, index) => (
+                  <FormField
+                    key={field.id}
+                    control={form.control}
+                    name={`instructions.${index}.value`}
+                    render={({ field }) => (
+                      <FormItem>
+                        <div className="flex items-center gap-2">
+                           <span className="font-bold text-lg text-primary">{index + 1}.</span>
+                           <FormControl>
+                              <Textarea placeholder="ex: Pré-aqueça o forno a 180°C." {...field} rows={3}/>
+                           </FormControl>
+                            {instructions.length > 1 && (
+                              <Button type="button" variant="ghost" size="icon" onClick={() => removeInstruction(index)}>
+                                <Trash2 className="h-4 w-4" />
+                              </Button>
+                            )}
+                        </div>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                ))}
+              </div>
+              <Button type="button" variant="outline" size="sm" className="mt-2" onClick={() => appendInstruction({ value: "" })}>
+                 <PlusCircle className="mr-2 h-4 w-4" />
+                Adicionar Passo
+              </Button>
+            </div>
 
           </CardContent>
         </Card>

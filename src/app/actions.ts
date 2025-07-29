@@ -120,9 +120,20 @@ export async function submitRecipe(formData: FormData) {
   const userId = decodedToken.uid;
   const userName = decodedToken.name || decodedToken.email || 'Anônimo';
 
-  // 2. Validate form data
-  const data = Object.fromEntries(formData.entries());
-   const validationResult = recipeSchema.safeParse({
+  // 2. Coleta e processa os dados do formulário
+  const data = {
+    title: formData.get('title'),
+    description: formData.get('description'),
+    prepTime: formData.get('prepTime'),
+    servings: formData.get('servings'),
+    category: formData.get('category'),
+    image: formData.get('image'),
+    ingredients: formData.getAll('ingredients').map(val => ({ value: val })),
+    instructions: formData.getAll('instructions').map(val => ({ value: val })),
+  };
+
+  // 3. Validate form data
+  const validationResult = recipeSchema.safeParse({
     ...data,
     prepTime: data.prepTime ? Number(data.prepTime) : undefined,
     servings: data.servings ? Number(data.servings) : undefined,
@@ -136,7 +147,7 @@ export async function submitRecipe(formData: FormData) {
 
   const { image, ...recipeData } = validationResult.data;
 
-  // 3. Upload image to Firebase Storage
+  // 4. Upload image to Firebase Storage
   const bucket = getStorage().bucket(process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET);
   const recipeId = randomUUID();
   const imagePath = `recipes/${userId}/${recipeId}/${image.name}`;
@@ -155,7 +166,7 @@ export async function submitRecipe(formData: FormData) {
     expires: '03-09-2491', // Data de expiração muito longa
   });
 
-  // 4. Save recipe data to Firestore
+  // 5. Save recipe data to Firestore
   const recipeDocRef = db.collection('recipes').doc(recipeId);
   await recipeDocRef.set({
     ...recipeData,
@@ -166,7 +177,7 @@ export async function submitRecipe(formData: FormData) {
     updatedAt: new Date().toISOString(),
   });
 
-  // 5. Revalidate paths and return result
+  // 6. Revalidate paths and return result
   revalidatePath('/dashboard');
   revalidatePath('/profile'); 
   
