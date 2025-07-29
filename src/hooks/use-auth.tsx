@@ -60,29 +60,37 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     if (!auth.currentUser) {
       throw new Error("Nenhum usuário autenticado encontrado.");
     }
-  
+
     const profileUpdate: { displayName?: string, photoURL?: string } = {};
-  
+
     if (data.photoFile) {
       const filePath = `profile-pictures/${auth.currentUser.uid}/${data.photoFile.name}`;
       const storageRef = ref(storage, filePath);
       const snapshot = await uploadBytes(storageRef, data.photoFile);
       profileUpdate.photoURL = await getDownloadURL(snapshot.ref);
     }
-  
+
     if (data.displayName !== undefined) {
       profileUpdate.displayName = data.displayName;
     }
-  
-    await updateProfile(auth.currentUser, profileUpdate);
-  
-    // Força a atualização do estado do usuário criando um novo objeto
-    // para que o React detecte a mudança e re-renderize.
-    if (auth.currentUser) {
-      const updatedUser: User = { ...auth.currentUser };
-      setUser(updatedUser);
+
+    if (Object.keys(profileUpdate).length > 0) {
+        await updateProfile(auth.currentUser, profileUpdate);
+
+        // AQUI ESTÁ A CORREÇÃO:
+        // Atualizamos o estado local do usuário com os novos dados,
+        // garantindo que o React detecte a mudança e atualize a UI.
+        setUser(prevUser => {
+            if (!prevUser) return null;
+            return {
+                ...prevUser,
+                displayName: profileUpdate.displayName ?? prevUser.displayName,
+                photoURL: profileUpdate.photoURL ?? prevUser.photoURL,
+            } as User;
+        });
     }
   };
+
 
   const value = {
     user,
