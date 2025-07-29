@@ -60,7 +60,7 @@ export function AuthForm({ mode }: AuthFormProps) {
         title: mode === 'login' ? 'Login bem-sucedido!' : 'Conta criada com sucesso!',
         description: 'Você será redirecionado em breve.',
       });
-      router.push('/checkout');
+      router.push('/dashboard');
     } catch (error: any) {
       toast({
         variant: 'destructive',
