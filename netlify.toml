@@ -4,7 +4,7 @@
 
 [functions]
   directory = "pages/api"
-  included_files = ["src/lib/firebase-admin.ts", "src/lib/firebase.ts", ".env"]
+  included_files = ["src/lib/**", ".env"]
   node_bundler = "esbuild"
 
 [[redirects]]
