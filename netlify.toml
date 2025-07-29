@@ -3,8 +3,7 @@
   publish = ".next"
 
 [functions]
-  directory = "pages/api"
-  included_files = ["src/lib/**", ".env"]
+  directory = "netlify/functions"
   node_bundler = "esbuild"
 
 [[redirects]]

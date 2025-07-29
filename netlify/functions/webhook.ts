@@ -1,6 +1,5 @@
-
-import type { NextApiRequest, NextApiResponse } from 'next';
-import { auth } from '@/lib/firebase-admin';
+import type { Handler, HandlerEvent, HandlerContext } from "@netlify/functions";
+import { auth } from '../../src/lib/firebase-admin';
 import sgMail from '@sendgrid/mail';
 import { MercadoPagoConfig, Payment } from 'mercadopago';
 
@@ -120,13 +119,35 @@ async function getPaymentDetails(paymentId: string) {
     }
 }
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  if (req.method !== 'POST') {
-    res.setHeader('Allow', 'POST');
-    return res.status(405).end('Method Not Allowed');
+const handler: Handler = async (event: HandlerEvent, context: HandlerContext) => {
+  if (event.httpMethod !== 'POST') {
+    return {
+      statusCode: 405,
+      headers: { 'Allow': 'POST' },
+      body: 'Method Not Allowed',
+    };
   }
 
-  console.log('[Webhook] Notification received. Body:', JSON.stringify(req.body, null, 2));
+  console.log('[Webhook] Notification received.');
+
+  let body;
+  try {
+    if (!event.body) {
+        console.error('[Webhook] Error: Request body is empty.');
+        return {
+            statusCode: 400,
+            body: JSON.stringify({ error: 'Request body is empty.' })
+        };
+    }
+    body = JSON.parse(event.body);
+    console.log('[Webhook] Parsed Body:', JSON.stringify(body, null, 2));
+  } catch (e) {
+    console.error('[Webhook] Error parsing JSON body:', e);
+    return {
+        statusCode: 400,
+        body: JSON.stringify({ error: 'Invalid JSON format.' })
+    };
+  }
 
   try {
     let customerEmail: string | null = null;
@@ -134,8 +155,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     let purchaseStatus: string = 'unknown';
 
     // Specific logic for Mercado Pago notifications
-    if (req.body.action === 'payment.updated' || req.body.type === 'payment') {
-        const paymentId = req.body.data?.id;
+    if (body.action === 'payment.updated' || body.type === 'payment') {
+        const paymentId = body.data?.id;
         if (paymentId) {
             console.log(`[Webhook] Mercado Pago notification detected for payment ${paymentId}.`);
             const paymentDetails = await getPaymentDetails(paymentId);
@@ -148,29 +169,33 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                  console.log(`[Webhook] Payment ${paymentId} APPROVED. Customer: ${customerName} <${customerEmail}>`);
             } else {
                  console.log(`[Webhook] Payment ${paymentId} has status: ${purchaseStatus}. Ignoring.`);
-                 return res.status(200).json({ message: 'Notification received but not processed (status not approved).' });
+                 return { statusCode: 200, body: JSON.stringify({ message: 'Notification received but not processed (status not approved).' }) };
             }
         } else {
              console.log('[Webhook] Mercado Pago notification without data ID. Ignoring.');
-             return res.status(200).json({ message: 'MP notification ignored (no data ID).' });
+             return { statusCode: 200, body: JSON.stringify({ message: 'MP notification ignored (no data ID).' }) };
         }
     } else {
         // General logic for other providers (Kiwify, Hotmart, etc.)
         console.log('[Webhook] Notification is not from Mercado Pago, using general logic.');
-        const { email, name } = findCustomerInBody(req.body);
+        const { email, name } = findCustomerInBody(body);
         customerEmail = email;
         customerName = name;
-        purchaseStatus = body.status === 'paid' || body.status === 'approved' ? 'approved' : 'not_approved'; // Simple check
+        // Simple status check, adjust if your platform uses different values
+        const status = body.status || body.event;
+        purchaseStatus = (status === 'paid' || status === 'approved' || status === 'purchase_approved') ? 'approved' : 'not_approved';
     }
 
     if (purchaseStatus !== 'approved' || !customerEmail) {
         const errorMsg = 'Could not process notification: payment not approved or customer email not found.';
         console.error(`[Webhook] Error: ${errorMsg}. Email: ${customerEmail}, Status: ${purchaseStatus}`);
-        console.error('[Webhook] Received Body:', JSON.stringify(req.body));
-        return res.status(400).json({ 
-            error: errorMsg,
-            receivedBody: req.body 
-        });
+        return { 
+            statusCode: 400,
+            body: JSON.stringify({ 
+                error: errorMsg,
+                receivedBody: body 
+            })
+        };
     }
     
     console.log(`[Webhook] Processing for: Email: ${customerEmail}, Name: ${customerName}`);
@@ -183,7 +208,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
       if (existingUser) {
         console.log(`[Webhook] User with email ${customerEmail} already exists. UID: ${existingUser.uid}. No action needed.`);
-        return res.status(200).json({ message: 'User already exists. No new action was taken.' });
+        return { statusCode: 200, body: JSON.stringify({ message: 'User already exists. No new action was taken.' }) };
       } 
         
       console.log(`[Webhook] User with email ${customerEmail} not found. Creating user in Firebase...`);
@@ -201,13 +226,21 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     } catch (userError: any) {
       console.error(`[Webhook] CRITICAL Firebase or SendGrid error for ${customerEmail}:`, userError);
-      return res.status(500).json({ error: 'Internal error while processing user or sending email.', details: userError.message });
+      return { statusCode: 500, body: JSON.stringify({ error: 'Internal error while processing user or sending email.', details: userError.message }) };
     }
 
-    res.status(200).json({ message: 'Webhook processed successfully.' });
+    return {
+      statusCode: 200,
+      body: JSON.stringify({ message: 'Webhook processed successfully.' })
+    };
 
   } catch (error: any) {
     console.error("[Webhook] CRITICAL error in handler:", error);
-    res.status(500).json({ error: 'Critical failure to process notification.', details: error.message });
+    return {
+      statusCode: 500,
+      body: JSON.stringify({ error: 'Critical failure to process notification.', details: error.message })
+    };
   }
-}
+};
+
+export { handler };
