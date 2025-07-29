@@ -69,8 +69,8 @@ const handler: Handler = async (event: HandlerEvent, context: HandlerContext) =>
     const customerName = body.customer?.name || 'Novo Membro';
     const purchaseStatus = body.status;
 
-    if (purchaseStatus !== 'APPROVED' || !customerEmail) {
-      console.log(`[Webhook] Payload ignorado: status não é 'APPROVED' ou e-mail está ausente. Status: ${purchaseStatus}, Email: ${customerEmail}`);
+    if (purchaseStatus !== 'approved' || !customerEmail) {
+      console.log(`[Webhook] Payload ignorado: status não é 'approved' ou e-mail está ausente. Status: ${purchaseStatus}, Email: ${customerEmail}`);
       return { 
           statusCode: 200,
           body: JSON.stringify({ message: "Payload ignorado, não é uma compra aprovada." })
@@ -88,6 +88,7 @@ const handler: Handler = async (event: HandlerEvent, context: HandlerContext) =>
             console.error('[Firebase] Erro inesperado ao verificar usuário:', error);
             throw error;
         }
+        // Se o erro for 'auth/user-not-found', o código continua para criar o usuário.
     }
       
     console.log(`[Webhook] Criando novo usuário no Firebase para ${customerEmail}...`);
