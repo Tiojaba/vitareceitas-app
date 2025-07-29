@@ -2,7 +2,6 @@
 import type { Handler, HandlerEvent, HandlerContext } from "@netlify/functions";
 import { auth } from '../../src/lib/firebase-admin';
 import sgMail from '@sendgrid/mail';
-import { MercadoPagoConfig, Payment } from 'mercadopago';
 
 // Helper function to find customer data from various potential fields in the request body
 const findCustomerInBody = (body: any): { email: string | null; name: string } => {
@@ -18,15 +17,7 @@ const findCustomerInBody = (body: any): { email: string | null; name: string } =
         email = body.customer.email || null;
         name = body.customer.name || name;
     }
-
-    // Mercado Pago structure (if not handled by payment details fetch)
-    if (!email && body.payer) {
-        email = body.payer.email || null;
-        const firstName = body.payer.first_name || '';
-        const lastName = body.payer.last_name || '';
-        name = `${firstName} ${lastName}`.trim() || name;
-    }
-
+    
     // Fallback for other common keys
     if (!email) {
       const possibleEmailKeys = ['email', 'customer_email', 'payer_email', 'buyer_email'];
@@ -97,25 +88,6 @@ async function sendWelcomeEmail(email: string, name: string) {
     }
 }
 
-async function getPaymentDetails(paymentId: string) {
-    const accessToken = process.env.MP_ACCESS_TOKEN;
-    if (!accessToken) {
-        console.error('[MercadoPago] Access token not found.');
-        throw new Error("Mercado Pago credentials are not configured.");
-    }
-    const client = new MercadoPagoConfig({ accessToken });
-    const payment = new Payment(client);
-    
-    console.log(`[MercadoPago] Fetching details for payment ID: ${paymentId}`);
-    try {
-        const paymentInfo = await payment.get({ id: paymentId });
-        console.log(`[MercadoPago] Details received for payment ${paymentId}.`);
-        return paymentInfo;
-    } catch (error) {
-        console.error(`[MercadoPago] Error fetching payment details for ID ${paymentId}:`, error);
-        throw new Error("Could not fetch payment details from Mercado Pago.");
-    }
-}
 
 const handler: Handler = async (event: HandlerEvent, context: HandlerContext) => {
   if (event.httpMethod !== 'POST') {
@@ -154,37 +126,15 @@ const handler: Handler = async (event: HandlerEvent, context: HandlerContext) =>
     let customerName: string = 'Novo Membro';
     let purchaseStatus: string = 'unknown';
 
-    // Specific logic for Mercado Pago notifications
-    if (body.action === 'payment.updated' || body.type === 'payment') {
-        const paymentId = body.data?.id;
-        if (paymentId) {
-            console.log(`[Webhook] Mercado Pago notification detected for payment ${paymentId}.`);
-            const paymentDetails = await getPaymentDetails(paymentId);
-            purchaseStatus = paymentDetails.status || 'unknown';
-            if (purchaseStatus === 'approved') {
-                 customerEmail = paymentDetails.payer?.email || null;
-                 const firstName = paymentDetails.payer?.first_name || '';
-                 const lastName = paymentDetails.payer?.last_name || '';
-                 customerName = `${firstName} ${lastName}`.trim() || 'Novo Membro';
-                 console.log(`[Webhook] Payment ${paymentId} APPROVED. Customer: ${customerName} <${customerEmail}>`);
-            } else {
-                 console.log(`[Webhook] Payment ${paymentId} has status: ${purchaseStatus}. Ignoring.`);
-                 return { statusCode: 200, body: JSON.stringify({ message: 'Notification received but not processed (status not approved).' }) };
-            }
-        } else {
-             console.log('[Webhook] Mercado Pago notification without data ID. Ignoring.');
-             return { statusCode: 200, body: JSON.stringify({ message: 'MP notification ignored (no data ID).' }) };
-        }
-    } else {
-        // General logic for other providers (Kiwify, Hotmart, etc.)
-        console.log('[Webhook] Notification is not from Mercado Pago, using general logic.');
-        const { email, name } = findCustomerInBody(body);
-        customerEmail = email;
-        customerName = name;
-        // Simple status check, adjust if your platform uses different values
-        const status = body.status || body.event;
-        purchaseStatus = (status === 'paid' || status === 'approved' || status === 'purchase_approved') ? 'approved' : 'not_approved';
-    }
+    // General logic for most providers (Kiwify, Hotmart, etc.)
+    const { email, name } = findCustomerInBody(body);
+    customerEmail = email;
+    customerName = name;
+    
+    // Simple status check, adjust if your platform uses different values
+    const status = body.status || body.event;
+    purchaseStatus = (status === 'paid' || status === 'approved' || status === 'purchase_approved') ? 'approved' : 'not_approved';
+
 
     if (purchaseStatus !== 'approved' || !customerEmail) {
         const errorMsg = 'Could not process notification: payment not approved or customer email not found.';
@@ -244,5 +194,3 @@ const handler: Handler = async (event: HandlerEvent, context: HandlerContext) =>
 };
 
 export { handler };
-
-    
