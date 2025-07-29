@@ -14,8 +14,6 @@ const staticRecipeData = {
     title: "Moqueca de Banana-da-Terra (Vegana e Aconchegante)",
     author: "Ana G.",
     description: "Essa receita tem um lugar especial no meu coração. É a minha versão vegana da moqueca que minha avó baiana fazia. O cheiro do azeite de dendê e do leite de coco cozinhando me transporta direto para a cozinha dela. É um prato que abraça, perfeito para um almoço de domingo em família ou para aquecer a alma num dia chuvoso. Espero que vocês sintam o mesmo carinho que eu coloco em cada panela!",
-    imageUrl: "https://placehold.co/1200x600.png",
-    imageAiHint: "banana moqueca",
     prepTime: 20,
     cookTime: 25,
     servings: 4,
@@ -98,16 +96,6 @@ export default async function RecipePage({ params }: { params: { slug: string } 
                     Uma receita cheia de afeto, por <span className="font-semibold text-primary">{recipeData.author}</span>
                 </p>
             </header>
-
-            <div className="relative w-full aspect-[2/1] rounded-xl overflow-hidden mb-8 shadow-lg">
-                <Image
-                    src={recipeData.imageUrl}
-                    alt={recipeData.title}
-                    data-ai-hint={recipeData.imageAiHint}
-                    layout="fill"
-                    objectFit="cover"
-                />
-            </div>
             
              <Card className="mb-8">
                 <CardContent className="p-6 text-center text-lg text-muted-foreground italic border-l-4 border-primary bg-muted/30">
