@@ -159,7 +159,7 @@ export const allRecipes: { [key: string]: any } = {
     cookTime: 25,
     servings: 4,
     category: "Zero Lactose",
-    tags: ["Vegano", "Prato Principal"],
+    tags: ["Vegano", "Prato Principal", "Sem Glúten"],
     ingredients: [
         { value: "1 xícara de castanha de caju crua, demolhada por 4h" },
         { value: "1 e 1/2 xícara de água" },
@@ -359,13 +359,13 @@ export const allRecipes: { [key: string]: any } = {
     instructions: [
         { value: "Em uma tigela pequena, misture a bebida vegetal e o vinagre. Deixe descansar por 5 minutos para 'talhar'. Isso simula um buttermilk vegano." },
         { value: "Em outra tigela grande, misture a farinha, o açúcar, o fermento e o sal." },
-        { value: "Despeje a mistura de 'buttermilk' e o óleo sobre os ingredientes secos. Mexa apenas o suficiente para incorporar. Não se preocupe com alguns gruminhos." },
+        { value: "Despeje a mistura de 'buttermilk' e o óleo sobre os ingredientes secos. Mexa apenas o suficiente para incorporar. Não bata demais." },
         { value: "Aqueça uma frigideira antiaderente em fogo médio. Unte levemente com óleo." },
         { value: "Despeje 1/4 de xícara de massa por panqueca. Cozinhe por 2-3 minutos, ou até bolhas se formarem na superfície." },
         { value: "Vire e cozinhe por mais 1-2 minutos, até dourar. Sirva imediatamente." },
     ],
     substitutions: [
-        "**Farinha:** Pode usar metade farinha de trigo integral para mais fibras.",
+        "**Farinha:** Pode usar metade farinha de trigo integral para mais fibras, ou um mix de farinhas sem glúten para uma versão GF.",
         "**Açúcar:** Açúcar de coco ou demerara funcionam bem.",
     ],
     chefTip: "O segredo para panquecas fofinhas é não mexer a massa em excesso! Mexa apenas até os ingredientes secos e molhados se combinarem. Alguns grumos são bem-vindos e garantem a leveza da massa.",
@@ -379,10 +379,10 @@ export const allRecipes: { [key: string]: any } = {
     cookTime: 30,
     servings: 6,
     category: "Zero Lactose",
-    tags: ["Vegano", "Prato Principal"],
+    tags: ["Vegano", "Prato Principal", "Sem Glúten"],
     ingredients: [
         { value: "2 xícaras de castanha de caju torrada" },
-        { value: "2 xícaras de pão amanhecido em pedaços" },
+        { value: "2 xícaras de pão sem glúten amanhecido em pedaços" },
         { value: "2 xícaras de leite de coco" },
         { value: "1/4 xícara de azeite de dendê" },
         { value: "1 cebola grande picada" },
@@ -439,6 +439,7 @@ export const allRecipes: { [key: string]: any } = {
         { value: "Deixe esfriar na assadeira por 5 minutos antes de transferir para uma grade." },
     ],
     substitutions: [
+        "**Farinha de Trigo:** Para uma versão sem glúten, use um mix de farinha GF na mesma proporção.",
         "**Gotas de chocolate:** Pode usar chocolate em barra 70% cacau picado.",
         "**Açúcar:** Usar apenas açúcar mascavo deixará os cookies mais macios e úmidos.",
     ],
@@ -508,7 +509,7 @@ export const allRecipes: { [key: string]: any } = {
     ],
     chefTip: "Asse a abóbora em vez de cozinhar. Isso concentra o sabor e evita que o purê fique aguado, o que é crucial para a textura final do quibe.",
   },
-  'bobó-de-palmito': {
+  'bobo-de-palmito': {
     title: "Bobó de Palmito",
     author: "Chef Gabi",
     difficulty: "Médio",
@@ -797,14 +798,14 @@ export const allRecipes: { [key: string]: any } = {
     cookTime: 20,
     servings: 4,
     category: "Zero Lactose",
-    tags: ["Vegano", "Lanche"],
+    tags: ["Vegano", "Lanche", "Sem Glúten"],
     ingredients: [
       { value: "1 xícara de lentilha marrom cozida e bem escorrida" },
       { value: "1/2 xícara de nozes picadas" },
       { value: "150g de cogumelos paris picados" },
       { value: "1 cebola pequena picada" },
-      { value: "2 colheres de sopa de farinha de aveia" },
-      { value: "1 colher de sopa de shoyu (molho de soja)" },
+      { value: "2 colheres de sopa de farinha de aveia (sem glúten)" },
+      { value: "1 colher de sopa de shoyu (tamari para versão GF)" },
       { value: "1 colher de chá de páprica defumada" },
       { value: "1/2 colher de chá de fumaça líquida (opcional)" },
       { value: "Sal e pimenta a gosto" },
@@ -932,11 +933,11 @@ export const allRecipes: { [key: string]: any } = {
     cookTime: 40,
     servings: 4,
     category: "Zero Lactose",
-    tags: ["Vegano", "Prato Principal"],
+    tags: ["Vegano", "Prato Principal", "Sem Glúten"],
     ingredients: [
       { value: "Nhoque:" },
       { value: "1kg de batata-doce roxa" },
-      { value: "1 e 1/2 xícara de farinha de trigo (aproximadamente)" },
+      { value: "1 e 1/2 xícara de mix de farinha sem glúten (aproximadamente)" },
       { value: "Sal a gosto" },
       { value: "Molho Sugo:" },
       { value: "2 colheres de sopa de azeite" },
@@ -955,7 +956,7 @@ export const allRecipes: { [key: string]: any } = {
     ],
     substitutions: [
       "**Batata-doce roxa:** Pode usar a batata-doce comum ou batata baroa (mandioquinha).",
-      "**Farinha de Trigo:** Para uma versão sem glúten, use uma mistura de farinha de arroz e polvilho doce.",
+      "**Farinha sem glúten:** Use uma mistura de farinha de arroz e polvilho doce.",
     ],
     chefTip: "O segredo do nhoque leve é usar o mínimo de farinha possível.",
   },
@@ -1223,7 +1224,7 @@ export const allRecipes: { [key: string]: any } = {
     cookTime: 15,
     servings: 4,
     category: "Zero Lactose",
-    tags: ["Vegano", "Acompanhamento"],
+    tags: ["Vegano", "Acompanhamento", "Sem Glúten"],
     ingredients: [
       { value: "2 latas de milho verde, escorrido" },
       { value: "1 xícara de bebida vegetal (aveia ou castanha)" },
@@ -1257,7 +1258,7 @@ export const allRecipes: { [key: string]: any } = {
     cookTime: 0,
     servings: 1,
     category: "Zero Lactose",
-    tags: ["Vegano", "Bebida", "Café da Manhã", "Snack"],
+    tags: ["Vegano", "Bebida", "Café da Manhã", "Snack", "Sem Glúten"],
     ingredients: [
       { value: "1 banana prata congelada" },
       { value: "1 scoop de proteína vegetal sabor baunilha ou chocolate" },
@@ -1287,9 +1288,9 @@ export const allRecipes: { [key: string]: any } = {
     cookTime: 25,
     servings: 4,
     category: "Zero Lactose",
-    tags: ["Vegano", "Prato Principal"],
+    tags: ["Vegano", "Prato Principal", "Sem Glúten"],
     ingredients: [
-        { value: "400g de macarrão (penne, fusilli)" },
+        { value: "400g de macarrão sem glúten (penne, fusilli)" },
         { value: "2 colheres de sopa de azeite" },
         { value: "1 cebola picada" },
         { value: "2 xícaras de purê de abóbora cabotiá" },
@@ -1323,7 +1324,7 @@ export const allRecipes: { [key: string]: any } = {
     cookTime: 20,
     servings: 6,
     category: "Zero Lactose",
-    tags: ["Vegano", "Acompanhamento", "Salada"],
+    tags: ["Vegano", "Acompanhamento", "Salada", "Sem Glúten"],
     ingredients: [
         { value: "1kg de batatas pequenas, cozidas e fatiadas" },
         { value: "1/2 cebola roxa em fatias finas" },
@@ -1347,7 +1348,104 @@ export const allRecipes: { [key: string]: any } = {
         "**Ervas:** Endro (dill) fresco picado é o tempero clássico para esta salada.",
     ],
     chefTip: "O segredo desta salada é temperá-la enquanto as batatas ainda estão mornas.",
+  },
+  'bolo-de-fuba-cremoso-sem-gluten': {
+    title: "Bolo de Fubá Cremoso (Sem Glúten)",
+    author: "Dona Cida",
+    difficulty: "Fácil",
+    description: "Este bolo de fubá tem uma textura única, com uma camada cremosa que se forma durante o cozimento. É mágico e delicioso! Perfeito para um café da tarde.",
+    prepTime: 15,
+    cookTime: 45,
+    servings: 10,
+    category: "Sem Glúten",
+    tags: ["Sobremesa", "Bolo", "Zero Lactose"],
+    ingredients: [
+      { value: "4 ovos (claras e gemas separadas)" },
+      { value: "2 xícaras de açúcar" },
+      { value: "1 xícara de fubá mimoso" },
+      { value: "3 colheres de sopa de amido de milho" },
+      { value: "1/2 xícara de óleo de coco derretido" },
+      { value: "4 xícaras de leite de coco" },
+      { value: "1 colher de sopa de fermento em pó" },
+      { value: "Erva-doce a gosto (opcional)" }
+    ],
+    instructions: [
+      { value: "Pré-aqueça o forno a 180°C. Unte e enfarinhe (com fubá) uma forma." },
+      { value: "No liquidificador, bata as gemas, o açúcar, o fubá, o amido, o óleo e o leite de coco até obter uma mistura homogênea." },
+      { value: "Em uma batedeira, bata as claras em neve até ficarem bem firmes." },
+      { value: "Incorpore delicadamente as claras em neve à mistura do liquidificador. Adicione o fermento e a erva-doce." },
+      { value: "Despeje a massa (que é bem líquida) na forma e asse por cerca de 40-45 minutos, ou até dourar." },
+      { value: "O bolo irá se separar em duas camadas. Deixe esfriar completamente para cortar." }
+    ],
+    substitutions: [
+      "**Leite de coco:** Pode usar bebida de amêndoas, mas o de coco deixa mais cremoso.",
+      "**Óleo de coco:** Pode ser substituído por outro óleo vegetal."
+    ],
+    chefTip: "Não se assuste com a massa líquida, é assim mesmo! A mágica acontece no forno. Espere esfriar completamente antes de desenformar para a camada cremosa firmar."
+  },
+  'pizza-com-massa-de-couve-flor': {
+    title: "Pizza com Massa de Couve-Flor",
+    author: "Ricardo Fitness",
+    difficulty: "Médio",
+    description: "Uma maneira incrível de comer pizza sem culpa e sem glúten! A massa fica surpreendentemente firme e deliciosa. Cubra com seus ingredientes favoritos.",
+    prepTime: 20,
+    cookTime: 30,
+    servings: 2,
+    category: "Sem Glúten",
+    tags: ["Lanche", "Prato Principal", "Low Carb", "Zero Lactose"],
+    ingredients: [
+      { value: "1 cabeça de couve-flor média" },
+      { value: "1 ovo (ou 1 'ovo' de linhaça)" },
+      { value: "1/2 xícara de farinha de amêndoas" },
+      { value: "1/4 xícara de levedura nutricional" },
+      { value: "1 colher de chá de orégano seco" },
+      { value: "Sal e pimenta a gosto" },
+      { value: "Molho de tomate e toppings de sua preferência (cogumelos, azeitonas, etc)" }
+    ],
+    instructions: [
+      { value: "Processe a couve-flor crua até virar uma 'farofa'. Cozinhe no micro-ondas por 4-5 minutos." },
+      { value: "Deixe esfriar e coloque a couve-flor cozida em um pano de prato limpo. Torça bem para remover todo o excesso de água." },
+      { value: "Em uma tigela, misture a couve-flor espremida com o ovo, farinha de amêndoas, levedura, orégano, sal e pimenta." },
+      { value: "Abra a massa em formato de pizza sobre papel manteiga. Asse em forno a 220°C por 15-20 minutos, até dourar." },
+      { value: "Retire do forno, espalhe o molho, os toppings e volte ao forno por mais 10 minutos." }
+    ],
+    substitutions: [
+      "**Farinha de amêndoas:** Pode usar farinha de grão-de-bico ou de aveia sem glúten.",
+      "**Ovo:** Para a versão vegana, use 1 colher de sopa de farinha de linhaça misturada com 3 colheres de sopa de água."
+    ],
+    chefTip: "O segredo para a massa não desmontar é espremer MUITO bem a couve-flor para tirar toda a água. Essa etapa é crucial!"
+  },
+  'beijinho-de-biomassa-de-banana-verde': {
+    title: "Beijinho Funcional de Biomassa de Banana Verde",
+    author: "Nutri Carol",
+    difficulty: "Fácil",
+    description: "Um docinho saudável, sem açúcar refinado e cheio de fibras! A biomassa de banana verde é a base neutra perfeita para criar um 'beijinho' cremoso e funcional.",
+    prepTime: 10,
+    cookTime: 5,
+    servings: 15,
+    category: "Sem Glúten",
+    tags: ["Sobremesa", "Doce Rápido", "Vegano", "Zero Lactose"],
+    ingredients: [
+      { value: "1 xícara de biomassa de banana verde" },
+      { value: "1/2 xícara de coco ralado seco sem açúcar" },
+      { value: "1/4 xícara de leite de coco em pó" },
+      { value: "3 colheres de sopa de xilitol (ou outro adoçante)" },
+      { value: "2 colheres de sopa de óleo de coco" },
+      { value: "Coco ralado para enrolar" },
+      { value: "Cravos-da-índia para decorar" }
+    ],
+    instructions: [
+      { value: "Em uma panela, misture todos os ingredientes, exceto o coco para enrolar." },
+      { value: "Leve ao fogo baixo, mexendo constantemente, até a massa começar a desgrudar do fundo da panela (ponto de brigadeiro)." },
+      { value: "Transfira a massa para um prato untado com óleo de coco e deixe esfriar completamente." },
+      { value: "Com as mãos untadas, enrole os docinhos, passe no coco ralado e decore com um cravo." }
+    ],
+    substitutions: [
+      "**Leite de coco em pó:** Aumente a quantidade de coco ralado se não tiver.",
+      "**Xilitol:** Pode usar açúcar de coco ou melado, mas a cor do doce ficará mais escura."
+    ],
+    chefTip: "A biomassa de banana verde pode ser comprada pronta ou feita em casa, cozinhando bananas verdes na pressão e depois processando a polpa."
   }
 };
-
+    
     
