@@ -62,7 +62,8 @@ const handler: Handler = async (event: HandlerEvent, context: HandlerContext) =>
       console.error('[Webhook] Error: Request body is empty.');
       return { statusCode: 400, body: 'Request body is empty.' };
     }
-
+    
+    // Parse the string body into a JSON object
     const body = JSON.parse(event.body);
     console.log('[Webhook] Raw Body Received from Kirvano:', JSON.stringify(body, null, 2));
 
