@@ -1,3 +1,4 @@
+
 import type { Handler, HandlerEvent, HandlerContext } from "@netlify/functions";
 import { auth } from '../../src/lib/firebase-admin';
 import sgMail from '@sendgrid/mail';
@@ -53,7 +54,6 @@ const findCustomerInBody = (body: any): { email: string | null; name: string } =
 // Configure SendGrid API Key
 if (process.env.SENDGRID_API_KEY) {
     sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-    console.log("[SendGrid] API Key configured.");
 } else {
     console.error("[SendGrid] CRITICAL ERROR: SENDGRID_API_KEY environment variable is not set.");
 }
@@ -66,11 +66,9 @@ async function sendWelcomeEmail(email: string, name: string) {
     }
 
     try {
-        console.log(`[SendGrid] Generating password creation link for ${email}...`);
         const actionLink = await auth.generatePasswordResetLink(email);
         const loginUrl = process.env.NEXT_PUBLIC_SITE_URL ? `${process.env.NEXT_PUBLIC_SITE_URL}/login` : 'https://helpful-dusk-fee471.netlify.app/login';
 
-        console.log(`[SendGrid] Assembling email for ${email}...`);
         const msg = {
             to: email,
             from: {
@@ -139,6 +137,8 @@ const handler: Handler = async (event: HandlerEvent, context: HandlerContext) =>
             body: JSON.stringify({ error: 'Request body is empty.' })
         };
     }
+    // !! IMPORTANTE: Logando o corpo bruto da requisição para diagnóstico !!
+    console.log('[Webhook] Raw Body Received:', event.body);
     body = JSON.parse(event.body);
     console.log('[Webhook] Parsed Body:', JSON.stringify(body, null, 2));
   } catch (e) {
@@ -244,3 +244,5 @@ const handler: Handler = async (event: HandlerEvent, context: HandlerContext) =>
 };
 
 export { handler };
+
+    
