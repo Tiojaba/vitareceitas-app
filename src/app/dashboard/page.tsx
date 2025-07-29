@@ -8,6 +8,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Button } from '@/components/ui/button';
 import { ArrowRight, Cookie, IceCream, Pizza, Wheat, Sprout, Soup, Fish, Drumstick, Star } from 'lucide-react';
 import Image from 'next/image';
+import Link from 'next/link';
 
 export default function DashboardPage() {
   const { user, loading } = useAuth();
@@ -41,10 +42,10 @@ export default function DashboardPage() {
   ];
 
   const highlights = [
-    { title: "Bolo de Cenoura Fofinho", image: "https://placehold.co/600x400.png", dataAiHint: "carrot cake" },
-    { title: "Pão de Queijo Vegano", image: "https://placehold.co/600x400.png", dataAiHint: "vegan cheese bread" },
-    { title: "Moqueca de Banana da Terra", image: "https://placehold.co/600x400.png", dataAiHint: "banana moqueca" },
-    { title: "Mousse de Chocolate com Abacate", image: "https://placehold.co/600x400.png", dataAiHint: "avocado chocolate mousse" },
+    { title: "Moqueca de Banana-da-Terra", image: "https://placehold.co/600x400.png", dataAiHint: "banana moqueca", href: "/recipe/moqueca-de-banana-da-terra" },
+    { title: "Bolo de Cenoura Fofinho", image: "https://placehold.co/600x400.png", dataAiHint: "carrot cake", href: "#" },
+    { title: "Pão de Queijo Vegano", image: "https://placehold.co/600x400.png", dataAiHint: "vegan cheese bread", href: "#" },
+    { title: "Mousse de Chocolate com Abacate", image: "https://placehold.co/600x400.png", dataAiHint: "avocado chocolate mousse", href: "#" },
   ];
 
   return (
@@ -93,21 +94,23 @@ export default function DashboardPage() {
           <h2 className="text-2xl font-bold font-headline mb-6">Melhores da Semana</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
             {highlights.map((item) => (
-              <Card key={item.title} className="overflow-hidden group hover:shadow-xl transition-shadow">
-                <div className="aspect-video overflow-hidden">
-                  <Image
-                    src={item.image}
-                    alt={item.title}
-                    data-ai-hint={item.dataAiHint}
-                    width={600}
-                    height={400}
-                    className="object-cover w-full h-full group-hover:scale-105 transition-transform"
-                  />
-                </div>
-                <CardContent className="p-4">
-                  <h3 className="font-semibold text-lg">{item.title}</h3>
-                </CardContent>
-              </Card>
+              <Link href={item.href} key={item.title} className="group">
+                <Card className="overflow-hidden group-hover:shadow-xl transition-shadow h-full flex flex-col">
+                  <div className="aspect-video overflow-hidden">
+                    <Image
+                      src={item.image}
+                      alt={item.title}
+                      data-ai-hint={item.dataAiHint}
+                      width={600}
+                      height={400}
+                      className="object-cover w-full h-full group-hover:scale-105 transition-transform"
+                    />
+                  </div>
+                  <CardContent className="p-4 flex-1">
+                    <h3 className="font-semibold text-lg">{item.title}</h3>
+                  </CardContent>
+                </Card>
+              </Link>
             ))}
           </div>
         </section>
