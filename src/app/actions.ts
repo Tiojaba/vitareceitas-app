@@ -1,4 +1,5 @@
 
+
 "use server";
 
 import 'dotenv/config'; // Garante que as variáveis de ambiente sejam carregadas
@@ -127,7 +128,6 @@ export async function submitRecipe(formData: FormData) {
     prepTime: formData.get('prepTime'),
     servings: formData.get('servings'),
     category: formData.get('category'),
-    image: formData.get('image'),
     ingredients: formData.getAll('ingredients').map(val => ({ value: val })),
     instructions: formData.getAll('instructions').map(val => ({ value: val })),
   };
@@ -145,34 +145,16 @@ export async function submitRecipe(formData: FormData) {
     throw new Error(`Dados inválidos: ${errorMessages}`);
   }
 
-  const { image, ...recipeData } = validationResult.data;
-
-  // 4. Upload image to Firebase Storage
-  const bucket = getStorage().bucket(process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET);
+  const recipeData = validationResult.data;
   const recipeId = randomUUID();
-  const imagePath = `recipes/${userId}/${recipeId}/${image.name}`;
-  const file = bucket.file(imagePath);
-
-  const buffer = Buffer.from(await image.arrayBuffer());
-
-  await file.save(buffer, {
-    metadata: {
-      contentType: image.type,
-    },
-  });
   
-  const [imageUrl] = await file.getSignedUrl({
-    action: 'read',
-    expires: '03-09-2491', // Data de expiração muito longa
-  });
-
   // 5. Save recipe data to Firestore
   const recipeDocRef = db.collection('recipes').doc(recipeId);
   await recipeDocRef.set({
     ...recipeData,
     authorId: userId,
     authorName: userName,
-    imageUrl: imageUrl,
+    imageUrl: `https://placehold.co/1200x600.png?text=${encodeURIComponent(recipeData.title)}`, // Placeholder image
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),
   });

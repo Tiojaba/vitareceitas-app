@@ -24,14 +24,6 @@ export const recipeSchema = z.object({
   category: z.string().min(1, "Você deve selecionar uma categoria."),
   prepTime: z.coerce.number().int().positive("O tempo de preparo deve ser um número positivo."),
   servings: z.coerce.number().int().positive("O rendimento deve ser um número positivo."),
-  image: z
-    .any()
-    .refine((file) => file instanceof File, "Uma imagem é obrigatória.")
-    .refine((file) => file?.size <= MAX_FILE_SIZE, `O tamanho máximo da imagem é de 5MB.`)
-    .refine(
-      (file) => ACCEPTED_IMAGE_TYPES.includes(file?.type),
-      "Apenas os formatos .jpg, .jpeg, .png e .webp são aceitos."
-    ),
 });
 
 export type RecipeSchema = z.infer<typeof recipeSchema>;

@@ -4,7 +4,7 @@
 import * as React from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, useFieldArray } from "react-hook-form";
-import { Loader2, Image as ImageIcon, PlusCircle, ChefHat, Timer, Users, BookMarked, Trash2 } from "lucide-react";
+import { Loader2, PlusCircle, ChefHat, Timer, Users, BookMarked, Trash2 } from "lucide-react";
 import { useRouter } from 'next/navigation';
 
 import { Button } from "@/components/ui/button";
@@ -24,7 +24,6 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { useToast } from "@/hooks/use-toast";
 import { recipeSchema, type RecipeSchema } from "@/lib/schemas";
 import { submitRecipe } from "@/app/actions";
-import Image from "next/image";
 
 const categories = [
     "Zero Lactose",
@@ -39,8 +38,6 @@ const categories = [
 
 export function SubmitRecipeForm() {
   const [isSubmitting, setIsSubmitting] = React.useState(false);
-  const [imagePreview, setImagePreview] = React.useState<string | null>(null);
-  const fileInputRef = React.useRef<HTMLInputElement>(null);
   const { toast } = useToast();
   const router = useRouter();
 
@@ -54,7 +51,6 @@ export function SubmitRecipeForm() {
       category: "",
       prepTime: 0,
       servings: 0,
-      image: undefined,
     },
   });
 
@@ -68,18 +64,6 @@ export function SubmitRecipeForm() {
     name: "instructions"
   });
 
-  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setImagePreview(reader.result as string);
-      };
-      reader.readAsDataURL(file);
-      form.setValue('image', file);
-    }
-  };
-
   const onSubmit = async (values: RecipeSchema) => {
     setIsSubmitting(true);
     
@@ -90,10 +74,6 @@ export function SubmitRecipeForm() {
     formData.append('servings', String(values.servings));
     formData.append('category', values.category);
     
-    if (values.image instanceof File) {
-      formData.append('image', values.image);
-    }
-
     values.ingredients.forEach(item => {
         formData.append('ingredients', item.value);
     });
@@ -149,40 +129,6 @@ export function SubmitRecipeForm() {
                   <FormMessage />
                 </FormItem>
               )}
-            />
-             <FormField
-                control={form.control}
-                name="image"
-                render={({ field }) => (
-                <FormItem>
-                    <FormLabel>Foto do Prato</FormLabel>
-                    <FormControl>
-                    <div>
-                        <Input
-                        type="file"
-                        accept="image/png, image/jpeg"
-                        ref={fileInputRef}
-                        onChange={handleImageChange}
-                        className="hidden"
-                        />
-                        <Button
-                        type="button"
-                        variant="outline"
-                        onClick={() => fileInputRef.current?.click()}
-                        >
-                        <ImageIcon className="mr-2" />
-                        Escolher Imagem
-                        </Button>
-                    </div>
-                    </FormControl>
-                    {imagePreview && (
-                        <div className="mt-4">
-                            <Image src={imagePreview} alt="Pré-visualização da receita" width={200} height={200} className="rounded-md object-cover"/>
-                        </div>
-                    )}
-                    <FormMessage />
-                </FormItem>
-                )}
             />
             <FormField
               control={form.control}
