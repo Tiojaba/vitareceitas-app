@@ -1,15 +1,10 @@
 
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { MercadoPagoConfig, Payment } from 'mercadopago';
 import { auth } from '@/lib/firebase-admin';
 
 // ===================================================================
-// MANIPULADOR DO WEBHOOK PARA CRIAÇÃO DE USUÁRIO
+// MANIPULADOR DE WEBHOOK PARA CRIAÇÃO DE USUÁRIO (VERSÃO GENÉRICA)
 // ===================================================================
-
-const client = new MercadoPagoConfig({ 
-  accessToken: process.env.MERCADOPAGO_ACCESS_TOKEN! 
-});
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== 'POST') {
@@ -20,64 +15,56 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   console.log('[Webhook] Notificação recebida:', req.body);
 
   try {
-    const { body } = req;
-    const topic = body.topic || body.type;
-    const paymentId = body.data?.id;
+    // Tenta extrair o email do corpo da requisição.
+    // Plataformas diferentes enviam dados com nomes diferentes.
+    // Ex: 'email', 'customer_email', 'payer.email', 'data.buyer.email', etc.
+    // Adicione ou modifique estes caminhos conforme a documentação da sua plataforma (Cakto).
+    const userEmail = req.body?.email || req.body?.customer_email || req.body?.payer?.email || req.body?.data?.buyer?.email;
 
-    if (topic === 'payment' && paymentId) {
-      console.log(`[Webhook] Notificação de pagamento recebida para o ID: ${paymentId}`);
-      
-      const payment = new Payment(client);
-      const paymentDetails = await payment.get({ id: paymentId });
-      
-      console.log('[Webhook] Detalhes do pagamento obtidos:', paymentDetails);
+    if (!userEmail || typeof userEmail !== 'string') {
+        console.error('[Webhook] Email não encontrado no corpo da requisição:', req.body);
+        // Responde 400 (Bad Request) porque o dado esperado não veio.
+        return res.status(400).json({ error: 'Email do comprador não encontrado na notificação.' });
+    }
+    
+    // Supondo que o webhook só é chamado em caso de compra aprovada,
+    // conforme configurado na plataforma de pagamento.
+    console.log(`[Webhook] Processando criação de usuário para o email: ${userEmail}`);
+    
+    try {
+      // 1. Verifica se o usuário já existe
+      const existingUser = await auth.getUserByEmail(userEmail).catch(() => null);
 
-      const userEmail = paymentDetails.payer?.email;
-
-      if (paymentDetails.status === 'approved' && userEmail) {
-        console.log(`[Webhook] Pagamento ${paymentId} para o email ${userEmail} foi APROVADO.`);
-        
-        try {
-          // 1. Verifica se o usuário já existe
-          const existingUser = await auth.getUserByEmail(userEmail).catch(() => null);
-
-          if (existingUser) {
-            console.log(`[Webhook] Usuário com email ${userEmail} já existe. Nenhuma ação necessária.`);
-            // Opcional: Liberar acesso ou enviar notificação para usuário existente.
-          } else {
-            // 2. Cria o novo usuário no Firebase Auth
-            const newUser = await auth.createUser({
-              email: userEmail,
-              emailVerified: true, // Opcional: Considerar o email como verificado
-              password: `senha-provisoria-${Math.random().toString(36).slice(-8)}`, // Senha aleatória e forte
-              displayName: paymentDetails.payer?.first_name || 'Novo Membro',
-              disabled: false,
-            });
-
-            console.log(`[Webhook] Usuário criado com sucesso no Firebase! UID: ${newUser.uid}`);
-            
-            // Opcional: Enviar email de boas-vindas com link para redefinir a senha
-            // const link = await auth.generatePasswordResetLink(userEmail);
-            // await sendWelcomeEmail(userEmail, link);
-          }
-
-        } catch (userError) {
-          console.error(`[Webhook] Erro ao criar/gerenciar usuário ${userEmail} no Firebase:`, userError);
-          // Mesmo com erro na criação do usuário, retornamos 200 para não receber a notificação novamente.
-          // O erro fica logado para ação manual.
-        }
-
+      if (existingUser) {
+        console.log(`[Webhook] Usuário com email ${userEmail} já existe. Nenhuma ação necessária.`);
       } else {
-        console.log(`[Webhook] Status do pagamento: ${paymentDetails.status}. Nenhuma ação de criação de usuário será executada.`);
+        // 2. Cria o novo usuário no Firebase Auth
+        const newUser = await auth.createUser({
+          email: userEmail,
+          emailVerified: true, // Considera o email como verificado, pois a compra foi feita
+          password: `senha-provisoria-${Math.random().toString(36).slice(-8)}`, // Gera uma senha aleatória
+          displayName: req.body?.customer_name || 'Novo Membro', // Tenta pegar o nome, se não houver usa um genérico
+          disabled: false,
+        });
+
+        console.log(`[Webhook] Usuário criado com sucesso no Firebase! UID: ${newUser.uid}`);
+        
+        // Opcional: Futuramente, você pode adicionar um envio de email de boas-vindas
+        // com um link para o usuário definir a própria senha.
       }
+
+    } catch (userError) {
+      console.error(`[Webhook] Erro ao criar/gerenciar usuário ${userError} no Firebase:`, userError);
+      // Mesmo com erro na criação, retornamos 200 para a plataforma de pagamento
+      // não ficar reenviando a notificação. O erro fica logado para ação manual.
     }
 
-    // Responda 200 OK para o Mercado Pago para que ele não reenvie a notificação.
+    // Responda 200 OK para a plataforma de pagamento.
     res.status(200).send('OK');
 
   } catch (error) {
-    console.error("[Webhook] Erro CRÍTICO ao processar notificação do Mercado Pago:", error);
-    // Mesmo em caso de erro, respondemos 200 para evitar retentativas do Mercado Pago.
+    console.error("[Webhook] Erro CRÍTICO ao processar notificação:", error);
+    // Mesmo em caso de erro, respondemos 200 para evitar retentativas.
     res.status(500).json({ error: 'Falha ao processar notificação.' });
   }
 }
