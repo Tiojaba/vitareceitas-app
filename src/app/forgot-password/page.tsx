@@ -37,7 +37,7 @@ export default function ForgotPasswordPage() {
     },
   });
 
-  const onSubmit = async (values: z.infer<typeof formSchema>>) => {
+  const onSubmit = async (values: z.infer<typeof formSchema>) => {
     setIsSubmitting(true);
     try {
       await resetPassword(values.email);
