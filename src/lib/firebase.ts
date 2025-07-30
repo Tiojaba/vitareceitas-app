@@ -5,9 +5,10 @@ import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
 
-// Your web app's Firebase configuration
 // =================================================================
 // PROJETO ATUALMENTE CONECTADO: conisopay
+// Este é o projeto que o seu site (Netlify) está usando.
+// Tanto o webhook quanto o cadastro de receitas devem funcionar aqui.
 // =================================================================
 const firebaseConfig = {
   "projectId": "conisopay",
@@ -26,5 +27,6 @@ const storage = getStorage(app);
 
 
 export { app, auth, db, storage };
+
 
 
