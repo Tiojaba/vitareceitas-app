@@ -89,9 +89,11 @@ const handler: Handler = async (event: HandlerEvent, context: HandlerContext) =>
     } catch (error: any) {
         if (error.code === 'auth/user-not-found') {
             console.log(`[Firebase] User with email ${customerEmail} not found. Proceeding to create user.`);
+            // This is the expected path for a new user, so we continue.
         } else {
             console.error('[Firebase] Unexpected error while checking for user:', error);
-            throw error;
+            // Re-throw the error to be caught by the main catch block
+            throw error; 
         }
     }
       
@@ -106,6 +108,7 @@ const handler: Handler = async (event: HandlerEvent, context: HandlerContext) =>
 
     console.log(`[Firebase] User created successfully! UID: ${newUser.uid}. Sending welcome email...`);
     
+    // Send email only after successfully creating the user
     await sendWelcomeEmail(customerEmail, customerName);
 
     return {
