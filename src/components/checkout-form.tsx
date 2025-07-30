@@ -20,7 +20,6 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
 import { checkoutFormSchema, type CheckoutFormSchema } from "@/lib/schemas";
-import { processPixPayment } from "@/app/actions";
 
 export function CheckoutForm() {
   const [isSubmitting, setIsSubmitting] = React.useState(false);
@@ -41,24 +40,12 @@ export function CheckoutForm() {
 
   const onSubmit = async (values: CheckoutFormSchema) => {
     setIsSubmitting(true);
-    try {
-      const result = await processPixPayment(values);
-      
-      const params = new URLSearchParams({
-        qrCode: result.qrCode,
-        qrCodeBase64: result.qrCodeBase64,
-        paymentId: result.paymentId.toString(),
-      });
-      router.push(`/pix?${params.toString()}`);
-
-    } catch (error) {
-      toast({
-        variant: "destructive",
-        title: "Falha ao gerar PIX",
-        description: error instanceof Error ? error.message : "Ocorreu um erro desconhecido. Por favor, tente novamente.",
-      });
-      setIsSubmitting(false);
-    }
+    toast({
+      variant: "destructive",
+      title: "Funcionalidade desativada",
+      description: "O checkout foi desativado.",
+    });
+    setIsSubmitting(false);
   };
 
   return (
