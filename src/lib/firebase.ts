@@ -6,6 +6,9 @@ import { getFirestore } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
 
 // Your web app's Firebase configuration
+// =================================================================
+// PROJETO ATUALMENTE CONECTADO: conisopay
+// =================================================================
 const firebaseConfig = {
   "projectId": "conisopay",
   "appId": "1:36928452779:web:dcac5f4747d97f98b49fee",
@@ -23,4 +26,5 @@ const storage = getStorage(app);
 
 
 export { app, auth, db, storage };
+
 
