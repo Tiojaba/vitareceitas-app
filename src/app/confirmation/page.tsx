@@ -6,17 +6,7 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
 interface ConfirmationPageProps {
   searchParams: {
-    collection_id?: string;
-    collection_status?: string;
-    payment_id?: string;
     status?: string;
-    external_reference?: string;
-    payment_type?: string;
-    merchant_order_id?: string;
-    preference_id?: string;
-    site_id?: string;
-    processing_mode?: string;
-    merchant_account_id?: string;
   };
 }
 
@@ -48,7 +38,7 @@ export default function ConfirmationPage({ searchParams }: ConfirmationPageProps
               <Info className="h-4 w-4" />
               <AlertTitle>Status do Pagamento</AlertTitle>
               <AlertDescription>
-                Seu status de pagamento do Mercado Pago é: <span className="font-semibold capitalize">{status || 'Indisponível'}</span>
+                Seu status de pagamento é: <span className="font-semibold capitalize">{status || 'Indisponível'}</span>
               </AlertDescription>
             </Alert>
         </CardContent>
