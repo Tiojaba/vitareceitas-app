@@ -1,16 +1,18 @@
 
 'use client';
 
-import React, { useState, useMemo, Suspense } from 'react';
+import React, { useState, useMemo, Suspense, useEffect } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
 import { Button } from '@/components/ui/button';
-import { allRecipes } from '@/lib/recipes-data';
 import { Badge } from '@/components/ui/badge';
 import Link from 'next/link';
-import { User, Timer, Users, BarChart3, ListFilter } from 'lucide-react';
+import { User, Timer, Users, BarChart3, ListFilter, ChefHat } from 'lucide-react';
 import { useSearchParams } from 'next/navigation';
+import { getRecipes } from '@/app/actions';
+import { Skeleton } from '@/components/ui/skeleton';
 
 type Recipe = {
+    id: string;
     slug: string;
     title: string;
     author: string;
@@ -31,30 +33,39 @@ const allCategories = [
 function RecipesPageComponent() {
     const searchParams = useSearchParams();
     const initialCategory = searchParams.get('category') || 'Todas';
+    
     const [activeFilter, setActiveFilter] = useState<string>(initialCategory);
+    const [recipes, setRecipes] = useState<Recipe[]>([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        async function fetchRecipes() {
+            setLoading(true);
+            const fetchedRecipes = await getRecipes();
+            setRecipes(fetchedRecipes as Recipe[]);
+            setLoading(false);
+        }
+        fetchRecipes();
+    }, []);
 
     const filteredRecipes = useMemo(() => {
-        const recipes: Recipe[] = Object.entries(allRecipes).map(([slug, recipe]) => ({
-            slug,
-            ...recipe,
-        }));
-        
         if (activeFilter === 'Todas') {
             return recipes;
         }
         return recipes.filter(recipe => 
-            recipe.category === activeFilter || recipe.tags.includes(activeFilter)
+            recipe.category === activeFilter || (recipe.tags && recipe.tags.includes(activeFilter))
         );
-    }, [activeFilter]);
+    }, [activeFilter, recipes]);
     
     return (
         <div className="container mx-auto py-8 px-4">
             <header className="mb-10 text-center">
+                 <ChefHat className="h-20 w-20 text-primary mx-auto mb-4" />
                 <h1 className="text-4xl font-bold tracking-tight text-foreground sm:text-5xl font-headline">
                     Nossas Receitas
                 </h1>
                 <p className="mt-4 text-xl text-muted-foreground">
-                    Explore um universo de sabores. Filtre por categoria para encontrar o que você ama.
+                    Explore um universo de sabores. Todas as receitas da nossa comunidade estão aqui.
                 </p>
             </header>
 
@@ -83,20 +94,42 @@ function RecipesPageComponent() {
                 </aside>
 
                 <main className="flex-1 grid grid-cols-1 sm:grid-cols-2 gap-6">
-                     {filteredRecipes.length > 0 ? (
+                     {loading ? (
+                        Array.from({ length: 4 }).map((_, index) => (
+                           <Card key={index} className="overflow-hidden h-full flex flex-col justify-between">
+                             <CardHeader>
+                                <Skeleton className="h-6 w-3/4" />
+                                <div className="flex flex-wrap items-center gap-2 pt-2">
+                                    <Skeleton className="h-5 w-16" />
+                                    <Skeleton className="h-5 w-20" />
+                                </div>
+                             </CardHeader>
+                             <CardContent className="space-y-3">
+                                <Skeleton className="h-4 w-full" />
+                                <Skeleton className="h-4 w-5/6" />
+                             </CardContent>
+                             <CardFooter className="flex justify-between bg-muted/50 p-4">
+                               <Skeleton className="h-5 w-24" />
+                               <Skeleton className="h-5 w-20" />
+                             </CardFooter>
+                           </Card>
+                        ))
+                     ) : filteredRecipes.length > 0 ? (
                         filteredRecipes.map((item) => (
-                        <Link href={`/recipe/${item.slug}`} key={item.title} className="group">
+                        <Link href={`/recipe/${item.slug}`} key={item.id} className="group">
                             <Card className="overflow-hidden group-hover:shadow-xl transition-shadow h-full flex flex-col justify-between">
                             <CardHeader>
                                 <CardTitle>{item.title}</CardTitle>
-                                <div className="flex flex-wrap items-center gap-2 pt-2">
-                                {item.tags.map(tag => <Badge key={tag} variant="secondary">{tag}</Badge>)}
-                                </div>
+                                {item.tags && (
+                                  <div className="flex flex-wrap items-center gap-2 pt-2">
+                                    {item.tags.map(tag => <Badge key={tag} variant="secondary">{tag}</Badge>)}
+                                  </div>
+                                )}
                             </CardHeader>
                             <CardContent className="space-y-3">
                                 <div className="flex items-center text-sm text-muted-foreground">
-                                <User className="w-4 h-4 mr-2 text-primary" />
-                                Postado por: <span className="font-medium ml-1 text-foreground">{item.author}</span>
+                                  <User className="w-4 h-4 mr-2 text-primary" />
+                                  Postado por: <span className="font-medium ml-1 text-foreground">{item.author}</span>
                                 </div>
                                 <div className="flex items-center text-sm text-muted-foreground">
                                 <Timer className="w-4 h-4 mr-2 text-primary" />
@@ -117,9 +150,12 @@ function RecipesPageComponent() {
                         </Link>
                         ))
                     ) : (
-                        <div className="col-span-full text-center py-10">
-                            <h3 className="text-lg font-semibold text-muted-foreground">Nenhuma receita encontrada para esta categoria.</h3>
-                            <p className="text-sm text-muted-foreground">Tente selecionar outra categoria.</p>
+                        <div className="col-span-full text-center py-10 border-2 border-dashed rounded-lg">
+                            <h3 className="text-lg font-semibold text-muted-foreground">Nenhuma receita encontrada.</h3>
+                            <p className="text-sm text-muted-foreground">Seja o primeiro a compartilhar uma!</p>
+                             <Button asChild className="mt-4">
+                                <Link href="/submit-recipe">Enviar Receita</Link>
+                            </Button>
                         </div>
                     )}
                 </main>

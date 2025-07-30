@@ -52,6 +52,14 @@ export async function submitRecipe(formData: FormData) {
     ...recipeData,
     authorId: userId,
     authorName: userName,
+    // TODO: Adicionar campos fixos que não vêm do form, como tags, author, etc.
+    cookTime: 0, 
+    difficulty: "Fácil",
+    tags: [recipeData.category],
+    author: userName,
+    substitutions: [],
+    chefTip: "",
+    slug: recipeId,
     imageUrl: `https://placehold.co/1200x600.png?text=${encodeURIComponent(recipeData.title)}`, // Placeholder image
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),
@@ -60,9 +68,28 @@ export async function submitRecipe(formData: FormData) {
   // 6. Revalidate paths and return result
   revalidatePath('/dashboard');
   revalidatePath('/profile'); 
+  revalidatePath('/recipes'); 
   
   return {
     success: true,
     recipeId: recipeId
   };
+}
+
+
+export async function getRecipes() {
+  try {
+    const recipesSnapshot = await db.collection('recipes').orderBy('createdAt', 'desc').get();
+    if (recipesSnapshot.empty) {
+      return [];
+    }
+    const recipes: any[] = [];
+    recipesSnapshot.forEach(doc => {
+      recipes.push({ id: doc.id, ...doc.data() });
+    });
+    return recipes;
+  } catch (error) {
+    console.error("Error fetching recipes from Firestore:", error);
+    return [];
+  }
 }
