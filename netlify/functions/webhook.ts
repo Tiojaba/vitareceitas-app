@@ -86,9 +86,10 @@ const handler: Handler = async (event: HandlerEvent, context: HandlerContext) =>
     } catch (error: any) {
         if (error.code !== 'auth/user-not-found') {
             console.error('[Firebase] Erro inesperado ao verificar usuário:', error);
-            throw error;
+            throw error; // Lança o erro para ser capturado pelo catch principal
         }
         // Se o erro for 'auth/user-not-found', o código continua para criar o usuário.
+        console.log(`[Webhook] Usuário com e-mail ${customerEmail} não encontrado. Prosseguindo para criação.`);
     }
       
     console.log(`[Webhook] Criando novo usuário no Firebase para ${customerEmail}...`);
