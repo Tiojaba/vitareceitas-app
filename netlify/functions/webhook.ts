@@ -46,7 +46,9 @@ async function sendWelcomeEmail(email: string, name: string) {
         await sgMail.send(msg);
         console.log(`[SendGrid] Welcome email sent successfully to ${email}.`);
     } catch (error: any) {
-        console.error(`[SendGrid] Failed to send email to ${email}:`, error.response?.body || error.message);
+        console.error(`[SendGrid] Failed to send welcome email to ${email}:`, error.response?.body || error.message);
+        // Não criar o usuário se o envio do e-mail falhar pode ser uma opção, mas por enquanto, vamos apenas logar o erro.
+        // O mais importante é que o usuário tenha acesso. Ele pode usar o "Esqueci a senha" se o email não chegar.
         throw new Error("Failed to send the welcome email.");
     }
 }
@@ -87,33 +89,44 @@ const handler: Handler = async (event: HandlerEvent, context: HandlerContext) =>
         console.log(`[Firebase] User with email ${customerEmail} already exists. UID: ${existingUser.uid}. No action needed.`);
         return { statusCode: 200, body: 'User already exists.' };
     } catch (error: any) {
-        if (error.code === 'auth/user-not-found') {
-            console.log(`[Firebase] User with email ${customerEmail} not found. Proceeding to create user.`);
-            // This is the expected path for a new user, so we continue.
-        } else {
+        if (error.code !== 'auth/user-not-found') {
             console.error('[Firebase] Unexpected error while checking for user:', error);
-            // Re-throw the error to be caught by the main catch block
+            // Se o erro não for 'user-not-found', algo mais sério aconteceu (ex: problema de conexão com Firebase)
+            // e devemos parar a execução.
             throw error; 
         }
+        // Se for 'auth/user-not-found', é o caminho feliz. O log abaixo informará isso.
+        console.log(`[Firebase] User with email ${customerEmail} not found. Proceeding to create user.`);
     }
       
-    console.log(`[Firebase] Creating new user for ${customerEmail}...`);
-    
-    const newUser = await auth.createUser({
-      email: customerEmail,
-      emailVerified: true,
-      displayName: customerName,
-      disabled: false,
-    });
+    // Bloco Try/Catch para a criação do usuário e envio do e-mail
+    try {
+        console.log(`[Firebase] Creating new user for ${customerEmail}...`);
+        const newUser = await auth.createUser({
+          email: customerEmail,
+          emailVerified: true, // O e-mail já foi verificado pela plataforma de pagamento
+          displayName: customerName,
+          disabled: false,
+        });
+        console.log(`[Firebase] User created successfully! UID: ${newUser.uid}.`);
 
-    console.log(`[Firebase] User created successfully! UID: ${newUser.uid}. Sending welcome email...`);
-    
-    // Send email only after successfully creating the user
-    await sendWelcomeEmail(customerEmail, customerName);
+        console.log(`[Webhook] User created, now attempting to send welcome email to ${customerEmail}.`);
+        await sendWelcomeEmail(customerEmail, customerName);
+        console.log(`[Webhook] Welcome email process completed for ${customerEmail}.`);
+
+    } catch (creationError: any) {
+        // Este bloco captura erros tanto da criação do usuário quanto do envio do e-mail
+        console.error(`[Webhook] Failed to create user or send email for ${customerEmail}:`, creationError);
+        // Retorna um erro 500 para que a Kirvano possa tentar novamente se for o caso.
+        return {
+          statusCode: 500,
+          body: JSON.stringify({ error: 'Failed to create user or send welcome email.', details: creationError.message })
+        };
+    }
 
     return {
       statusCode: 200,
-      body: JSON.stringify({ message: 'Webhook processed successfully.' })
+      body: JSON.stringify({ message: 'Webhook processed successfully, user created and email sent.' })
     };
 
   } catch (error: any) {
