@@ -48,7 +48,7 @@ async function sendWelcomeEmail(email: string, name: string) {
     } catch (error: any) {
         console.error(`[SendGrid] Failed to send welcome email to ${email}:`, error.response?.body || error.message);
         // O mais importante é que o usuário tenha acesso. Ele pode usar o "Esqueci a senha" se o email não chegar.
-        throw new Error("Failed to send the welcome email.");
+        // Não vamos lançar um erro aqui para não falhar o processo inteiro.
     }
 }
 
@@ -73,7 +73,7 @@ const handler: Handler = async (event: HandlerEvent, context: HandlerContext) =>
     const customerName = body.customer?.name || 'Novo Membro';
     const purchaseStatus = body.status;
 
-    if (purchaseStatus !== 'approved' || !customerEmail) {
+    if (!purchaseStatus || purchaseStatus.toLowerCase() !== 'approved' || !customerEmail) {
       console.log(`[Webhook] Payload ignored: status is not 'approved' or email is missing. Status: ${purchaseStatus}, Email: ${customerEmail}`);
       return { 
           statusCode: 200,
@@ -83,19 +83,22 @@ const handler: Handler = async (event: HandlerEvent, context: HandlerContext) =>
     
     console.log(`[Webhook] Processing approved purchase for: Email: ${customerEmail}, Name: ${customerName}`);
     
+    // Verifica se o usuário já existe
     try {
         const existingUser = await auth.getUserByEmail(customerEmail);
         console.log(`[Firebase] User with email ${customerEmail} already exists. UID: ${existingUser.uid}. No action needed.`);
         return { statusCode: 200, body: 'User already exists.' };
     } catch (error: any) {
         if (error.code !== 'auth/user-not-found') {
+            // Se o erro for qualquer coisa diferente de "usuário não encontrado", algo deu errado na consulta.
             console.error('[Firebase] Unexpected error while checking for user:', error);
             throw error; 
         }
+        // Se o erro for 'auth/user-not-found', ótimo, podemos continuar para criar o usuário.
         console.log(`[Firebase] User with email ${customerEmail} not found. Proceeding to create user.`);
     }
       
-    // Bloco Try/Catch para a criação do usuário e envio do e-mail
+    // Tenta criar o usuário e, se conseguir, envia o e-mail.
     try {
         console.log(`[Firebase] Creating new user for ${customerEmail}...`);
         const newUser = await auth.createUser({
@@ -108,10 +111,10 @@ const handler: Handler = async (event: HandlerEvent, context: HandlerContext) =>
 
         console.log(`[Webhook] User created, now attempting to send welcome email to ${customerEmail}.`);
         await sendWelcomeEmail(customerEmail, customerName);
-        console.log(`[Webhook] Welcome email process completed for ${customerEmail}.`);
-
+        
     } catch (creationError: any) {
-        console.error(`[Webhook] Failed to create user or send email for ${customerEmail}:`, creationError);
+        console.error(`[Webhook] CRITICAL: Failed to create user or send email for ${customerEmail}. Error:`, creationError);
+        // Retorna um erro 500 para que a Kirvano talvez possa tentar novamente.
         return {
           statusCode: 500,
           body: JSON.stringify({ error: 'Failed to create user or send welcome email.', details: creationError.message })
