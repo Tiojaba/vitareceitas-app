@@ -47,8 +47,7 @@ async function sendWelcomeEmail(email: string, name: string) {
         console.log(`[SendGrid] Welcome email sent successfully to ${email}.`);
     } catch (error: any) {
         console.error(`[SendGrid] Failed to send welcome email to ${email}:`, error.response?.body || error.message);
-        // O mais importante é que o usuário tenha acesso. Ele pode usar o "Esqueci a senha" se o email não chegar.
-        // Não vamos lançar um erro aqui para não falhar o processo inteiro.
+        throw error;
     }
 }
 
@@ -83,22 +82,19 @@ const handler: Handler = async (event: HandlerEvent, context: HandlerContext) =>
     
     console.log(`[Webhook] Processing approved purchase for: Email: ${customerEmail}, Name: ${customerName}`);
     
-    // Verifica se o usuário já existe
     try {
+        console.log(`[Firebase] Checking if user ${customerEmail} already exists...`);
         const existingUser = await auth.getUserByEmail(customerEmail);
         console.log(`[Firebase] User with email ${customerEmail} already exists. UID: ${existingUser.uid}. No action needed.`);
         return { statusCode: 200, body: 'User already exists.' };
     } catch (error: any) {
         if (error.code !== 'auth/user-not-found') {
-            // Se o erro for qualquer coisa diferente de "usuário não encontrado", algo deu errado na consulta.
             console.error('[Firebase] Unexpected error while checking for user:', error);
             throw error; 
         }
-        // Se o erro for 'auth/user-not-found', ótimo, podemos continuar para criar o usuário.
         console.log(`[Firebase] User with email ${customerEmail} not found. Proceeding to create user.`);
     }
       
-    // Tenta criar o usuário e, se conseguir, envia o e-mail.
     try {
         console.log(`[Firebase] Creating new user for ${customerEmail}...`);
         const newUser = await auth.createUser({
@@ -112,19 +108,17 @@ const handler: Handler = async (event: HandlerEvent, context: HandlerContext) =>
         console.log(`[Webhook] User created, now attempting to send welcome email to ${customerEmail}.`);
         await sendWelcomeEmail(customerEmail, customerName);
         
+        return {
+          statusCode: 200,
+          body: JSON.stringify({ message: 'Webhook processed successfully, user created and email sent.' })
+        };
     } catch (creationError: any) {
         console.error(`[Webhook] CRITICAL: Failed to create user or send email for ${customerEmail}. Error:`, creationError);
-        // Retorna um erro 500 para que a Kirvano talvez possa tentar novamente.
         return {
           statusCode: 500,
           body: JSON.stringify({ error: 'Failed to create user or send welcome email.', details: creationError.message })
         };
     }
-
-    return {
-      statusCode: 200,
-      body: JSON.stringify({ message: 'Webhook processed successfully, user created and email sent.' })
-    };
 
   } catch (error: any) {
     console.error("[Webhook] CRITICAL HANDLER ERROR:", error);
