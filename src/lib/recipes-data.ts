@@ -1,5 +1,10 @@
 
 
+// Este arquivo não é mais utilizado para exibir as receitas,
+// que agora são buscadas diretamente do Firestore.
+// Ele é mantido apenas como referência ou para o caso de
+// ser necessário para a funcionalidade de lista de compras.
+
 export const allRecipes: { [key: string]: any } = {
   'moqueca-de-banana-da-terra': {
     title: "Moqueca de Banana-da-Terra",
@@ -2761,7 +2766,7 @@ export const allRecipes: { [key: string]: any } = {
         { value: 'Finalize com o cheiro-verde picado e sirva com o torresmo por cima.' }
     ],
     substitutions: [
-        { value: '**Feijão:** O feijão carioca é o tradicional, mas o fradinho também funciona.' },
+        { value: '**Feijão:** O feijão carioca é o tradicional, mas o feijão fradinho também funciona.' },
         { value: '**Carnes:** Pode adicionar carne seca desfiada para uma versão ainda mais rica.' }
     ],
     chefTip: 'O segredo é usar o feijão cozido "al dente", para que ele não desmanche ao ser misturado com a farinha.'

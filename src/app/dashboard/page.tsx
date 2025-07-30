@@ -3,25 +3,54 @@
 
 import { useAuth } from '@/hooks/use-auth';
 import { useRouter } from 'next/navigation';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { ArrowRight, Cookie, IceCream, Pizza, Wheat, Sprout, Soup, Fish, Drumstick, User, Timer, Users, BarChart3, BookOpen, ShieldCheck, MessageSquare, ListChecks } from 'lucide-react';
 import Link from 'next/link';
 import { Badge } from '@/components/ui/badge';
-import { allRecipes } from '@/lib/recipes-data';
+import { getRecipes } from '@/app/actions';
+import { Skeleton } from '@/components/ui/skeleton';
+
+type Recipe = {
+    id: string;
+    slug: string;
+    title: string;
+    author: string;
+    difficulty: string;
+    description: string;
+    prepTime: number;
+    cookTime: number;
+    servings: number;
+    category: string;
+    tags: string[];
+};
 
 export default function DashboardPage() {
-  const { user, loading } = useAuth();
+  const { user, loading: authLoading } = useAuth();
   const router = useRouter();
+  const [recipes, setRecipes] = useState<Recipe[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (!loading && !user) {
+    if (!authLoading && !user) {
       router.push('/login');
     }
-  }, [user, loading, router]);
+  }, [user, authLoading, router]);
 
-  if (loading || !user) {
+  useEffect(() => {
+    async function fetchRecipes() {
+        if(user) {
+            setLoading(true);
+            const fetchedRecipes = await getRecipes();
+            setRecipes(fetchedRecipes as Recipe[]);
+            setLoading(false);
+        }
+    }
+    fetchRecipes();
+  }, [user]);
+
+  if (authLoading || !user) {
     return (
       <div className="flex items-center justify-center min-h-screen">
         Carregando...
@@ -42,12 +71,8 @@ export default function DashboardPage() {
     { title: "Básicos", icon: <Cookie className="w-8 h-8" />, href: "/recipes?category=Básicos" },
   ];
 
-  const highlights = Object.entries(allRecipes).slice(0, 4).map(([slug, recipe]) => ({
-    slug,
-    ...recipe,
-  }));
-  
-  const totalRecipes = Object.keys(allRecipes).length;
+  const highlights = recipes.slice(0, 4);
+  const totalRecipes = recipes.length;
 
   const bonuses = [
     {
@@ -166,8 +191,28 @@ export default function DashboardPage() {
         <section>
           <h2 className="text-2xl font-bold font-headline mb-6">Destaques</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6">
-            {highlights.map((item) => (
-              <Link href={`/recipe/${item.slug}`} key={item.title} className="group">
+             {loading ? (
+                Array.from({ length: 4 }).map((_, index) => (
+                   <Card key={index} className="overflow-hidden h-full flex flex-col justify-between">
+                     <CardHeader>
+                        <Skeleton className="h-6 w-3/4" />
+                        <div className="flex flex-wrap items-center gap-2 pt-2">
+                            <Skeleton className="h-5 w-16" />
+                            <Skeleton className="h-5 w-20" />
+                        </div>
+                     </CardHeader>
+                     <CardContent className="space-y-3">
+                        <Skeleton className="h-4 w-full" />
+                        <Skeleton className="h-4 w-5/6" />
+                     </CardContent>
+                     <CardFooter className="flex justify-between bg-muted/50 p-4">
+                       <Skeleton className="h-5 w-24" />
+                       <Skeleton className="h-5 w-20" />
+                     </CardFooter>
+                   </Card>
+                ))
+            ) : highlights.map((item) => (
+              <Link href={`/recipe/${item.slug}`} key={item.id} className="group">
                 <Card className="overflow-hidden group-hover:shadow-xl transition-shadow h-full flex flex-col justify-between">
                   <CardHeader>
                     <CardTitle>{item.title}</CardTitle>

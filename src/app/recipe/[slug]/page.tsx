@@ -7,18 +7,26 @@ import { Separator } from '@/components/ui/separator';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Utensils, Timer, Users, Heart, Lightbulb, CheckCircle, ChefHat } from 'lucide-react';
 import { notFound } from 'next/navigation';
-import { allRecipes } from '@/lib/recipes-data';
+import { getRecipeBySlug } from '@/app/actions';
 
-async function getRecipeData(slug: string) {
-    const recipe = allRecipes[slug];
-    if (recipe) {
-        return recipe;
-    }
-    return null;
-}
+// Tipo para os dados da receita, para garantir consistência
+type RecipeData = {
+  category: string;
+  title: string;
+  author: string;
+  description: string;
+  prepTime: number;
+  cookTime: number;
+  servings: number;
+  ingredients: { value: string }[];
+  instructions: { value: string }[];
+  substitutions: string[];
+  chefTip: string;
+};
+
 
 export default async function RecipePage({ params }: { params: { slug: string } }) {
-  const recipeData = await getRecipeData(params.slug);
+  const recipeData = await getRecipeBySlug(params.slug) as RecipeData | null;
 
   if (!recipeData) {
       notFound();
@@ -76,7 +84,7 @@ export default async function RecipePage({ params }: { params: { slug: string } 
                 <div className="lg:col-span-1 mb-8 lg:mb-0">
                     <h2 className="text-2xl font-bold font-headline mb-4 flex items-center gap-2"><Heart className="text-primary"/>Ingredientes</h2>
                     <ul className="space-y-2">
-                        {recipeData.ingredients.map((ing: { value: string }, index: number) => {
+                        {recipeData.ingredients && recipeData.ingredients.map((ing: { value: string }, index: number) => {
                            // Regra para não processar títulos como "Massa:"
                            if (ing.value.endsWith(':')) {
                                 return <li key={index}><strong className="text-primary font-headline mt-2 block">{ing.value}</strong></li>
@@ -94,7 +102,7 @@ export default async function RecipePage({ params }: { params: { slug: string } 
                 <div className="lg:col-span-2">
                      <h2 className="text-2xl font-bold font-headline mb-4 flex items-center gap-2"><Utensils className="text-primary"/>Modo de Preparo</h2>
                      <ol className="space-y-6">
-                        {recipeData.instructions.map((step: { value: string }, index: number) => (
+                        {recipeData.instructions && recipeData.instructions.map((step: { value: string }, index: number) => (
                             <li key={index} className="flex">
                                 <div className="bg-primary text-primary-foreground rounded-full w-8 h-8 flex items-center justify-center font-bold text-lg mr-4 flex-shrink-0">{index + 1}</div>
                                 <p className="flex-1 text-muted-foreground">{step.value}</p>
@@ -107,22 +115,26 @@ export default async function RecipePage({ params }: { params: { slug: string } 
             <Separator className="my-8" />
 
             <div className="grid md:grid-cols-2 gap-8">
-                <Alert>
-                    <Lightbulb className="h-4 w-4" />
-                    <AlertTitle className="font-headline">Dicas de Substituição</AlertTitle>
-                    <AlertDescription>
-                        <ul className="list-disc pl-5 mt-2 space-y-1">
-                            {recipeData.substitutions.map((sub: string, index: number) => <li key={index} dangerouslySetInnerHTML={{ __html: sub.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') }} />)}
-                        </ul>
-                    </AlertDescription>
-                </Alert>
-                 <Alert variant="destructive" className="bg-primary/10 border-primary/40 text-primary">
-                    <ChefHat className="h-4 w-4 !text-primary" />
-                    <AlertTitle className="font-headline !text-primary">Dica do(a) Chef {recipeData.author}</AlertTitle>
-                    <AlertDescription className="!text-primary/80">
-                       {recipeData.chefTip}
-                    </AlertDescription>
-                </Alert>
+                {recipeData.substitutions && recipeData.substitutions.length > 0 && (
+                    <Alert>
+                        <Lightbulb className="h-4 w-4" />
+                        <AlertTitle className="font-headline">Dicas de Substituição</AlertTitle>
+                        <AlertDescription>
+                            <ul className="list-disc pl-5 mt-2 space-y-1">
+                                {recipeData.substitutions.map((sub: string, index: number) => <li key={index} dangerouslySetInnerHTML={{ __html: sub.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') }} />)}
+                            </ul>
+                        </AlertDescription>
+                    </Alert>
+                )}
+                 {recipeData.chefTip && (
+                    <Alert variant="destructive" className="bg-primary/10 border-primary/40 text-primary">
+                        <ChefHat className="h-4 w-4 !text-primary" />
+                        <AlertTitle className="font-headline !text-primary">Dica do(a) Chef {recipeData.author}</AlertTitle>
+                        <AlertDescription className="!text-primary/80">
+                        {recipeData.chefTip}
+                        </AlertDescription>
+                    </Alert>
+                 )}
             </div>
         </article>
     </div>

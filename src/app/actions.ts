@@ -93,3 +93,16 @@ export async function getRecipes() {
     return [];
   }
 }
+
+export async function getRecipeBySlug(slug: string) {
+    try {
+        const recipeDoc = await db.collection('recipes').doc(slug).get();
+        if (!recipeDoc.exists) {
+            return null;
+        }
+        return { id: recipeDoc.id, ...recipeDoc.data() };
+    } catch (error) {
+        console.error("Error fetching recipe by slug from Firestore:", error);
+        return null;
+    }
+}
