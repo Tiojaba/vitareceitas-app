@@ -47,9 +47,13 @@ const sendWelcomeEmail = async (email: string, name: string, passwordResetLink: 
   try {
     await sgMail.send(msg);
     console.log(`[SendGrid] E-mail de boas-vindas enviado para ${email}.`);
-  } catch (error) {
-    console.error('[SendGrid] Falha ao enviar e-mail:', JSON.stringify(error, null, 2));
-    throw error;
+  } catch (error: any) {
+    console.error('[SendGrid] Falha ao enviar e-mail. Resposta da API:', JSON.stringify(error, null, 2));
+    if (error.response) {
+      console.error('[SendGrid] Detalhes do erro:', error.response.body);
+    }
+    // Re-lança o erro para ser pego pelo handler principal
+    throw new Error(`SendGrid failed to send email: ${error.message}`);
   }
 };
 
