@@ -22,7 +22,7 @@ const sendWelcomeEmail = async (email: string, name: string, passwordResetLink: 
     to: email,
     from: {
       name: 'VitaReceitas',
-      email: 'charlesmarafante@gmail.com' // IMPORTANTE: Use o mesmo e-mail que você verificou no SendGrid
+      email: 'vitareceitasoficial@gmail.com' // IMPORTANTE: Use o mesmo e-mail que você verificou no SendGrid
     },
     subject: `Bem-vindo(a) ao VitaReceitas, ${name}!`,
     html: `
