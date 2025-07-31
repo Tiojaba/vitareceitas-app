@@ -22,7 +22,7 @@ const sendWelcomeEmail = async (email: string, name: string, passwordResetLink: 
     to: email,
     from: {
       name: 'VitaReceitas',
-      email: 'vitareceitasoficial@gmail.com' // IMPORTANTE: Use o mesmo e-mail que você verificou no SendGrid
+      email: 'contato@saudeevida.cloud' // IMPORTANTE: Use um e-mail do seu domínio autenticado.
     },
     subject: `Bem-vindo(a) ao VitaReceitas, ${name}!`,
     html: `
@@ -48,11 +48,7 @@ const sendWelcomeEmail = async (email: string, name: string, passwordResetLink: 
     await sgMail.send(msg);
     console.log(`[SendGrid] E-mail de boas-vindas enviado para ${email}.`);
   } catch (error: any) {
-    console.error('[SendGrid] Falha ao enviar e-mail. Resposta da API:', JSON.stringify(error, null, 2));
-    if (error.response) {
-      console.error('[SendGrid] Detalhes do erro:', error.response.body);
-    }
-    // Re-lança o erro para ser pego pelo handler principal
+    console.error('[SendGrid] Falha ao enviar e-mail. Resposta da API:', JSON.stringify(error.response?.body || error.message, null, 2));
     throw new Error(`SendGrid failed to send email: ${error.message}`);
   }
 };
