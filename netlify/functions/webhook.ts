@@ -1,3 +1,4 @@
+
 import type { Handler } from "@netlify/functions";
 import { auth } from "../../src/lib/firebase-admin";
 import sgMail from "@sendgrid/mail";
@@ -21,7 +22,7 @@ const sendWelcomeEmail = async (email: string, name: string, passwordResetLink: 
     to: email,
     from: {
       name: 'VitaReceitas',
-      email: 'contato@vitareceitas.com.br' // Use um e-mail verificado no SendGrid
+      email: 'contato@vitareceitas.com.br' // IMPORTANTE: Use o mesmo e-mail que você verificou no SendGrid
     },
     subject: `Bem-vindo(a) ao VitaReceitas, ${name}!`,
     html: `
